@@ -8,5 +8,6 @@ class Noche (bandas: List[Banda], fecha: Int) {
   
   def mayorValorBandaMayorCategoria = this.bandas.maxBy({ banda => banda.getValorCategoria })
   
+  def correspondeA(unaFecha: Int) = unaFecha == fecha
 
 }
