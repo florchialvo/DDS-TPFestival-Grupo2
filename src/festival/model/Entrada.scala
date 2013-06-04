@@ -2,11 +2,11 @@ package festival.model
 
 class Entrada(valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int) {
 
-  def valorExtra = noche.valorExtra
+  def valorExtraPorNoche = noche.valorExtra
 
   def descuento = persona.descuento(valorBase)
 
-  def precio = this.valorExtra + valorBase - this.descuento 
+  def precio = this.valorExtraPorNoche + valorBase - this.descuento 
   
   def estasVendida(unaFila: Int, unSector: Char, unaFecha: Int) = 
     unaFila == fila && unSector == sector && noche.correspondeA(unaFecha)
@@ -21,6 +21,6 @@ extends Entrada(valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char
 
 object EntradaAnticipada {
   
-  val descuento : Double = 0.1
+  val descuento : Double = 0.15
   
 }
