@@ -17,7 +17,7 @@ class Festival(
   def venderEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona): Entrada = {
     validarEntrada(fila, sector, fecha)
     def entrada = 
-	    if (fechaVtoEntradasAnticipadas.seVencio)
+	    if (this.esAnticipada(fechaVtoEntradasAnticipadas))
 	      new EntradaAnticipada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
 	    else
 	      new Entrada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
@@ -26,6 +26,7 @@ class Festival(
 	return entrada
   }
   
+  def esAnticipada(fechaVto: Fecha) = !(new Fecha().fechaActual > fechaVto)
   
   def noche(unaFecha: Fecha) : Noche = noches.find(_.correspondeA(unaFecha)).get
   

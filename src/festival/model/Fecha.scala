@@ -29,6 +29,4 @@ class Fecha(_dia: Int, _mes: Int, _año: Int) {
   def toInt = this.año*10000+this.mes*100+this.dia
   def ==(otraFecha: Fecha) = (this.año==otraFecha.año)&&(this.mes==otraFecha.mes)&&(this.dia==otraFecha.dia)
   def >(otraFecha: Fecha) = this.toInt>otraFecha.toInt
-  
-  def seVencio() = (new Fecha()).fechaActual>this
 }
