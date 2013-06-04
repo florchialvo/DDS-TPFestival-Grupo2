@@ -14,14 +14,16 @@ class Festival(
   def estaVendida(fila: Int, sector: Char, fecha: Fecha) = 
     entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, fecha))
  
-  def venderEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona) = {
+  def venderEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona): Entrada = {
     validarEntrada(fila, sector, fecha)
     def entrada = 
 	    if (fechaVtoEntradasAnticipadas.seVencio)
 	      new EntradaAnticipada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
 	    else
 	      new Entrada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
-    entradasVendidas+= entrada
+	      entradasVendidas+= entrada
+	      
+	return entrada
   }
   
   
