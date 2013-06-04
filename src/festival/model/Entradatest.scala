@@ -30,4 +30,10 @@ class EntradaTest {
     def entrada = new Entrada(500, noche1, new Jubilado(), 'B', 1)
     Assert.assertEquals(625.0, entrada.precio);
   }
+  
+  @Test
+  def testMayorCompraEntradaAnticipadaConValorBase500EnNoche1Paga595 {
+    def entrada = new EntradaAnticipada(500, noche1, new Mayor(), 'B', 1)
+    Assert.assertEquals(595.0, entrada.precio);
+  }  
 }
