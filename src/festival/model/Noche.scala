@@ -1,8 +1,10 @@
 package festival.model
 
-class Noche (bandas: List[Banda], fecha: Fecha) {
+import scala.collection.mutable.Set
+
+class Noche (var bandas: Set[Banda], fecha: Fecha) {
   
-  def agregarBanda(banda: Banda) = bandas :+ banda
+  def agregarBanda(banda: Banda) = bandas += banda
   
   def valorExtra = this.mayorValorBandaMayorCategoria.getValorCategoria
   

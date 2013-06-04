@@ -1,11 +1,12 @@
 package festival.model
 
 import festival.model.exception.BusinessException
+import scala.collection.mutable.Set
 
 class Festival(
-    var entradasVendidas: List[Entrada], 
+    var entradasVendidas: Set[Entrada] = Set(), 
     fechaVtoEntradasAnticipadas: Fecha, 
-    noches: List[Noche], 
+    noches: Set[Noche], 
     valoresBase: Map[Char, Array[Int]]) {
   
   def valorBase(fila: Int, sector: Char) : Int = valoresBase.apply(sector).apply(fila)
@@ -20,7 +21,7 @@ class Festival(
 	      new EntradaAnticipada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
 	    else
 	      new Entrada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
-    entradasVendidas :+ entrada
+    entradasVendidas+= entrada
   }
   
   
