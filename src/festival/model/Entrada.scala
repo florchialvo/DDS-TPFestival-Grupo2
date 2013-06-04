@@ -8,7 +8,7 @@ class Entrada(valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, 
 
   def precio = this.valorExtraPorNoche + valorBase - this.descuento 
   
-  def estasVendida(unaFila: Int, unSector: Char, unaFecha: Int) = 
+  def estasVendida(unaFila: Int, unSector: Char, unaFecha: Fecha) = 
     unaFila == fila && unSector == sector && noche.correspondeA(unaFecha)
 
 }

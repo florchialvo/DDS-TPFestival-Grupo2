@@ -11,12 +11,12 @@ class Festival(
   def valorBase(fila: Int, sector: Char) : Int = valoresBase.apply(sector).apply(fila)
   
   def estaVendida(fila: Int, sector: Char, fecha: Fecha) = 
-    entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, Fecha))
+    entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, fecha))
  
   def venderEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona) = {
     validarEntrada(fila, sector, fecha)
     def entrada = 
-	    if (fecha.esAnticipada(fechaVtoEntradasAnticipadas))
+	    if (fechaVtoEntradasAnticipadas.seVencio)
 	      new EntradaAnticipada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
 	    else
 	      new Entrada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
