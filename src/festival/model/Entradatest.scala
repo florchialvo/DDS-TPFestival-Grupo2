@@ -21,13 +21,13 @@ class EntradaTest {
   @Test
   def testUnMenorCompraEntradaConValorBase100YBandasDeCategoria1Paga90 {
     def noche = new Noche(List(new Banda(new Categoria(0))), 2)
-    def entrada = new Entrada(100, noche, new Menor(), 'A');
+    def entrada = new Entrada(100, noche, new Menor(), 'A', 1);
     Assert.assertEquals(90.0, entrada.precio);
   }
 
   @Test
   def testJubiladoCompraEntradaConValorBase500EnNoche1Paga625 {
-    def entrada = new Entrada(500, noche1, new Jubilado(), 'B')
+    def entrada = new Entrada(500, noche1, new Jubilado(), 'B', 1)
     Assert.assertEquals(625.0, entrada.precio);
   }
 }
