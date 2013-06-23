@@ -1,4 +1,4 @@
-package festival.model.test
+package festival.model
 
 import scala.collection.mutable.Set
 import festival.model.exception.BusinessException
@@ -7,6 +7,11 @@ import junit.framework.Assert
 import org.junit._
 import org.junit.runner.RunWith
 import org.junit.internal.runners.JUnit4ClassRunner
+import festival.model.FestivalMock
+import festival.model.exception.BusinessException
+import org.junit.Test
+import org.junit.internal.runners.JUnit4ClassRunner
+import org.junit.runner.RunWith
 
 @RunWith(classOf[JUnit4ClassRunner])
 class EntradaTest {

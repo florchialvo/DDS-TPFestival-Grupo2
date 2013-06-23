@@ -1,4 +1,4 @@
-package festival.model.test
+package festival.model
 import festival.model._
 import scala.collection.mutable.Set
 
