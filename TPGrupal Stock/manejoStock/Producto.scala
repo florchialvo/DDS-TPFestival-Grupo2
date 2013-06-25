@@ -41,7 +41,16 @@ abstract class Producto {
 
 	  }
 	
-	def descontarStock()=this.stock-=1
+	def descontarStock()={
+
+	  this.stock-=1
+
+	}
+	def incrementarStock()={
+	  
+	  this.stock+=1
+	 
+	}
 	
 	def fabricate(inventario:Inventario)
 	
