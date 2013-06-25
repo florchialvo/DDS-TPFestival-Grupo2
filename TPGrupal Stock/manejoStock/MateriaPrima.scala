@@ -8,4 +8,11 @@ class MateriaPrima extends Producto with ProductoCompuesto {
 		else
 			new Exception("No Hay Materia Prima Suficiente")
 	}
+	
+	def fabricate(inventario:Inventario) = {
+	   throw new StockException("La materia prima no se puede fabricar!")
+	  
+	  
+	}
+	
 }

@@ -29,4 +29,21 @@ abstract class Producto {
 	def excede(cantidad: Int): Boolean = {
 	  	stock + cantidad > stockMax
 	}
+	
+	def reservate(inventario:Inventario)={
+	  
+	   if(this.hayStock()){
+	    this.descontarStock()
+	    inventario.agregarReservado(this)
+	  }else{
+		  this.fabricate(inventario)
+	  }
+
+	  }
+	
+	def descontarStock()=this.stock-=1
+	
+	def fabricate(inventario:Inventario)
+	
+	
 }

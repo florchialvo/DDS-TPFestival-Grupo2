@@ -1,0 +1,5 @@
+package manejoStock
+
+class Inventario {
+
+}
