@@ -10,7 +10,7 @@ trait Componente {
 	
 	def utilizar(cantidad: Int) = {}//Idem excedente
 	
-	def saleCompente(cantidad: Int) = {
+	def saleComponente(cantidad: Int) = {
 		for(interesado <- this.interesados)
 			interesado.sale(this, cantidad)
 	}
