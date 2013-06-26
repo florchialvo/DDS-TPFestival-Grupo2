@@ -33,7 +33,7 @@ abstract class Producto {
 	def reservate(inventario:Inventario)={
 	  
 	   if(this.hayStock()){
-	    this.descontarStock()
+	    this.descontarStock(1)
 	    inventario.agregarReservado(this)
 	  }else{
 		  this.fabricate(inventario)
@@ -41,14 +41,14 @@ abstract class Producto {
 
 	  }
 	
-	def descontarStock()={
+	def descontarStock(cant:Int)={
 
-	  this.stock-=1
+	  this.stock-=cant
 
 	}
-	def incrementarStock()={
+	def incrementarStock(cant:Int)={
 	  
-	  this.stock+=1
+	  this.stock+=cant
 	 
 	}
 	
