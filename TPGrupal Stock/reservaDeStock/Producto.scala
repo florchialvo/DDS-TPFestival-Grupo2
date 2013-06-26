@@ -7,6 +7,7 @@ abstract class Producto {
   var stock: Int
   var nombre: String
   var puntoDePedido: Int
+  var interesados: List[Interesado] = List[Interesado]()
 
   def stockMax_(max: Int) = stockMax = max
   def stockMin_(min: Int) = stockMin = min
@@ -17,13 +18,6 @@ abstract class Producto {
   def hayStock() = stock > 0
 
   def consumir(cantidad: Int) = stock -= cantidad
-
-  def hayStockMinimo() = stock > stockMin
-
-  def excedente(cantidad: Int): Int =
-    if (this.excede(cantidad))
-      return stock + cantidad - stockMax
-    else return 0
 
   def excede(cantidad: Int): Boolean = {
     stock + cantidad > stockMax
@@ -47,4 +41,19 @@ abstract class Producto {
   }
 
   def fabricate(inventario: Inventario)
+
+
+def saleComponente(cantidad:Int) = { 
+   	   for(interesado <- interesados)
+   	     interesado.sale(this,cantidad)
+	}
+  
+def entraComponente(cantidad:Int) = { 
+   	   for(interesado <- interesados)
+   	     interesado.entra(this,cantidad)
+	}
+
+def tenesStockMinimo = stockMin <= stock
+
+def excedente(cantidad: Int) = (stock+cantidad) - stockMax 
 }
