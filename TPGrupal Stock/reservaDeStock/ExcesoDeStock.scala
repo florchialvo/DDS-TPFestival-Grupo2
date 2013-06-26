@@ -1,6 +1,6 @@
 package reservaDeStock
 
-class ExesoDeStock(var loggear: Boolean) extends Interesado {
+class ExcesoDeStock(var loggear: Boolean) extends Interesado {
 
   override def entrada(componente: Producto, cantidad: Int) =
     println("Se excedio el stock en " + componente.excedente(cantidad))
