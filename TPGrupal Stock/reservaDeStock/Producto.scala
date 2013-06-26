@@ -59,4 +59,7 @@ def tenesStockMinimo = stockMin <= stock
 
 def excedente(cantidad: Int) = (stock+cantidad) - stockMax 
 
+	def agregarInteresado(interesado: Interesado) =
+	  	interesados :+ interesado
+
 }
