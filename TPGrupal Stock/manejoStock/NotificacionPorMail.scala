@@ -1,10 +1,12 @@
-package manejoStock
+package reservaDeStock
 
-object NotificacionPorMail extends Interesado {
+class NotificacionPorMail(val cantidadLimite: Int) extends Interesado {
 
-	override def salida(componente: Producto, cantidad: Int) = 
-		this.mailSender.enviarMail(componente, cantidad)
+  val mailSender = new MailSender()
 
-	override def cumpleRequisitoSalida(componente: Producto, cantidad: Int) : Boolean =
-	  	cantidad > cantidadLimite
+  override def salida(componente: Producto, cantidad: Int) =
+    this.mailSender.enviarMail(componente, cantidad)
+
+  override def cumpleRequisitoSalida(componente: Producto, cantidad: Int): Boolean =
+    cantidad > cantidadLimite
 }

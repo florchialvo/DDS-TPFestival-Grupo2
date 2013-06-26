@@ -1,12 +1,10 @@
-package manejoStock
+package reservaDeStock
 
-object PedidoDeCompra extends Interesado {
-	
-	override def salida(componente: Producto, cantidad: Int) = {
-		fabrica.registrarPedido(componente, componente.puntoDePedido)
-	}
-	
-	override def cumpleRequisitosSalida(componente: Producto, cantidad: Int) :Boolean = {
-		! componente.hayStockMinimo()
-	}
+class PedidoDeCompra(fabrica: Fabrica) extends Interesado {
+
+  override def salida(componente: Producto, cantidad: Int) =
+    fabrica.registrarPedido(componente)
+
+  override def cumpleRequisitoSalida(componente: Producto, cantidad: Int): Boolean =
+    !componente.tenesStockMinimo
 }

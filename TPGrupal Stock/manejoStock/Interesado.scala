@@ -1,26 +1,24 @@
-package manejoStock
+package reservaDeStock
 
-abstract class Interesado {
+class Interesado {
 
-	var fabrica: Fabrica
-	val cantidadLimite: Int
-	var mailSender: MailSender
-	var loggear: Boolean
-	var logger: Logger
+  def cumpleRequisitoSalida(componente:Producto, cantidad:Int): Boolean = false
   
-	def entrada(componente: Componente, cantidad: Int) = {}
-	
-	def salida(componente: Componente, cantidad: Int) = {}
+  def cumpleRequisitoEntrada(componente:Producto, cantidad:Int): Boolean = false
   
-	def cumpleRequisitoEntrada(componente: Componente, cantidad: Int): Boolean = return false
-	
-	def cumpleRequisitoSalida(componetne: Componente, cantidad: Int): Boolean = return false
-	
-	def entra(componente: Componente, cantidad: Int) = 
-		if(this.cumpleRequisitoEntrada(componente, cantidad))
-			this.entrada(componente, cantidad)
-			
-	def sale(componente: Componente, cantidad: Int) =
-	  	if(this.cumpleRequisitoSalida(componente, cantidad))
-	  		this.salida(componente, cantidad)
+  def salida(componente:Producto, cantidad:Int) = {}
+  
+  def entrada(componente:Producto, cantidad:Int) = {}
+  
+  def sale(componente: Producto, cantidad: Int) = {
+    if (this.cumpleRequisitoSalida(componente, cantidad)) {
+      this.salida(componente, cantidad)
+      }
+  }
+  
+  def entra(componente: Producto, cantidad: Int) = {
+    if (this.cumpleRequisitoEntrada(componente, cantidad))
+      this.entrada(componente, cantidad)
+  }
 }
+

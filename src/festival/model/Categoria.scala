@@ -5,10 +5,12 @@ object Categoria{
   
   def apply(s: Symbol) = instances.apply(s)
   
+  def modificar(s: Symbol, valorNuevo: Int) = instances(s).valor = valorNuevo
+  
   def crearCategoria(key :Symbol, valor: Int) = instances+= key -> new Categoria(valor)
 }
 
-class Categoria(valor: Int) {
+class Categoria(var valor: Int) {
 
   def getValor = valor
   
