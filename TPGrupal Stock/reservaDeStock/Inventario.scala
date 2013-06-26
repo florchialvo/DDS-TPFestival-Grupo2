@@ -1,5 +1,6 @@
 package reservaDeStock
 
+import scala.collection.mutable.Map
 
 class Inventario {
   val reservados: Map[Producto, Int] = Map()
@@ -12,10 +13,12 @@ class Inventario {
     this.actualizarStock
     this.borrarEntradas
   }
+  
   def actualizarStock = {
     for ((prod, cant) <- fabricados) prod.incrementarStock(cant)
     for ((prod, cant) <- reservados) prod.incrementarStock(cant)
   }
+  
   def borrarEntradas() = {
     reservados.clear
     fabricados.clear
@@ -27,5 +30,4 @@ class Inventario {
     else
       diccionario += (prod -> 1)
   }
-
 }

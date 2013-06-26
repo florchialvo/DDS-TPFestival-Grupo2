@@ -1,17 +1,15 @@
 package reservaDeStock
 
-import scala.collection.mutable.Map
-import exceptions.StockException
-
 class Fabrica {
   def registrarPedido(componente: Producto, puntoDePedido: Int) = {}
+  
+  val inventario = new Inventario()
 
   def reservar(producto: Producto) = {
     try {
-      val inventario = new Inventario()
       producto.reservate(inventario)
-    } catch (StockException exception) {
-      inventario.rollback()
+    } catch {
+      case e: StockException => inventario.rollback
     }
   }
 }
