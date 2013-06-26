@@ -1,4 +1,5 @@
 package reservaDeStock
+import scala.collection.mutable.ListBuffer
 
 abstract class Producto {
 
