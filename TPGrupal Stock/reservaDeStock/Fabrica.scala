@@ -1,5 +1,6 @@
 package reservaDeStock
 import scala.collection.mutable.ListBuffer
+
 class Fabrica {
     
   val inventario = new Inventario()
@@ -7,7 +8,7 @@ class Fabrica {
 
   val pedidos: List[Producto] = List()
 
-  def registrarPedido(producto: Producto) = {
+  def registrarPedido(producto: Producto){
 	pedidos :+ producto
   }
 

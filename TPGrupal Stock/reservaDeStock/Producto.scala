@@ -3,12 +3,13 @@ import scala.collection.mutable.ListBuffer
 
 abstract class Producto {
 
+  val interesados: List[Interesado] = List()
+  
   var stockMax: Int
   var stockMin: Int
   var stock: Int
   var nombre: String
   var puntoDePedido: Int
-  var interesados: List[Interesado] = List[Interesado]()
 
   def stockMax_(max: Int) = stockMax = max
   def stockMin_(min: Int) = stockMin = min
@@ -57,4 +58,5 @@ def entraComponente(cantidad:Int) = {
 def tenesStockMinimo = stockMin <= stock
 
 def excedente(cantidad: Int) = (stock+cantidad) - stockMax 
+
 }
