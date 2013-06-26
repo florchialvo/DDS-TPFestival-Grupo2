@@ -5,11 +5,11 @@ abstract class Producto {
 
   val interesados: List[Interesado] = List()
   
-  var stockMax: Int
-  var stockMin: Int
-  var stock: Int
-  var nombre: String
-  var puntoDePedido: Int
+  var stockMax: Int = 0
+  var stockMin: Int = 0
+  var stock: Int = 0
+  var nombre: String = ""
+  var puntoDePedido: Int = 0
 
   def stockMax_(max: Int) = stockMax = max
   def stockMin_(min: Int) = stockMin = min

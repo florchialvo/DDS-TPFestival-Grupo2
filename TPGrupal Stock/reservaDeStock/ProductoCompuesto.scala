@@ -1,8 +1,10 @@
 package reservaDeStock
 
+import scala.collection.mutable.ArrayBuffer
+
 class ProductoCompuesto extends Producto {
 
-  val componentes: List[Producto] = List()
+  val componentes: ArrayBuffer[Producto] = ArrayBuffer()
 
     override def fabricate(inventario: Inventario) = {
     componentes.foreach(componente =>
@@ -11,7 +13,7 @@ class ProductoCompuesto extends Producto {
   }
   
   def agregarComponente(comp:Producto)={
-    componentes.+:(comp)  
+    componentes+=comp
   }
 
 }

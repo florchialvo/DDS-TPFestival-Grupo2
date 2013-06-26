@@ -26,7 +26,7 @@ class Inventario {
 
   def agregar(diccionario: Map[Producto, Int], prod: Producto) = {
     if (diccionario.contains(prod))
-      diccionario(prod) = diccionario(prod) + 1
+      diccionario(prod) += 1
     else
       diccionario += (prod -> 1)
   }
