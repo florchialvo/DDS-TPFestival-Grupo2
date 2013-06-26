@@ -47,4 +47,18 @@ abstract class Producto {
   }
 
   def fabricate(inventario: Inventario)
+
+
+def saleComponente(cantidad:Int) = { 
+   	   for(interesado <- interesados)
+   	     interesado.sale(this,cantidad)
+	}
+def entraComponente(cantidad:Int) = { 
+   	   for(interesado <- interesados)
+   	     interesado.entra(this,cantidad)
+	}
+
+def tenesStockMinimo = stockMin <= stock
+
+def excedente(cantidad: Int) = (stock+cantidad) - stockMax 
 }
