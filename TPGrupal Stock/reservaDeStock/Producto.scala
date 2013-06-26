@@ -2,6 +2,8 @@ package reservaDeStock
 
 abstract class Producto {
 
+  val interesados: List[Interesado] = List()
+  
   var stockMax: Int
   var stockMin: Int
   var stock: Int
@@ -60,5 +62,4 @@ def entraComponente(cantidad:Int) = {
 
 def tenesStockMinimo = stockMin <= stock
 
-def excedente(cantidad: Int) = (stock+cantidad) - stockMax 
 }
