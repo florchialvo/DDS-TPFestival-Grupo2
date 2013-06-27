@@ -1,12 +1,15 @@
 package reservaDeStock
+import scala.collection.mutable.ListBuffer
 
 abstract class Producto {
 
-  var stockMax: Int
-  var stockMin: Int
-  var stock: Int
-  var nombre: String
-  var puntoDePedido: Int
+  val interesados: List[Interesado] = List()
+  
+  var stockMax: Int = 0
+  var stockMin: Int = 0
+  var stock: Int = 0
+  var nombre: String = ""
+  var puntoDePedido: Int = 0
 
   def stockMax_(max: Int) = stockMax = max
   def stockMin_(min: Int) = stockMin = min
@@ -17,13 +20,6 @@ abstract class Producto {
   def hayStock() = stock > 0
 
   def consumir(cantidad: Int) = stock -= cantidad
-
-  def hayStockMinimo() = stock > stockMin
-
-  def excedente(cantidad: Int): Int =
-    if (this.excede(cantidad))
-      return stock + cantidad - stockMax
-    else return 0
 
   def excede(cantidad: Int): Boolean = {
     stock + cantidad > stockMax
@@ -47,4 +43,23 @@ abstract class Producto {
   }
 
   def fabricate(inventario: Inventario)
+
+
+def saleComponente(cantidad:Int) = { 
+   	   for(interesado <- interesados)
+   	     interesado.sale(this,cantidad)
+	}
+  
+def entraComponente(cantidad:Int) = { 
+   	   for(interesado <- interesados)
+   	     interesado.entra(this,cantidad)
+	}
+
+def tenesStockMinimo = stockMin <= stock
+
+def excedente(cantidad: Int) = (stock+cantidad) - stockMax 
+
+	def agregarInteresado(interesado: Interesado) =
+	  	interesados.+:(interesado)
+
 }
