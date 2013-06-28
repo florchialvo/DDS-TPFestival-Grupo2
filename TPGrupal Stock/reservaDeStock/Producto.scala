@@ -1,9 +1,9 @@
 package reservaDeStock
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.ArrayBuffer
 
 abstract class Producto {
 
-  val interesados: List[Interesado] = List()
+  val interesados: ArrayBuffer[Interesado] = ArrayBuffer()
   
   var stockMax: Int = 0
   var stockMin: Int = 0
@@ -60,6 +60,6 @@ def tenesStockMinimo = stockMin <= stock
 def excedente(cantidad: Int) = (stock+cantidad) - stockMax 
 
 	def agregarInteresado(interesado: Interesado) =
-	  	interesados.+:(interesado)
+	  	interesados+=(interesado)
 
 }
