@@ -24,8 +24,10 @@ class EntradaTest {
   val ironMaiden = new Banda(Categoria('categoria4))
   val sodaStereo = new Banda(Categoria('categoria3))
   val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha(2, 10, 2013))
-  val festival = new FestivalMock(Set(), new Fecha(1, 6, 2013), Set(noche1), Map('A' -> Array(100, 100, 100), 'B' -> Array(500, 500, 500)), new Fecha().fechaActual)
-
+  
+  val valoresBase = Map('A' -> Array(100, 100, 100), 'B' -> Array(500, 500, 500))
+  val festival = new FestivalMock(valoresBase, new Fecha(1, 6, 2013), new Fecha().fechaActual)
+  festival.agregarNoche(noche1);
   @Test
   def testUnMenorCompraEntradaConValorBase100YBandasDeCategoria1Paga90 {
     var noche = new Noche(Set(new Banda(Categoria('categoria1))), new Fecha(1, 1, 2014))
