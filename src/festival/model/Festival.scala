@@ -1,6 +1,6 @@
 package festival.model
 
-import festival.model.exception.BusinessException
+import festival.model.exception.EntradaYaVendidaException
 import scala.collection.mutable.Set
 
 class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAnticipadas: Fecha) {
@@ -38,7 +38,7 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
 
   def validarEntrada(entrada: Entrada) =
     if (this.estaVendida (entrada.fila_, entrada.sector_, entrada.fecha_))
-      throw new BusinessException("La entrada ya está vendida")
+      throw new EntradaYaVendidaException("La entrada ya está vendida")
 
   def porcentajeVendidoDamas =
     entradasVendidas.count(_.persona == Dama) / this.entradasTotales * 100
