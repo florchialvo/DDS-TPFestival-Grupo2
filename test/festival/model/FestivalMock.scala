@@ -8,4 +8,9 @@ class FestivalMock(valoresBase: Map[Char, Array[Int]], fechaVtoEntradasAnticipad
 
   override def esAnticipada(fechaVto: Fecha) = !(fechaActual > fechaVto)
 
+  var porcentajeDamas: Int = 0
+  
+  def setPorcentajeDamas(valor: Int) = porcentajeDamas = valor
+  
+  override def porcentajeVendidoDamas() = porcentajeDamas
 }

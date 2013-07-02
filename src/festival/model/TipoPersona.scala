@@ -32,3 +32,7 @@ object Dama extends TipoPersona {
     unFestival.porcentajeVendidoDamas<porcentajeMaximo
 
 }
+
+object MenorDe12Acompaniado extends TipoPersonaSinCondicion {
+  def descuento(valorBase:Int):Double = valorBase * 0.5 
+}

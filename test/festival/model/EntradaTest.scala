@@ -32,6 +32,13 @@ class EntradaTest {
   festival.agregarDescuento(Menor);
   festival.agregarDescuento(Mayor);
   
+  //Politicas De Descuentos
+  var festivalDescuentoMenores12 = new FestivalMock(valoresBase, new Fecha(1, 6, 2013), new Fecha().fechaActual)
+  festivalDescuentoMenores12.agregarNoche(noche1);
+  festivalDescuentoMenores12.agregarDescuento(MenorDe12Acompaniado)
+  festivalDescuentoMenores12.agregarDescuento(Dama)
+  festivalDescuentoMenores12.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 2))
+  
   @Test
   def testUnMenorCompraEntradaConValorBase100YBandasDeCategoria1Paga90 {
     var noche = new Noche(Set(new Banda(Categoria('categoria1))), new Fecha(1, 1, 2014))
@@ -65,6 +72,26 @@ class EntradaTest {
   def testUnaPersonaIntentaComprarEntradaYaVendidaSeLanzaUnaExcepcion {
     festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1))
     festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1))
+  }
+  
+  @Test
+  def testJubiladoCompraEntradaParaFestivalQueAceptaDescuentoMenores12Anios(){
+    var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', new Fecha(2, 10,2013), Jubilado)
+    Assert.assertEquals(300.00, entrada.precio)
+    Assert.assertEquals(classOf[Entrada], entrada.getClass())
+  }
+  
+  @Test
+  def testDamaCompraEntradaParaFestivalQueAceptaDescuentoParaDamasYJubilados(){
+    var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Dama)
+    Assert.assertEquals(280.00, entrada.precio)
+  }
+  
+  @Test
+  def testDamaCompraEntradaParaFestivalQueAceptaDescuentoParaDamasYJubiladosPeroSeVendioElPorcentajeMaximo(){
+	festivalDescuentoMenores12.setPorcentajeDamas(20)
+    var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Dama)
+    Assert.assertEquals(300.00, entrada.precio)
   }
 }
 
