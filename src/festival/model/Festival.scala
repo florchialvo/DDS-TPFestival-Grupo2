@@ -17,24 +17,27 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
   def estaVendida(fila: Int, sector: Char, fecha: Fecha) =
     entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, fecha))
 
-  def venderEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona): Entrada = {
-    validarEntrada(fila, sector, fecha)
-    def entrada =
-      if (this.esAnticipada(fechaVtoEntradasAnticipadas))
+  def esAnticipada(fechaVto: Fecha) = !(new Fecha().fechaActual > fechaVto)
+  
+  def nuevaEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona){
+    if (this.esAnticipada(fechaVtoEntradasAnticipadas))
         new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila)
       else
         new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila)
-    entradasVendidas += entrada
-
-    return entrada
   }
-
-  def esAnticipada(fechaVto: Fecha) = !(new Fecha().fechaActual > fechaVto)
-
+  
+  def vender(entrada: Entrada){
+    validarEntrada(entrada)
+    entradasVendidas += entrada
+  }
+  
+  def vender(unCombo:Combo): Unit ={
+   unCombo.venderEn(this)
+}
   def noche(unaFecha: Fecha): Noche = noches.find(_.correspondeA(unaFecha)).get
 
-  def validarEntrada(fila: Int, sector: Char, fecha: Fecha) =
-    if (this.estaVendida(fila, sector, fecha))
+  def validarEntrada(entrada: Entrada) =
+    if (this.estaVendida (entrada.fila_, entrada.sector_, entrada.fecha_))
       throw new BusinessException("La entrada ya está vendida")
 
   def porcentajeVendidoDamas =
@@ -52,4 +55,10 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     descuentosValidos.contains(persona) &&
       persona.esPosibleEn(this)
   }
+  
+  def cancelar(entrada:Entrada)={
+	entradasVendidas -= entrada
+  }
+  
+ 
 }

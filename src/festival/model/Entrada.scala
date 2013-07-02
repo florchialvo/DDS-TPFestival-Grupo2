@@ -1,7 +1,14 @@
 package festival.model
 
-class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona: TipoPersona, sector: Char, fila: Int) {
+class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona: TipoPersona, 
+    sector: Char, fila: Int) {
 
+  def fila_ = fila 
+  
+  def sector_ = sector
+  
+  def fecha_ = noche.fecha_
+  
   def valorExtraPorNoche = noche.valorExtra
 
   def descuento = festival.descuento(persona, valorBase)
