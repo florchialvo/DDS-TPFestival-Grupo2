@@ -7,9 +7,11 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
 
   var entradasVendidas: Set[Entrada] = Set()
   var noches: Set[Noche] = Set()
-  
-  def agregarNoche = noches+=(_:Noche)
-    
+  var descuentosValidos: Set[TipoPersona] = Set()
+
+  def agregarNoche = noches += (_: Noche)
+  def agregarDescuento = descuentosValidos += (_: TipoPersona)
+
   def valorBase(fila: Int, sector: Char): Int = valoresBase.apply(sector).apply(fila)
 
   def estaVendida(fila: Int, sector: Char, fecha: Fecha) =
@@ -19,9 +21,9 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     validarEntrada(fila, sector, fecha)
     def entrada =
       if (this.esAnticipada(fechaVtoEntradasAnticipadas))
-        new EntradaAnticipada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
+        new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila)
       else
-        new Entrada(valorBase(fila, sector), noche(fecha), persona, sector, fila)
+        new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila)
     entradasVendidas += entrada
 
     return entrada
@@ -34,4 +36,20 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
   def validarEntrada(fila: Int, sector: Char, fecha: Fecha) =
     if (this.estaVendida(fila, sector, fecha))
       throw new BusinessException("La entrada ya está vendida")
+
+  def porcentajeVendidoDamas =
+    entradasVendidas.count(_.persona == Dama) / this.entradasTotales * 100
+
+  def entradasTotales = entradasVendidas.size
+
+  def descuento(persona: TipoPersona, valorBase: Int): Double = {
+    if (this.esPosibleDescuento(persona))
+      persona.descuento(valorBase)
+    else
+      Mayor.descuento(valorBase)
+  }
+  def esPosibleDescuento(persona: TipoPersona): Boolean = {
+    descuentosValidos.contains(persona) &&
+      persona.esPosibleEn(this)
+  }
 }
