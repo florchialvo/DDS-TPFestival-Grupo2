@@ -1,13 +1,12 @@
 package festival.model
 
 import scala.collection.mutable.Set
-import festival.model.exception.BusinessException
 import festival.model._
+import festival.model.exception.EntradaYaVendidaException
 import junit.framework.Assert
 import org.junit._
 import org.junit.runner.RunWith
 import org.junit.internal.runners.JUnit4ClassRunner
-import festival.model.exception.BusinessException
 import org.junit.Test
 import org.junit.internal.runners.JUnit4ClassRunner
 import org.junit.runner.RunWith
@@ -62,7 +61,7 @@ class EntradaTest {
     Assert.assertEquals(classOf[Entrada], entrada.getClass())
   }
 
-  @Test(expected = classOf[BusinessException])
+  @Test(expected = classOf[EntradaYaVendidaException])
   def testUnaPersonaIntentaComprarEntradaYaVendidaSeLanzaUnaExcepcion {
     festival.venderEntrada(1, 'A', new Fecha(2, 10, 2013), Mayor)
     festival.venderEntrada(1, 'A', new Fecha(2, 10, 2013), Mayor)
