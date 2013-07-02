@@ -1,10 +1,10 @@
 package festival.model
 
-class Entrada(valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int) {
+class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona: TipoPersona, sector: Char, fila: Int) {
 
   def valorExtraPorNoche = noche.valorExtra
 
-  def descuento = persona.descuento(valorBase)
+  def descuento = festival.descuento(persona, valorBase)
 
   def precio = this.valorExtraPorNoche + valorBase - this.descuento 
   
@@ -13,8 +13,8 @@ class Entrada(valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, 
 
 }
 
-class EntradaAnticipada(valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int) 
-extends Entrada(valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int) {
+class EntradaAnticipada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int) 
+extends Entrada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int) {
   
 	override def precio = super.precio*(1-EntradaAnticipada.descuento)
 }

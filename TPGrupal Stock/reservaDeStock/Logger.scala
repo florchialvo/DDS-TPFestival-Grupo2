@@ -9,7 +9,11 @@ class Logger {
 
   def loguear(mensaje: String) {
 
+<<<<<<< HEAD
     logueos+= new Log(fecha.fechaActualAsInt, mensaje) 
+=======
+    logueos += new Log(fecha.fechaActualAsInt, mensaje) 
+>>>>>>> 62ac88272456879a8d9fc700a5725e3aba58c62d
   }
   
   def mostrarLogueos = logueos.foreach(_.mostrarLog)

@@ -61,5 +61,9 @@ def excedente(cantidad: Int) = (stock+cantidad) - stockMax
 
 	def agregarInteresado(interesado: Interesado) =
 	  	interesados+=(interesado)
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 62ac88272456879a8d9fc700a5725e3aba58c62d
 }
