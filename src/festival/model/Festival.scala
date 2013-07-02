@@ -19,7 +19,7 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
 
   def esAnticipada(fechaVto: Fecha) = !(new Fecha().fechaActual > fechaVto)
   
-  def nuevaEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona){
+  def nuevaEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona) = {
     if (this.esAnticipada(fechaVtoEntradasAnticipadas))
         new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila)
       else

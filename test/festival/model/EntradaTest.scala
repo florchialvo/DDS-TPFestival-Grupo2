@@ -48,7 +48,7 @@ class EntradaTest {
   @Test
   def testMayorCompraEntradaEl29_05_13SectorBFila1EnNoche1EsAnticipadaPaga595 {
     festival.fechaActual = new Fecha(29, 05, 2013)
-    var entrada = festival.venderEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
+    var entrada = festival.nuevaEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
     Assert.assertEquals(595.0, entrada.precio);
     Assert.assertEquals(classOf[EntradaAnticipada], entrada.getClass())
   }
@@ -56,15 +56,15 @@ class EntradaTest {
   @Test
   def testMayorCompraEntradaEl09_06_13SectorBFila1EnNoche1NoEsAnticipadaPaga700 {
     festival.fechaActual = new Fecha(9, 06, 2013)
-    var entrada = festival.venderEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
+    var entrada = festival.nuevaEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
     Assert.assertEquals(700.0, entrada.precio);
     Assert.assertEquals(classOf[Entrada], entrada.getClass())
   }
 
   @Test(expected = classOf[EntradaYaVendidaException])
   def testUnaPersonaIntentaComprarEntradaYaVendidaSeLanzaUnaExcepcion {
-    festival.venderEntrada(1, 'A', new Fecha(2, 10, 2013), Mayor)
-    festival.venderEntrada(1, 'A', new Fecha(2, 10, 2013), Mayor)
+    festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1))
+    festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1))
   }
 }
 
