@@ -93,5 +93,167 @@ class EntradaTest {
     var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Dama)
     Assert.assertEquals(300.00, entrada.precio)
   }
+  
+  @Test
+  def testSeCreaUnComboCon5EntradasQueSuman2300YSeAplicaDescuento(){
+	  var combo = new Combo(festival)
+	  
+	  var entrada = festival.nuevaEntrada(0, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada2 = festival.nuevaEntrada(1, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada3 = festival.nuevaEntrada(2, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada4 = festival.nuevaEntrada(0, 'B',new Fecha(2, 10, 2013), Mayor)
+	  var entrada5 = festival.nuevaEntrada(1, 'B',new Fecha(2, 10, 2013), Mayor)
+	  
+	  combo.agregar(entrada)
+	  combo.agregar(entrada2)
+	  combo.agregar(entrada3)
+	  combo.agregar(entrada4)
+	  combo.agregar(entrada5)
+
+	  
+	  Assert.assertEquals(2070.00,combo.precio)
+  
+  }
+  
+  @Test
+  def testSeCreaUnComboCon2EntradasQueSuman585YNoSeAplicaDescuento(){
+	  var combo = new Combo(festival)
+	  
+	  var entrada = festival.nuevaEntrada(0, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada2 = festival.nuevaEntrada(1, 'A',new Fecha(2, 10, 2013), Jubilado)
+
+	  
+	  combo.agregar(entrada)
+	  combo.agregar(entrada2)
+	
+
+	  
+	  Assert.assertEquals(585.00,combo.precio)
+  
+  }
+  
+  
+    @Test
+  def testSeVendeUnComboYSeAgregaASuColeccionDeEntradasVendidasYALasEntradasVendidasDelFestival(){
+	  var combo = new Combo(festival)
+	  
+	  var entrada = festival.nuevaEntrada(0, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada2 = festival.nuevaEntrada(1, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada3 = festival.nuevaEntrada(2, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada4 = festival.nuevaEntrada(0, 'B',new Fecha(2, 10, 2013), Mayor)
+	  var entrada5 = festival.nuevaEntrada(1, 'B',new Fecha(2, 10, 2013), Mayor)
+	  
+	  combo.agregar(entrada)
+	  combo.agregar(entrada2)
+	  combo.agregar(entrada3)
+	  combo.agregar(entrada4)
+	  combo.agregar(entrada5)
+	  
+	  festival.vender(combo)
+
+	  
+	  Assert.assertEquals(true,combo.vendidas.contains(entrada))
+	  Assert.assertEquals(true,combo.vendidas.contains(entrada2))
+	  Assert.assertEquals(true,combo.vendidas.contains(entrada3))
+	  Assert.assertEquals(true,combo.vendidas.contains(entrada4))
+	  Assert.assertEquals(true,combo.vendidas.contains(entrada5))
+	  
+	  Assert.assertEquals(true,festival.entradasVendidas.contains(entrada))
+	  Assert.assertEquals(true,festival.entradasVendidas.contains(entrada2))
+	  Assert.assertEquals(true,festival.entradasVendidas.contains(entrada3))
+	  Assert.assertEquals(true,festival.entradasVendidas.contains(entrada4))
+	  Assert.assertEquals(true,festival.entradasVendidas.contains(entrada5))
+	  
+	  
+  
+  }
+    
+    @Test(expected = classOf[EntradaYaVendidaException])
+  def testSeVendeUnComboCon2EntradasRepetidasSeProduceLaExcepcion(){
+       var combo = new Combo(festival)
+	  
+	  var entrada = festival.nuevaEntrada(0, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada2 = festival.nuevaEntrada(1, 'A',new Fecha(2, 10, 2013), Jubilado)
+	  
+	  combo.agregar(entrada)
+	  combo.agregar(entrada2)
+	  combo.agregar(entrada2)
+	  
+	  festival.vender(combo)
+    
+    }
+    
+    @Test
+  def testSeVendeUnComboCon2EntradasRepetidasSeProduceRollback(){
+	  var combo = new Combo(festival)
+	  
+	  var entrada = festival.nuevaEntrada(0, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada2 = festival.nuevaEntrada(1, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada3 = festival.nuevaEntrada(2, 'A',new Fecha(2, 10, 2013), Mayor)
+	  var entrada4 = festival.nuevaEntrada(0, 'B',new Fecha(2, 10, 2013), Mayor)
+	  var entrada5 = festival.nuevaEntrada(1, 'B',new Fecha(2, 10, 2013), Mayor)
+	  
+	  combo.agregar(entrada)
+	  combo.agregar(entrada2)
+	  combo.agregar(entrada2)
+	  combo.agregar(entrada3)
+	  combo.agregar(entrada4)
+	  combo.agregar(entrada5)
+	  
+	  try{
+	  festival.vender(combo)
+	  }
+	  catch{
+	    case e: EntradaYaVendidaException => {
+	    
+	  Assert.assertEquals(true,!(festival.entradasVendidas.contains(entrada)))
+	  Assert.assertEquals(true,!(festival.entradasVendidas.contains(entrada2)))
+	  Assert.assertEquals(true,!(festival.entradasVendidas.contains(entrada3)))
+	  Assert.assertEquals(true,!(festival.entradasVendidas.contains(entrada4)))
+	  Assert.assertEquals(true,!(festival.entradasVendidas.contains(entrada5)))
+	    }
+	    
+	  }
+
+	  
+	 
+
+	  
+	  
+  
+  }
+    
+    
+    @Test
+  def testSeCambiaElPrecioBaseDeUnaCategoriaDeUnaBanda(){
+      
+      Categoria.crearCategoria('categoria5, 560)
+      
+      val rollings = new Banda(Categoria('categoria5))
+      
+      Categoria.modificar('categoria5, 120)
+      
+       Assert.assertEquals(120,rollings.getValorCategoria)
+      
+         
+    }
+  
+    
+      @Test
+  def testSeCambiaLaCategoriaDeUnaBanda(){
+      
+      Categoria.crearCategoria('categoria5, 560)
+      Categoria.crearCategoria('categoria6, 900)
+      
+      val rollings = new Banda(Categoria('categoria5))
+      
+      rollings.cambiarCategoria(Categoria('categoria6))
+      
+       Assert.assertEquals(Categoria('categoria6),rollings.categoria)
+      
+         
+    }
+    
+  
 }
 

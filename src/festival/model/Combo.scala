@@ -4,11 +4,11 @@ import festival.model.exception.EntradaYaVendidaException
 import scala.collection.mutable.ArrayBuffer
 import festival.model.exception.EntradaYaVendidaException
 
-abstract class Combo {
+ class Combo(val unFestival:Festival) {
 
   val entradas: ArrayBuffer[Entrada] = ArrayBuffer()
  
-  val unFestival:Festival
+   
   	  
   val vendidas: ArrayBuffer[Entrada] = ArrayBuffer()
   
