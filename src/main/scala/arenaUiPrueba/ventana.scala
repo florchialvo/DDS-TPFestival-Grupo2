@@ -130,7 +130,7 @@ class CalculadoraSimpleWindow(owner:WindowOwner) extends SimpleWindow[modelo](ow
 	}
 }
 
-object ConversorRunner extends Application with App {
+object CalculadoraRunner extends Application with App {
 	def createMainWindow():Window[_] = new CalculadoraSimpleWindow(this)
 	start()
 }
