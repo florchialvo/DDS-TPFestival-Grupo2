@@ -3,6 +3,8 @@ package festival.model
 abstract class TipoPersona {
     def descuento(valorBase: Int): Double
     def esPosibleEn(f: Festival): Boolean
+    
+    override def toString = this.getClass().getSimpleName()
 }
 
 abstract class TipoPersonaSinCondicion extends TipoPersona {
