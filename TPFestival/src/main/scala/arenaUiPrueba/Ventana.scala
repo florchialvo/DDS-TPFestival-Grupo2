@@ -99,6 +99,7 @@ class CalculadoraSimpleWindow(owner: WindowOwner) extends SimpleWindow[modelo](o
 
         labelVisor.setBackground(Color.WHITE)
         labelVisor.bindValueToProperty("resultado")
+        new MessageSend
 
         val actionsPanel = new Panel(mainPanel)
 
@@ -107,7 +108,3 @@ class CalculadoraSimpleWindow(owner: WindowOwner) extends SimpleWindow[modelo](o
     }
 }
 
-object CalculadoraRunner extends Application with App {
-    def createMainWindow(): Window[_] = new CalculadoraSimpleWindow(this)
-    start()
-}

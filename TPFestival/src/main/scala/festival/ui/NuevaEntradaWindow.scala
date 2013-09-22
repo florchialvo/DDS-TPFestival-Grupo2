@@ -14,9 +14,10 @@ import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.actions.MessageSend
 import collection.JavaConversions._
-
 import festival.model._
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class NuevaEntradaWindow(owner: WindowOwner, model: Festival) extends Dialog[Festival](owner, model) {
 
 	override def createFormPanel(mainPanel: Panel) = {
@@ -39,9 +40,11 @@ class NuevaEntradaWindow(owner: WindowOwner, model: Festival) extends Dialog[Fes
 	override def addActions(actions: Panel) = {
 		new Button(actions)
 			.setCaption("Aceptar")
-			.onClick(new MessageSend(this, "accept"))
+			.onClick(new MessageSend(this, "aceptar"))
 			.setAsDefault.disableOnError
 	}
+
+	def aceptar = this.close();
 	
 	def descuentosValidos:java.util.Set[TipoPersona] = model.descuentosValidos
 
