@@ -99,7 +99,6 @@ class CalculadoraSimpleWindow(owner: WindowOwner) extends SimpleWindow[modelo](o
 
         labelVisor.setBackground(Color.WHITE)
         labelVisor.bindValueToProperty("resultado")
-        new MessageSend
 
         val actionsPanel = new Panel(mainPanel)
 
