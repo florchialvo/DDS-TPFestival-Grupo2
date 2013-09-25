@@ -1,45 +1,53 @@
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd" >
     <head> 
-    	<link rel="stylesheet" type="text/css" href="styles/cs_basic.css" /> 
-        <title>Ejemplos basicos de Wicket</title>
+    	<link rel="stylesheet" type="text/css" href="bootstrap.css" /> 
+    	<link rel="stylesheet" type="text/css" href="style.css" /> 
+        <title>Calculadora de precios</title>
     </head>
     <body>
-		<h2>Entrada</h2>
+		
 		<form wicket:id="entradaForm">
-			<table width="70%">
-                <tr>
-                    <td align="right">Precio Base:</td>
-                    <td align="left">
-                        <input wicket:id="precioBase" type="text" size="6"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">Ingrese otro valor:</td>
-                    <td align="left">
-                        <select wicket:id="tipoPersona">
+			
+                <div id="Contenedor">
+
+                		<h2>Entrada</h2>
+
+                   <p>Precio Base:</p>
+                    
+                   <input wicket:id="precioBase" type="text" size="6"/>
+                  <br/>
+                   
+                    <p> Ingrese otro valor:</p>
+                    <select wicket:id="tipoPersona">
 							<option>site 1</option>
 						</select>
-                    </td>
-                </tr>
-                <tr>
-                    <td height="20" colspan="2">
-                    	<div wicket:id="feedbackPanel">
+						
+							<div wicket:id="feedbackPanel">
                     	</div> 
-                    </td>
-                </tr>
+                 
 				<br/>
-                <tr>
-                	<td colspan="2" align="center">
-						<input type="submit" wicket:id="calcularPrecio" value="Calcular Precio" >
-                	</td>
-                </tr>
+                
+                	
+						<input type="submit" class="btn btn-warning"  wicket:id="calcularPrecio" value="Calcular Precio" >
+                
+               
+              
 				<br/>
-                <tr>
-                	<td colspan="2" align="center">
+               
+                	
 						<h3><span wicket:id="precio" /></h3>
-                	</td>
-                </tr>
-			</table>
+						
+						
+                    
+                </div>
+              
+                   
+                  
+                  
+                    
+                	
+               
+		
 		</form>
     </body>
 </html>
