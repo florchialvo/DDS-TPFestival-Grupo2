@@ -1,4 +1,4 @@
-package ddsGrupo2
+package ddsGrupo2.festival.ui
 
 import org.apache.wicket._
 import org.apache.wicket.protocol.http._
@@ -7,10 +7,9 @@ import org.apache.wicket.markup.html.form._
 import org.apache.wicket.model._
 import org.apache.wicket.markup.html.basic.Label
 
-import festival.model._
+import ddsGrupo2.festival.model._
 
 class AnularPage extends WebPage {
-  
 	 val form = new Form("form")
 	 form.add(new Label("label", 
 	     "Seleccione Fecha, Sector y Fila de la entrada que desea anular"))
@@ -32,7 +31,5 @@ class AnularPage extends WebPage {
 	 def addActions(form: Form){
 	   
 	 }
-	 
-	
-	   
+
 }

@@ -1,8 +1,7 @@
-package festival.model
+package ddsGrupo2.festival.model
 
-import festival.model.exception.EntradaYaVendidaException
+import ddsGrupo2.festival.model.exception.EntradaYaVendidaException
 import scala.collection.mutable.ArrayBuffer
-import festival.model.exception.EntradaYaVendidaException
 
 class Combo(val unFestival: Festival) {
 

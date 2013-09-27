@@ -1,4 +1,4 @@
-package ddsGrupo2;
+package ddsGrupo2.festival.ui
 
 import org.apache.wicket._
 import org.apache.wicket.protocol.http._

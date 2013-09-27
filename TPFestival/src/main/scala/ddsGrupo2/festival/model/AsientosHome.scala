@@ -1,4 +1,4 @@
-package festival.model
+package ddsGrupo2.festival.model
 
 import scala.collection.immutable.Map
 

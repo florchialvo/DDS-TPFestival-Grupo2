@@ -1,13 +1,12 @@
-package festival.model
+package ddsGrupo2.festival.model
 
 import scala.collection.mutable.Set
-import festival.model._
-import festival.model.exception.EntradaYaVendidaException
 import junit.framework.Assert
 import org.junit._
 import org.junit.Test
 import org.junit.internal.runners.JUnit4ClassRunner
 import org.junit.runner.RunWith
+import ddsGrupo2.festival.model.exception._
 
 @RunWith(classOf[JUnit4ClassRunner])
 class EntradaTest {

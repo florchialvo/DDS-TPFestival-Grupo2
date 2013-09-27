@@ -1,7 +1,7 @@
-package festival.ui
+package ddsGrupo2.festival.uiarena
 
 import org.uqbar.arena.Application
-import festival.model._
+import ddsGrupo2.festival.model._
 import scala.collection.mutable.Set
 
 object FestivalApplication extends Application with App {

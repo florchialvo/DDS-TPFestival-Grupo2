@@ -1,4 +1,4 @@
-package festival.model
+package ddsGrupo2.festival.model
 
 class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona: TipoPersona,
               sector: Char, fila: Int) {

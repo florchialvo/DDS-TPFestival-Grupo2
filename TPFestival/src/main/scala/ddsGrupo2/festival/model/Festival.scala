@@ -1,6 +1,6 @@
-package festival.model
+package ddsGrupo2.festival.model
 
-import festival.model.exception.EntradaYaVendidaException
+import ddsGrupo2.festival.model.exception.EntradaYaVendidaException
 import scala.collection.mutable.Set
 import org.uqbar.commons.utils.Observable
 

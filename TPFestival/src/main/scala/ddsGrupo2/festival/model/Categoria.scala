@@ -1,4 +1,4 @@
-package festival.model
+package ddsGrupo2.festival.model
 
 object Categoria {
     var instances: Map[Symbol, Categoria] = Map()

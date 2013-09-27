@@ -1,7 +1,6 @@
 package arenaUiPrueba
 
 import org.uqbar.commons.utils.Observable
-import festival.model.Entrada
 import scala.collection.mutable.ArrayBuffer
 
 abstract class Operacion {

@@ -1,4 +1,4 @@
-package festival.model
+package ddsGrupo2.festival.model
 
 abstract class TipoPersona {
     def descuento(valorBase: Int): Double

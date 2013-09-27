@@ -1,4 +1,4 @@
-package festival.model
+package ddsGrupo2.festival.model
 
 import java.util.Calendar
 import java.text.SimpleDateFormat
