@@ -4,13 +4,28 @@ import festival.model.exception.EntradaYaVendidaException
 import scala.collection.mutable.Set
 import org.uqbar.commons.utils.Observable
 
+object Festival {
+  
+  def apply(valoresBase: Map[Char, Array[Int]], fechaVtoEntradasAnticipadas: Fecha) {
+	new Festival(valoresBase, fechaVtoEntradasAnticipadas)
+  }
+  
+  def apply() {
+	new Festival(AsientosHome.getAsientos() , new FechasHome().getFechaVtoAnticipadas())
+	
+  }
+  
+}
+
 @Observable
 class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAnticipadas: Fecha) {
-
+	
     var entradasVendidas: Set[Entrada] = Set()
     var noches: Set[Noche] = Set()
-    var descuentosValidos: Set[TipoPersona] = Set()
-
+    var descuentosValidos: Set[TipoPersona] = Set() 
+    
+    def getSectores()= AsientosHome.getSectores()
+    
     def agregarNoche = noches += (_: Noche)
     def agregarDescuento = descuentosValidos += (_: TipoPersona)
 
