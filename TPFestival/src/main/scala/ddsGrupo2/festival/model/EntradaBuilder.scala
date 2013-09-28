@@ -18,4 +18,7 @@ class EntradaBuilder(val festival:Festival) {
 	  fecha = new Fecha().fechaActual
 	  precio = this.build.precio
 	}
+	def venderEntrada(){
+	  festival.vender(this.build)
+	}
 }
