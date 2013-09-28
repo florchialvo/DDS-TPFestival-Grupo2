@@ -24,6 +24,8 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     var noches: Set[Noche] = Set()
     var descuentosValidos: Set[TipoPersona] = Set() 
     
+    def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
+    
     def getSectores()= AsientosHome.getSectores()
     
     def agregarNoche = noches += (_: Noche)

@@ -15,7 +15,7 @@ class MenuPage extends WebPage{
    val form = new Form("form")
    val buttonVender = new Button("vender") {
      override def onSubmit() {
-       //this.setResponsePage(classOf[VenderPage])
+       this.setResponsePage(classOf[VenderPage])
      }
    }
    

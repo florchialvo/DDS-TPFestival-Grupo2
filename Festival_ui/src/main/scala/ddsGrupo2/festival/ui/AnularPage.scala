@@ -12,8 +12,6 @@ import ddsGrupo2.festival.model._
 
 class AnularPage extends WebPage {
     val form = new Form("entradaForm", this.createModel)
-    val festival = FestivalesHome.getFestival
-
     addFields(form)
     addOptions(form)
     addActions(form)
@@ -23,7 +21,6 @@ class AnularPage extends WebPage {
         //        form.add(new Label("labelFecha", "Fecha"))
         //        form.add(new Label("labelSector", "Sector"))
         //        form.add(new Label("labelFila", "Fila"))
-        form.add(new DropDownChoice("tipoPersona", this.descuentosValidos))
     }
 
     def addOptions(form: Form) {
@@ -32,8 +29,6 @@ class AnularPage extends WebPage {
     def addActions(form: Form) {
     }
 
-    def createModel: CompoundPropertyModel = new CompoundPropertyModel(this.festival);
-
-    def descuentosValidos: java.util.List[TipoPersona] =
-        new java.util.ArrayList[TipoPersona](this.festival.descuentosValidos)
+    def createModel: CompoundPropertyModel =
+        new CompoundPropertyModel(FestivalesHome.getFestival);
 }
