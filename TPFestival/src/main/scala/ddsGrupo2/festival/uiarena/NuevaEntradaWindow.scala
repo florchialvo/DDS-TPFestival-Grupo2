@@ -16,35 +16,38 @@ import org.uqbar.arena.actions.MessageSend
 import collection.JavaConversions._
 import ddsGrupo2.festival.model._
 import org.uqbar.commons.utils.Observable
+import org.uqbar.arena.windows.SimpleWindow
 
 @Observable
-class NuevaEntradaWindow(owner: WindowOwner, model: Festival) extends Dialog[Festival](owner, model) {
+class NuevaEntradaWindow(owner: WindowOwner, model: EntradaBuilder) extends SimpleWindow[EntradaBuilder](owner, model) {
 
 	override def createFormPanel(mainPanel: Panel) = {
+	 
 		var form = new Panel(mainPanel)
 		form.setLayout(new ColumnLayout(2))
-		new Label(form).setText("Sector")
-		new TextBox(form)//.bindValueToProperty("sector")
-		new Label(form).setText("Fila")
-		new TextBox(form)//.bindValueToProperty("fila")
-		new Label(form).setText("Fecha") //Debería ser un selector?
-		new TextBox(form)//.bindValueToProperty("fecha")		
-		new Label(form).setText("Descuento")
+		 this.setTitle("Calculadora de Precios de Entradas")
+		 new Label(form).setText("Ingrese un Sector")
+		 new TextBox(form).bindValueToProperty("sector")
+		 new Label(form).setText("Ingrese una Fila")
+		 new TextBox(form).bindValueToProperty("fila") 
+		 new Label(form).setText("Selecione un Descuento")
 		var selectorTipoPersona = new Selector[TipoPersona](form)
 		selectorTipoPersona.allowNull(false)
 		selectorTipoPersona.bindItems(new ObservableProperty(this, "descuentosValidos"))
-		new Label(form).setText("Precio")
-		new TextBox(form)//.bindValueToProperty("precio")		
+		selectorTipoPersona.bindValueToProperty("tipoPersona")
+		new Label(form).setText("Precio Total")
+		var precio = new Label(form)
+		precio.setWidth(100)
+		precio.bindValueToProperty("precio")
+			
 	}
 
 	override def addActions(actions: Panel) = {
 		new Button(actions)
-			.setCaption("Aceptar")
-			.onClick(new MessageSend(this, "aceptar"))
+			.setCaption("Calcular Precio")
+			.onClick(new MessageSend(this.getModelObject(), "calcularPrecio"))
 			.setAsDefault.disableOnError
 	}
-
-	def aceptar = this.close();
 	
 	def descuentosValidos:java.util.Set[TipoPersona] = model.descuentosValidos
 
