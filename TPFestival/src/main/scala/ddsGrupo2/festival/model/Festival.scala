@@ -29,8 +29,8 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     
     def getSectores()= AsientosHome.getSectores()
     
-    def agregarNoche = noches += (_: Noche)
-    def agregarDescuento = descuentosValidos += (_: TipoPersona)
+    def agregarNoche(n: Noche) = noches += n
+    def agregarDescuento(t : TipoPersona) = descuentosValidos += t
 
     def valorBase(fila: Int, sector: Char): Int = valoresBase.apply(sector).apply(fila)
 

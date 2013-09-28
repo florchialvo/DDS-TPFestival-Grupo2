@@ -14,8 +14,10 @@ import collection.JavaConversions._
 import ddsGrupo2.festival.model._
 
 class AnularPage extends TBasicPage {
+  
     val buttonAnular = new Button("anular") {
       override def onSubmit() {
+       
      }
     }
 	this.setUp(buttonAnular)
