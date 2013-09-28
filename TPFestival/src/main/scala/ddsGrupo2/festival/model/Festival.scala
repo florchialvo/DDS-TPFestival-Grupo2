@@ -3,6 +3,7 @@ package ddsGrupo2.festival.model
 import ddsGrupo2.festival.model.exception.EntradaYaVendidaException
 import scala.collection.mutable.Set
 import org.uqbar.commons.utils.Observable
+import scala.collection.immutable.Map
 
 object Festival {
   
@@ -17,7 +18,7 @@ object Festival {
   
 }
 
-@Observable
+
 class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAnticipadas: Fecha) {
 	
     var entradasVendidas: Set[Entrada] = Set()
@@ -60,8 +61,10 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
         if (this.estaVendida(entrada.fila_, entrada.sector_, entrada.fecha_))
             throw new EntradaYaVendidaException("La entrada ya está vendida")
 
-    def porcentajeVendidoDamas =
-        entradasVendidas.count(_.persona == Dama) / this.entradasTotales * 100
+    def porcentajeVendidoDamas = 
+          if(entradasTotales == 0) 0 
+          else entradasVendidas.count(_.persona == Dama) / this.entradasTotales * 100
+       
 
     def entradasTotales = entradasVendidas.size
 

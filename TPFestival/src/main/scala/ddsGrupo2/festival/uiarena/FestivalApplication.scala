@@ -7,10 +7,11 @@ import scala.collection.mutable.Set
 object FestivalApplication extends Application with App {
 	
     var festival:Festival = null
+    var entradaBuilder: EntradaBuilder = null
     
 	override def createMainWindow() = {
 	    this.setUp
-	    new NuevaEntradaWindow(this, festival)
+	    new NuevaEntradaWindow(this, entradaBuilder)
 	}
 	
 	def setUp = {
@@ -22,16 +23,16 @@ object FestivalApplication extends Application with App {
 	    val ledZeppelin = new Banda(Categoria('categoria4))
 	    val ironMaiden = new Banda(Categoria('categoria4))
 	    val sodaStereo = new Banda(Categoria('categoria3))
-	    val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha(2, 10, 2013))
+	    val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha(27, 9, 2013))
 	
 	    val valoresBase = Map('A' -> Array(100, 100, 100), 'B' -> Array(500, 500, 500))
-	    festival = new Festival(valoresBase, new Fecha(1, 12, 2013))
+	    festival = new Festival(valoresBase, new Fecha(3, 8, 2013))
+		entradaBuilder= new EntradaBuilder(festival)
 	    festival.agregarNoche(noche1)
 	    festival.agregarDescuento(Dama)
 	    festival.agregarDescuento(Jubilado)
 	    festival.agregarDescuento(Menor)
 	    festival.agregarDescuento(Mayor)
 	}
-	
 	start()
 }
