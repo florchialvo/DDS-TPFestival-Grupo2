@@ -1,6 +1,5 @@
 package ddsGrupo2.festival.ui
 
-
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -16,48 +15,28 @@ import org.apache.wicket.markup.html.basic.Label
 import collection.JavaConversions._
 import org.apache.wicket.feedback.FeedbackMessage
 
-
 import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
 class VenderComboPage extends VenderPage {
-  
 
-    
-   
-	val combo = new Combo(FestivalesHome.getFestival)
-	
-	val botonCombo = new AjaxSubmitLink("agregarAlCombo") {
-	  
-	 override def onSubmit(destino:AjaxRequestTarget , form:Form ) {
-		 		agregarAlCombo()
-				destino.addComponent(panelFeedback);
-			}
+  val combo = new Combo(FestivalesHome.getFestival)
+  form.add(botonCombo)
 
-	  
-	  
-	}
-	
-	
-	form.add(botonCombo)
-	
+  val botonCombo = new AjaxSubmitLink("agregarAlCombo") {
+    override def onSubmit(destino: AjaxRequestTarget, form: Form) {
+      agregarAlCombo()
+      destino.addComponent(panelFeedback);
+    }
+  }
 
-   override def entradaAVender() {
-      this.entrada.venderCombo(combo)
-       this.info("El Combo fue vendido con éxito")
-	}
-   
-   
-   def agregarAlCombo()
-   {
-     this.entrada.agregarEntradaAlCombo(combo)
-      this.info(combo.entradas.map(ent => ent.nombre).toString)
-     
-   }
-   
+  override def entradaAVender() {
+    this.entrada.venderCombo(combo)
+    this.info("El Combo fue vendido con éxito")
+  }
 
-  
-    
- 
-  
+  def agregarAlCombo() {
+    this.entrada.agregarEntradaAlCombo(combo)
+    this.info(combo.entradas.map(ent => ent.nombre).toString)
+  }
 }

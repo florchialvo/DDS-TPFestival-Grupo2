@@ -2,8 +2,7 @@
 	Both Java code and Scala code is built and packaged. Try: mvn clean mvn package 
 	mvn jetty:run And go to http://localhost:8080/ -->
 
-<project>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ddsGrupo2</groupId>
 	<artifactId>TP_Festival_wicket_ui</artifactId>

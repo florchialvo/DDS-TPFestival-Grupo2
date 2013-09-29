@@ -6,9 +6,7 @@ import org.uqbar.commons.utils.Observable
 import scala.collection.immutable.Map
 import java.io.Serializable
 
-
-
-class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAnticipadas: Fecha) extends Serializable {
+class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntradasAnticipadas: Fecha) extends Serializable {
 	
     var entradasVendidas: Set[Entrada] = Set()
     var noches: Set[Noche] = Set()
@@ -16,25 +14,19 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     
     def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
     def fechas = noches.map(n => n.fecha)
-    
-    def getSectores()= AsientosHome.getSectores()
-    
+        
     def agregarNoche(n: Noche) = noches += n
     def agregarDescuento(t : TipoPersona) = descuentosValidos += t
 
-    def valorBase(fila: Int, sector: Char): Int = valoresBase.apply(sector).apply(fila)
+    def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila)._1
+    
+    def cantButacas(fila: Int, sector: Char): Int = valoresBase(sector)(fila)._2
+    def cantFilas(sector: Char): Int = valoresBase(sector).length
 
-    def estaVendida(fila: Int, sector: Char, fecha: Fecha) =
-        entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, fecha))
+    def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
+        entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha))
 
-    def esAnticipada(fechaVto: Fecha) = !(new Fecha().fechaActual > fechaVto)
-
-    def nuevaEntrada(fila: Int, sector: Char, fecha: Fecha, persona: TipoPersona) = {
-        if (this.esAnticipada(fechaVtoEntradasAnticipadas))
-            new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila)
-        else
-            new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila)
-    }
+    def esAnticipada = !(new Fecha().fechaActual > fechaVtoEntradasAnticipadas)
 
     def vender(entrada: Entrada) {
         validarEntrada(entrada)
@@ -48,14 +40,13 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     def noche(unaFecha: Fecha): Noche = noches.find(_.correspondeA(unaFecha)).get
 
     def validarEntrada(entrada: Entrada) =
-        if (this.estaVendida(entrada.fila, entrada.sector, entrada.fecha))
+        if (this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
             throw new EntradaYaVendidaException("La entrada ya está vendida")
 
     def porcentajeVendidoDamas = 
           if(entradasTotales == 0) 0 
           else entradasVendidas.count(_.persona == Dama) / this.entradasTotales * 100
        
-
     def entradasTotales = entradasVendidas.size
 
     def descuento(persona: TipoPersona, valorBase: Int): Double = {
@@ -71,8 +62,17 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     }
 
     def cancelar(entrada: Entrada) = {
-        if (!this.estaVendida(entrada.fila, entrada.sector, entrada.fecha))
+        if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
             throw new EntradaNoVendidaException("La entrada no puede anularse")
         entradasVendidas -= entrada
+    }
+    
+//    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco
+//    porque lo usan todos los tests!   
+    def nuevaEntrada(fila: Int, sector: Char, numButaca: Int, fecha: Fecha, persona: TipoPersona) = {
+        if (this.esAnticipada)
+            new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
+        else
+            new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
     }
 }

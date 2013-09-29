@@ -20,7 +20,8 @@ class EntradaTest {
     val sodaStereo = new Banda(Categoria('categoria3))
     val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha(2, 10, 2013))
 
-    val valoresBase = Map('A' -> Array(100, 100, 100), 'B' -> Array(500, 500, 500))
+    val valoresBase = Map('A' -> Array((100,15), (100,15), (100,15)),
+    					  'B' -> Array((500,10), (500,10), (500,10)))
     val festival = new FestivalMock(valoresBase, new Fecha(1, 6, 2013), new Fecha().fechaActual)
     festival.agregarNoche(noche1)
     festival.agregarDescuento(Dama)
@@ -33,25 +34,25 @@ class EntradaTest {
     festivalDescuentoMenores12.agregarNoche(noche1);
     festivalDescuentoMenores12.agregarDescuento(MenorDe12Acompaniado)
     festivalDescuentoMenores12.agregarDescuento(Dama)
-    festivalDescuentoMenores12.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 2))
+    festivalDescuentoMenores12.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 2, 1))
 
     @Test
     def testUnMenorCompraEntradaConValorBase100YBandasDeCategoria1Paga90 {
         var noche = new Noche(Set(new Banda(Categoria('categoria1))), new Fecha(1, 1, 2014))
-        var entrada = new Entrada(festival, 100, noche, Menor, 'A', 1);
+        var entrada = new Entrada(festival, 100, noche, Menor, 'A', 1, 1);
         Assert.assertEquals(90.0, entrada.precio);
     }
 
     @Test
     def testJubiladoCompraEntradaConValorBase500EnNoche1Paga625 {
-        var entrada = new Entrada(festival, 500, noche1, Jubilado, 'B', 1)
+        var entrada = new Entrada(festival, 500, noche1, Jubilado, 'B', 1, 1)
         Assert.assertEquals(625.0, entrada.precio);
     }
 
     @Test
     def testMayorCompraEntradaEl29_05_13SectorBFila1EnNoche1EsAnticipadaPaga595 {
         festival.fechaActual = new Fecha(29, 05, 2013)
-        var entrada = festival.nuevaEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
+        var entrada = festival.nuevaEntrada(1, 'B', 1, new Fecha(2, 10, 2013), Mayor)
         Assert.assertEquals(595.0, entrada.precio);
         Assert.assertEquals(classOf[EntradaAnticipada], entrada.getClass())
     }
@@ -59,34 +60,34 @@ class EntradaTest {
     @Test
     def testMayorCompraEntradaEl09_06_13SectorBFila1EnNoche1NoEsAnticipadaPaga700 {
         festival.fechaActual = new Fecha(9, 06, 2013)
-        var entrada = festival.nuevaEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
+        var entrada = festival.nuevaEntrada(1, 'B', 1, new Fecha(2, 10, 2013), Mayor)
         Assert.assertEquals(700.0, entrada.precio);
         Assert.assertEquals(classOf[Entrada], entrada.getClass())
     }
 
     @Test(expected = classOf[EntradaYaVendidaException])
     def testUnaPersonaIntentaComprarEntradaYaVendidaSeLanzaUnaExcepcion {
-        festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1))
-        festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1))
+        festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1, 1))
+        festival.vender(new Entrada(festival, 100, noche1, Mayor, 'A', 1, 1))
     }
 
     @Test
     def testJubiladoCompraEntradaParaFestivalQueAceptaDescuentoMenores12Anios() {
-        var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Jubilado)
+        var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Jubilado)
         Assert.assertEquals(300.00, entrada.precio)
         Assert.assertEquals(classOf[Entrada], entrada.getClass())
     }
 
     @Test
     def testDamaCompraEntradaParaFestivalQueAceptaDescuentoParaDamasYJubilados() {
-        var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Dama)
+        var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Dama)
         Assert.assertEquals(280.00, entrada.precio)
     }
 
     @Test
     def testDamaCompraEntradaParaFestivalQueAceptaDescuentoParaDamasYJubiladosPeroSeVendioElPorcentajeMaximo() {
         festivalDescuentoMenores12.setPorcentajeDamas(20)
-        var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Dama)
+        var entrada = festivalDescuentoMenores12.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Dama)
         Assert.assertEquals(300.00, entrada.precio)
     }
 
@@ -94,11 +95,11 @@ class EntradaTest {
     def testSeCreaUnComboCon5EntradasQueSuman2300YSeAplicaDescuento() {
         var combo = new Combo(festival)
 
-        var entrada = festival.nuevaEntrada(0, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada2 = festival.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada3 = festival.nuevaEntrada(2, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada4 = festival.nuevaEntrada(0, 'B', new Fecha(2, 10, 2013), Mayor)
-        var entrada5 = festival.nuevaEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
+        var entrada = festival.nuevaEntrada(0, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada2 = festival.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada3 = festival.nuevaEntrada(2, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada4 = festival.nuevaEntrada(0, 'B', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada5 = festival.nuevaEntrada(1, 'B', 1, new Fecha(2, 10, 2013), Mayor)
 
         combo.agregar(entrada)
         combo.agregar(entrada2)
@@ -113,8 +114,8 @@ class EntradaTest {
     def testSeCreaUnComboCon2EntradasQueSuman585YNoSeAplicaDescuento() {
         var combo = new Combo(festival)
 
-        var entrada = festival.nuevaEntrada(0, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada2 = festival.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Jubilado)
+        var entrada = festival.nuevaEntrada(0, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada2 = festival.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Jubilado)
 
         combo.agregar(entrada)
         combo.agregar(entrada2)
@@ -126,11 +127,11 @@ class EntradaTest {
     def testSeVendeUnComboYSeAgregaASuColeccionDeEntradasVendidasYALasEntradasVendidasDelFestival() {
         var combo = new Combo(festival)
 
-        var entrada = festival.nuevaEntrada(0, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada2 = festival.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada3 = festival.nuevaEntrada(2, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada4 = festival.nuevaEntrada(0, 'B', new Fecha(2, 10, 2013), Mayor)
-        var entrada5 = festival.nuevaEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
+        var entrada = festival.nuevaEntrada(0, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada2 = festival.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada3 = festival.nuevaEntrada(2, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada4 = festival.nuevaEntrada(0, 'B', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada5 = festival.nuevaEntrada(1, 'B', 1, new Fecha(2, 10, 2013), Mayor)
 
         combo.agregar(entrada)
         combo.agregar(entrada2)
@@ -157,8 +158,8 @@ class EntradaTest {
     def testSeVendeUnComboCon2EntradasRepetidasSeProduceLaExcepcion() {
         var combo = new Combo(festival)
 
-        var entrada = festival.nuevaEntrada(0, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada2 = festival.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Jubilado)
+        var entrada = festival.nuevaEntrada(0, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada2 = festival.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Jubilado)
 
         combo.agregar(entrada)
         combo.agregar(entrada2)
@@ -171,11 +172,11 @@ class EntradaTest {
     def testSeVendeUnComboCon2EntradasRepetidasSeProduceRollback() {
         var combo = new Combo(festival)
 
-        var entrada = festival.nuevaEntrada(0, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada2 = festival.nuevaEntrada(1, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada3 = festival.nuevaEntrada(2, 'A', new Fecha(2, 10, 2013), Mayor)
-        var entrada4 = festival.nuevaEntrada(0, 'B', new Fecha(2, 10, 2013), Mayor)
-        var entrada5 = festival.nuevaEntrada(1, 'B', new Fecha(2, 10, 2013), Mayor)
+        var entrada = festival.nuevaEntrada(0, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada2 = festival.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada3 = festival.nuevaEntrada(2, 'A', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada4 = festival.nuevaEntrada(0, 'B', 1, new Fecha(2, 10, 2013), Mayor)
+        var entrada5 = festival.nuevaEntrada(1, 'B', 1, new Fecha(2, 10, 2013), Mayor)
 
         combo.agregar(entrada)
         combo.agregar(entrada2)
@@ -215,24 +216,24 @@ class EntradaTest {
     }
 
     def anularUnaEntrada(entrada: Entrada) {
-        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha))
+        Assert.assertFalse(festival.estaVendida(1, 'A', 1, entrada.fecha))
         
         festival.vender(entrada)
-        Assert.assertTrue(festival.estaVendida(1, 'A', entrada.fecha))
+        Assert.assertTrue(festival.estaVendida(1, 'A', 1, entrada.fecha))
 
         festival.cancelar(entrada)
-        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha))
+        Assert.assertFalse(festival.estaVendida(1, 'A', 1, entrada.fecha))
     }
     
     @Test()
     def testUnaPersonaIntentaAnularUnaEntradaYaVendida {
-      val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 1)
+      val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 1, 1)
       anularUnaEntrada(entrada)
     }
 
     @Test(expected = classOf[EntradaNoVendidaException])
     def testUnaPersonaIntentaAnularUnaEntradaNoVendidaYRompe {
-      val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 1)
+      val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 1, 1)
       anularUnaEntrada(entrada)
       festival.cancelar(entrada)
     }

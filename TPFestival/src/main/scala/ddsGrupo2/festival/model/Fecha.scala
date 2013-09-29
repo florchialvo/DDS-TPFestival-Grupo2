@@ -4,13 +4,9 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 import java.io.Serializable
 
-class Fecha(_dia: Int, _mes: Int, _anio: Int) extends Serializable{
+class Fecha(var dia: Int, var mes: Int, var anio: Int) extends Serializable{
 
     def this() = this(0, 0, 0)
-
-    def dia = _dia
-    def mes = _mes
-    def anio = _anio
 
     def fechaActual(): Fecha = {
         val today = Calendar.getInstance().getTime()
@@ -26,7 +22,13 @@ class Fecha(_dia: Int, _mes: Int, _anio: Int) extends Serializable{
         return new Fecha(diaObtenido, mesObtenido, anioObtenido)
     }
 
+    override def toString():String= this.dia.toString() + "/" +
+    					 this.mes.toString() + "/" +
+    					 this.anio.toString()
+    
     def toInt = this.anio * 10000 + this.mes * 100 + this.dia
-    def ==(otraFecha: Fecha) = (this.anio == otraFecha.anio) && (this.mes == otraFecha.mes) && (this.dia == otraFecha.dia)
+    def ==(otraFecha: Fecha) = (this.anio == otraFecha.anio) && 
+    						   (this.mes == otraFecha.mes) &&
+    						   (this.dia == otraFecha.dia)
     def >(otraFecha: Fecha) = this.toInt > otraFecha.toInt
 }

@@ -13,7 +13,8 @@ object FestivalesHome {
     val sodaStereo = new Banda(Categoria('categoria3))
     val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha().fechaActual())
 
-    val valoresBase = Map('A' -> Array(100, 100, 100), 'B' -> Array(500, 500, 500))
+    val valoresBase = Map('A' -> Array((100,15), (100,15), (100,15)),
+    					  'B' -> Array((500,10), (500,10), (500,10)))
     
     var festival: Festival = new Festival(valoresBase, new Fecha().fechaActual())
     festival.agregarNoche(noche1)
