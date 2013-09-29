@@ -1,19 +1,20 @@
 <html
 	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
-
 <head>
-	<link rel="stylesheet" type="text/css" href="bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="style.css" />
-<title>Anular Entrada</title>
+<title>Vender Entrada</title>
 </head>
 <body>
 	<form wicket:id="entradaForm">
 		<div id="Contenedor">
-			<h2>Anular Entrada</h2>
+			<h2>Vender Combo </h2>
 			<p>Sector:</p>
 			<select wicket:id="sector"></select>
 			<p>Fila</p>
 			<input wicket:id="fila" type="text" size="4" /> <br />
+			<p>Ingrese la categoria:</p>
+			<select wicket:id="tipoPersona"></select>
 <!-- 			<div wicket:id="feedbackPanel"></div> -->
 <!-- 			<br /> <input type="submit" class="btn btn-warning" -->
 <!-- 				wicket:id="calcularPrecio" value="Calcular Precio"><br /> -->
@@ -21,7 +22,10 @@
 <!-- 				<span wicket:id="precio" /> -->
 <!-- 			</h3> -->
 <!--  -->		</div>
-<input class="btn btn-warning  icon-remove" wicket:id="anular" type="submit" value="Anular" />
+<input class="btn btn-warning icon-ok" wicket:id="vender" type="submit" value="Vender" />
+
+<a class="btn btn-warning icon-plus" href="#" wicket:id="agregarAlCombo">Agregar Al Combo</a>
+
 <input class="btn btn-warning icon-backward" wicket:id="volver" type="submit" value="Volver" />
 <div wicket:id="feedback">[Feedback Panel]</div>
 	</form>

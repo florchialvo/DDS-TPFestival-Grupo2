@@ -16,21 +16,25 @@ import ddsGrupo2.festival.model._
 class TBasicPage extends WebPage {
  
     var entrada: EntradaBuilder = null
+    val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true);
 	val form = new Form("entradaForm", this.createModel)
 	val buttonVolver = new Button("volver"){
       override def onSubmit(){
+        
+        this.setResponsePage(classOf[MenuPage])
        
       }
     }
     
 	def setUp(actionButton: Button) {
-		form.add(new FeedbackPanel("feedback"))
+		form.add(panelFeedback)
 	    form.add(new DropDownChoice("sector", this.sectores))
 	    form.add(new TextField("fila"))
 	    form.add(buttonVolver)
 	    form.add(actionButton)
 	    this.add(form)
 	}
+	
     
 	def addOptions(){
 	  form.add(new DropDownChoice("tipoPersona", this.descuentosValidos))

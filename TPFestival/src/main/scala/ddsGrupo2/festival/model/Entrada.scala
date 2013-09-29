@@ -9,6 +9,7 @@ class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona:
     def valorExtraPorNoche = noche.valorExtra
     def descuento = festival.descuento(persona, valorBase)
     def precio = this.valorExtraPorNoche + valorBase - this.descuento
+    def nombre ="Fila:" + this.fila.toString() + "-Sector:" +  this.sector.toString()
 
     def estasVendida(unaFila: Int, unSector: Char, unaFecha: Fecha) =
         unaFila == fila && unSector == sector && noche.correspondeA(unaFecha)

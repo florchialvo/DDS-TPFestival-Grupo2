@@ -17,7 +17,8 @@ import ddsGrupo2.festival.model.exception._
 
 
 class VenderPage extends TBasicPage {
-	
+  
+
     val buttonVender = new ButtonAction[EntradaYaVendidaException](this, "vender", 
         {() => this.entradaAVender()})
        

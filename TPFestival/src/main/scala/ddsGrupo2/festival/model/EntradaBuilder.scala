@@ -15,6 +15,7 @@ class EntradaBuilder(val festival:Festival) extends Serializable {
 	
 	
 	def build:Entrada = festival.nuevaEntrada(fila, sector, fecha, tipoPersona)
+	
 	def descuentosValidos = festival.descuentosValidos
 	def calcularPrecio() {
 	  fecha = new Fecha().fechaActual
@@ -30,4 +31,22 @@ class EntradaBuilder(val festival:Festival) extends Serializable {
 	  fecha = new Fecha().fechaActual
 	  festival.cancelar(this.build)
 	}
+	
+	
+	def agregarEntradaAlCombo(unCombo:Combo){
+		
+	   fecha = new Fecha().fechaActual
+	   unCombo.agregar(this.build)
+	  
+	}
+	
+	def venderCombo(unCombo:Combo){
+
+	  
+	  festival.vender(unCombo);
+	  
+	}
+
+
+
 }

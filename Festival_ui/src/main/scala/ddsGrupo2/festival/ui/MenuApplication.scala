@@ -24,6 +24,15 @@ class MenuPage extends WebPage{
        this.setResponsePage(classOf[AnularPage])
      }
    } 
+   
+   
+     val buttonCombo = new Button("vender_combo") {
+   override def onSubmit() {
+       this.setResponsePage(classOf[VenderComboPage])
+     }
+   } 
+     
+     
    addFields(form)  
    addActions(form)
    add(form)
@@ -32,6 +41,7 @@ class MenuPage extends WebPage{
    def addActions(form : Form){
      form.add(buttonVender)
      form.add(buttonAnular)
+     form.add(buttonCombo)
    }
    
    def addFields(form: Form){

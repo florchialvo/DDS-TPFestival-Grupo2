@@ -14,6 +14,7 @@ class ButtonAction[T <: RuntimeException] (
     val id : String,
 	val action: () => Unit) extends Button(id) {
   
+
   override def onSubmit(){
        try{
           action.apply()

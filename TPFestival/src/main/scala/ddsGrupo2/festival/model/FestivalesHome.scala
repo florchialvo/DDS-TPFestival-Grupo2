@@ -11,11 +11,11 @@ object FestivalesHome {
     val ledZeppelin = new Banda(Categoria('categoria4))
     val ironMaiden = new Banda(Categoria('categoria4))
     val sodaStereo = new Banda(Categoria('categoria3))
-    val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha(28, 9, 2013))
+    val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha().fechaActual())
 
     val valoresBase = Map('A' -> Array(100, 100, 100), 'B' -> Array(500, 500, 500))
     
-    var festival: Festival = new Festival(valoresBase, new Fecha(1, 12, 2013))
+    var festival: Festival = new Festival(valoresBase, new Fecha().fechaActual())
     festival.agregarNoche(noche1)
     festival.agregarDescuento(Dama)
     festival.agregarDescuento(Jubilado)
