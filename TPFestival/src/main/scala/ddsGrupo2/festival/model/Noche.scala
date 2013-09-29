@@ -3,8 +3,7 @@ package ddsGrupo2.festival.model
 import scala.collection.mutable.Set
 import java.io.Serializable
 
-class Noche(var bandas: Set[Banda], fecha: Fecha) extends Serializable {
-    def fecha_ = fecha
+class Noche(var bandas: Set[Banda], var fecha: Fecha) extends Serializable {
 
     def agregarBanda(banda: Banda) = bandas += banda
 

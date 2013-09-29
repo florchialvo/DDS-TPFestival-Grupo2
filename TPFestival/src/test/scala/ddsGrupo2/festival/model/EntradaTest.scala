@@ -215,13 +215,13 @@ class EntradaTest {
     }
 
     def anularUnaEntrada(entrada: Entrada) {
-        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha_))
+        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha))
         
         festival.vender(entrada)
-        Assert.assertTrue(festival.estaVendida(1, 'A', entrada.fecha_))
+        Assert.assertTrue(festival.estaVendida(1, 'A', entrada.fecha))
 
         festival.cancelar(entrada)
-        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha_))
+        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha))
     }
     
     @Test()

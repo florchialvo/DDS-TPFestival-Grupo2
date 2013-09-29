@@ -15,6 +15,7 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     var descuentosValidos: Set[TipoPersona] = Set() 
     
     def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
+    def fechas = noches.map(n => n.fecha)
     
     def getSectores()= AsientosHome.getSectores()
     
@@ -47,7 +48,7 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     def noche(unaFecha: Fecha): Noche = noches.find(_.correspondeA(unaFecha)).get
 
     def validarEntrada(entrada: Entrada) =
-        if (this.estaVendida(entrada.fila_, entrada.sector_, entrada.fecha_))
+        if (this.estaVendida(entrada.fila, entrada.sector, entrada.fecha))
             throw new EntradaYaVendidaException("La entrada ya está vendida")
 
     def porcentajeVendidoDamas = 
@@ -70,7 +71,7 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     }
 
     def cancelar(entrada: Entrada) = {
-        if (!this.estaVendida(entrada.fila_, entrada.sector_, entrada.fecha_))
+        if (!this.estaVendida(entrada.fila, entrada.sector, entrada.fecha))
             throw new EntradaNoVendidaException("La entrada no puede anularse")
         entradasVendidas -= entrada
     }
