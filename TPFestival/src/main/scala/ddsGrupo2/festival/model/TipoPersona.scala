@@ -1,6 +1,8 @@
 package ddsGrupo2.festival.model
 
-abstract class TipoPersona {
+import java.io.Serializable
+
+abstract class TipoPersona extends Serializable{
     def descuento(valorBase: Int): Double
     def esPosibleEn(f: Festival): Boolean
     

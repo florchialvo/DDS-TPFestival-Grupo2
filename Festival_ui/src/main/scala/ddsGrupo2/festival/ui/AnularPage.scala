@@ -12,14 +12,17 @@ import org.apache.wicket.markup.html.basic.Label
 import collection.JavaConversions._
 
 import ddsGrupo2.festival.model._
+import ddsGrupo2.festival.model.exception._
 
 class AnularPage extends TBasicPage {
   
-    val buttonAnular = new Button("anular") {
-      override def onSubmit() {
+    val buttonAnular = new ButtonAction[EntradaNoVendidaException](this, "anular", {() => this.entradaAnular()})
        
-     }
-    }
-	this.setUp(buttonAnular)
+	setUp(buttonAnular)
+	
+    def entradaAnular() {
+	  this.entrada.anularEntrada()
+	  this.info("Entrada anulada con éxito")
+	}
 
 }

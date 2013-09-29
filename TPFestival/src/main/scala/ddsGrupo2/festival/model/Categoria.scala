@@ -1,5 +1,7 @@
 package ddsGrupo2.festival.model
 
+import java.io.Serializable
+
 object Categoria {
     var instances: Map[Symbol, Categoria] = Map()
 
@@ -10,6 +12,6 @@ object Categoria {
     def crearCategoria(key: Symbol, valor: Int) = instances += key -> new Categoria(valor)
 }
 
-class Categoria(var valor: Int) {
+class Categoria(var valor: Int) extends Serializable {
     def getValor = valor
 }

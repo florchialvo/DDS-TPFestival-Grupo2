@@ -25,4 +25,9 @@ class EntradaBuilder(val festival:Festival) extends Serializable {
 	  fecha = new Fecha().fechaActual
 	  festival.vender(this.build)
 	}
+	
+	def anularEntrada(){
+	  fecha = new Fecha().fechaActual
+	  festival.cancelar(this.build)
+	}
 }

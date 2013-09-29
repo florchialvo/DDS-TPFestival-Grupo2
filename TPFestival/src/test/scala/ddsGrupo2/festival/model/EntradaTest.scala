@@ -213,5 +213,29 @@ class EntradaTest {
         rollings.cambiarCategoria(Categoria('categoria6))
         Assert.assertEquals(Categoria('categoria6), rollings.categoria)
     }
+
+    def anularUnaEntrada(entrada: Entrada) {
+        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha_))
+        
+        festival.vender(entrada)
+        Assert.assertTrue(festival.estaVendida(1, 'A', entrada.fecha_))
+
+        festival.cancelar(entrada)
+        Assert.assertFalse(festival.estaVendida(1, 'A', entrada.fecha_))
+    }
+    
+    @Test()
+    def testUnaPersonaIntentaAnularUnaEntradaYaVendida {
+      val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 1)
+      anularUnaEntrada(entrada)
+    }
+
+    @Test(expected = classOf[EntradaNoVendidaException])
+    def testUnaPersonaIntentaAnularUnaEntradaNoVendidaYRompe {
+      val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 1)
+      anularUnaEntrada(entrada)
+      festival.cancelar(entrada)
+    }
+
 }
 

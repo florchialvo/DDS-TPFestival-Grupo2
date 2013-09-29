@@ -45,7 +45,6 @@ class TBasicPage extends WebPage {
     def createModel: CompoundPropertyModel = {
 	    this.entrada = new EntradaBuilder(FestivalesHome.getFestival)
 	    new CompoundPropertyModel(this.entrada)
-	      
     }
     
 }

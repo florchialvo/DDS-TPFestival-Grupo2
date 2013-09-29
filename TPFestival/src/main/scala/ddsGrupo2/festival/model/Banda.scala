@@ -1,6 +1,8 @@
 package ddsGrupo2.festival.model
 
-class Banda(var categoria: Categoria) {
+import java.io.Serializable
+
+class Banda(var categoria: Categoria) extends Serializable{
 
     def getValorCategoria = categoria.getValor
 

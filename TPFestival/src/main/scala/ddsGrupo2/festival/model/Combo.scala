@@ -2,8 +2,9 @@ package ddsGrupo2.festival.model
 
 import ddsGrupo2.festival.model.exception.EntradaYaVendidaException
 import scala.collection.mutable.ArrayBuffer
+import java.io.Serializable
 
-class Combo(val unFestival: Festival) {
+class Combo(val unFestival: Festival) extends Serializable{
 
     val entradas: ArrayBuffer[Entrada] = ArrayBuffer()
 

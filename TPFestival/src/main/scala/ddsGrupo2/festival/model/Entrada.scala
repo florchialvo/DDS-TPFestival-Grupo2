@@ -1,8 +1,8 @@
 package ddsGrupo2.festival.model
-
+import java.io.Serializable
 
 class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona: TipoPersona,
-              sector: Char, fila: Int) {
+              sector: Char, fila: Int) extends Serializable{
     def fila_ = fila
     def sector_ = sector
     def fecha_ = noche.fecha_

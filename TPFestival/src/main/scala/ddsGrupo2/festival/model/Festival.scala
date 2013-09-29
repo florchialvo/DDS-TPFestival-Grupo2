@@ -1,25 +1,14 @@
 package ddsGrupo2.festival.model
 
-import ddsGrupo2.festival.model.exception.EntradaYaVendidaException
+import ddsGrupo2.festival.model.exception._
 import scala.collection.mutable.Set
 import org.uqbar.commons.utils.Observable
 import scala.collection.immutable.Map
-
-object Festival {
-  
-  def apply(valoresBase: Map[Char, Array[Int]], fechaVtoEntradasAnticipadas: Fecha) {
-	new Festival(valoresBase, fechaVtoEntradasAnticipadas)
-  }
-  
-  def apply() {
-	new Festival(AsientosHome.getAsientos() , new FechasHome().getFechaVtoAnticipadas())
-	
-  }
-  
-}
+import java.io.Serializable
 
 
-class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAnticipadas: Fecha) {
+
+class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAnticipadas: Fecha) extends Serializable {
 	
     var entradasVendidas: Set[Entrada] = Set()
     var noches: Set[Noche] = Set()
@@ -81,6 +70,8 @@ class Festival(var valoresBase: Map[Char, Array[Int]], var fechaVtoEntradasAntic
     }
 
     def cancelar(entrada: Entrada) = {
+        if (!this.estaVendida(entrada.fila_, entrada.sector_, entrada.fecha_))
+            throw new EntradaNoVendidaException("La entrada no puede anularse")
         entradasVendidas -= entrada
     }
 }

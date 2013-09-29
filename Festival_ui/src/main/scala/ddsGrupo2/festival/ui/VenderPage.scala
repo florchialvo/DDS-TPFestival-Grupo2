@@ -17,23 +17,16 @@ import ddsGrupo2.festival.model.exception._
 
 
 class VenderPage extends TBasicPage {
-  
-	val self = this
 	
-    val buttonVender = new Button("vender") {
-      override def onSubmit() {
-        try{
-          self.entradaAVender()
-        }catch{
-          case e: EntradaYaVendidaException =>
-          self.error(e.getMessage())
-        }
-      }
-    }
-	
+    val buttonVender = new ButtonAction[EntradaYaVendidaException](this, "vender", 
+        {() => this.entradaAVender()})
+       
 	setUp(buttonVender)
 	
-    def entradaAVender() = this.entrada.venderEntrada()
+    def entradaAVender() {
+	  this.entrada.venderEntrada()
+	  this.info("Entrada vendida con éxito")
+	}
     
     override def setUp(buttonVender: Button){
       super.setUp(buttonVender)

@@ -2,8 +2,9 @@ package ddsGrupo2.festival.model
 
 import java.util.Calendar
 import java.text.SimpleDateFormat
+import java.io.Serializable
 
-class Fecha(_dia: Int, _mes: Int, _anio: Int) {
+class Fecha(_dia: Int, _mes: Int, _anio: Int) extends Serializable{
 
     def this() = this(0, 0, 0)
 
