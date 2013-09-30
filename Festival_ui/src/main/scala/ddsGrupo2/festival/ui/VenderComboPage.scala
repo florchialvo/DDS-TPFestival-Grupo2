@@ -20,20 +20,35 @@ import ddsGrupo2.festival.model.exception._
 
 class VenderComboPage extends VenderPage {
 
-  val combo = new Combo(FestivalesHome.getFestival)
+  var combo = new Combo(FestivalesHome.getFestival)
  
+  val self = this
+  
   val botonCombo = new AjaxSubmitLink("agregarAlCombo") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form) {
-      agregarAlCombo()
+      try{ 
       destino.addComponent(panelFeedback);
+      agregarAlCombo()
+      }catch{
+        case e: EntradaYaAgregadaException =>
+        self.error(e.getMessage())
+        case e: EntradaYaVendidaException =>
+        self.error("La entrada no puede agregarse, ya está vendida")
+      }
     }
   }
   
  form.add(botonCombo)
  
   override def entradaAVender() {
+   if(!combo.estaVacio()){
     this.entrada.venderCombo(combo)
     this.info("El Combo fue vendido con éxito")
+    combo = new Combo(FestivalesHome.getFestival)
+    }else{
+      this.error("Debe agregar las entradas al combo antes de vender")
+    }
+   
   }
 
   def agregarAlCombo() {

@@ -140,13 +140,6 @@ class EntradaTest {
         combo.agregar(entrada5)
 
         festival.vender(combo)
-
-        Assert.assertEquals(true, combo.vendidas.contains(entrada))
-        Assert.assertEquals(true, combo.vendidas.contains(entrada2))
-        Assert.assertEquals(true, combo.vendidas.contains(entrada3))
-        Assert.assertEquals(true, combo.vendidas.contains(entrada4))
-        Assert.assertEquals(true, combo.vendidas.contains(entrada5))
-
         Assert.assertEquals(true, festival.entradasVendidas.contains(entrada))
         Assert.assertEquals(true, festival.entradasVendidas.contains(entrada2))
         Assert.assertEquals(true, festival.entradasVendidas.contains(entrada3))
@@ -154,7 +147,7 @@ class EntradaTest {
         Assert.assertEquals(true, festival.entradasVendidas.contains(entrada5))
     }
 
-    @Test(expected = classOf[EntradaYaVendidaException])
+    @Test(expected = classOf[EntradaYaAgregadaException])
     def testSeVendeUnComboCon2EntradasRepetidasSeProduceLaExcepcion() {
         var combo = new Combo(festival)
 
@@ -165,37 +158,6 @@ class EntradaTest {
         combo.agregar(entrada2)
         combo.agregar(entrada2)
 
-        festival.vender(combo)
-    }
-
-    @Test
-    def testSeVendeUnComboCon2EntradasRepetidasSeProduceRollback() {
-        var combo = new Combo(festival)
-
-        var entrada = festival.nuevaEntrada(0, 'A', 1, new Fecha(2, 10, 2013), Mayor)
-        var entrada2 = festival.nuevaEntrada(1, 'A', 1, new Fecha(2, 10, 2013), Mayor)
-        var entrada3 = festival.nuevaEntrada(2, 'A', 1, new Fecha(2, 10, 2013), Mayor)
-        var entrada4 = festival.nuevaEntrada(0, 'B', 1, new Fecha(2, 10, 2013), Mayor)
-        var entrada5 = festival.nuevaEntrada(1, 'B', 1, new Fecha(2, 10, 2013), Mayor)
-
-        combo.agregar(entrada)
-        combo.agregar(entrada2)
-        combo.agregar(entrada2)
-        combo.agregar(entrada3)
-        combo.agregar(entrada4)
-        combo.agregar(entrada5)
-
-        try {
-            festival.vender(combo)
-        } catch {
-            case e: EntradaYaVendidaException => {
-                Assert.assertEquals(true, !(festival.entradasVendidas.contains(entrada)))
-                Assert.assertEquals(true, !(festival.entradasVendidas.contains(entrada2)))
-                Assert.assertEquals(true, !(festival.entradasVendidas.contains(entrada3)))
-                Assert.assertEquals(true, !(festival.entradasVendidas.contains(entrada4)))
-                Assert.assertEquals(true, !(festival.entradasVendidas.contains(entrada5)))
-            }
-        }
     }
 
     @Test

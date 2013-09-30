@@ -40,6 +40,8 @@ class EntradaBuilder(val festival: Festival) extends Serializable {
   }
 
   def venderCombo(unCombo: Combo) {
-    festival.vender(unCombo);
+    festival.vender(unCombo)
   }
+  
+ 
 }
