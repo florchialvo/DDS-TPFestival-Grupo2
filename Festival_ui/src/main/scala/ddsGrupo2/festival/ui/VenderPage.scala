@@ -30,4 +30,10 @@ class VenderPage extends EntradaBasicPage {
     super.setUp(buttonVender)
     this.addOptions()
   }
+
+
+  def addOptions() {
+    form.add(new DropDownChoice("tipoPersona", this.descuentosValidos))
+  }
+   
 }

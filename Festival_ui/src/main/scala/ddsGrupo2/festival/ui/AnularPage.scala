@@ -19,7 +19,6 @@ class AnularPage extends EntradaBasicPage {
     val buttonAnular = new ButtonAction[EntradaNoVendidaException](this, "anular", {() => this.entradaAnular()})
        
 	setUp(buttonAnular)
-	addOptions()
 	
     def entradaAnular() {
 	  this.entrada.anularEntrada()
