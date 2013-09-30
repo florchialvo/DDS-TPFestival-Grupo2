@@ -27,6 +27,10 @@ class EntradaBuilder(val festival: Festival) extends Serializable {
     precio = this.build.precio
   }
 
+  def calcularPrecioCombo(unCombo : Combo) {
+    precio = unCombo.precioTotal()
+  }
+  
   def venderEntrada() {
     festival.vender(this.build)
   }

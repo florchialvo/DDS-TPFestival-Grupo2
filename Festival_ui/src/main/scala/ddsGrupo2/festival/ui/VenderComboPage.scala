@@ -22,8 +22,9 @@ class VenderComboPage extends VenderPage {
 
   var combo = new Combo(FestivalesHome.getFestival)
  
-  val self = this
+  self = this
   
+   
   val botonCombo = new AjaxSubmitLink("agregarAlCombo") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form) {
       try{ 
@@ -54,5 +55,9 @@ class VenderComboPage extends VenderPage {
   def agregarAlCombo() {
     this.entrada.agregarEntradaAlCombo(combo)
     this.info(combo.entradas.map(ent => ent.nombre).toString)
+  }
+  
+  override def calcularPrecio(){
+    entrada.calcularPrecioCombo(combo)
   }
 }

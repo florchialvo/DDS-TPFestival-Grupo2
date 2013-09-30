@@ -25,3 +25,4 @@ class ButtonAction[T <: RuntimeException] (
   }
 
 }
+

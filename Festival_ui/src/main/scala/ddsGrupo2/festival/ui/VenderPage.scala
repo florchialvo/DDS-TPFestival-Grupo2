@@ -19,10 +19,12 @@ import ddsGrupo2.festival.model.exception._
 
 class VenderPage extends EntradaBasicPage {
 	val labelPrecio = new Label("precio")
+	var self = this
+	
 	
     val botonPrecio = new AjaxSubmitLink("calcularPrecio") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form) {
-      entrada.calcularPrecio()
+      self.calcularPrecio()
       destino.addComponent(labelPrecio);
     }
   }
@@ -32,6 +34,8 @@ class VenderPage extends EntradaBasicPage {
 
   setUp(buttonVender)
 
+  def calcularPrecio() = entrada.calcularPrecio()
+    
   def entradaAVender() {
     this.entrada.venderEntrada()
     this.info("Entrada vendida con exito")
