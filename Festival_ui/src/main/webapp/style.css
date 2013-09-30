@@ -1,0 +1,33 @@
+* {
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-color: #FFF;
+}
+
+.selectNum{
+	width: 60px;
+}
+
+#Contenedor {
+	width: 350px;
+	height: auto;
+	color: #000;
+	display: block;
+	border-color: #F5ECCE;
+	border-style: solid;
+	border-width: 5px;
+	margin-left: 20%;
+	margin-top: 1em;
+	padding: 10px;
+	border-radius: 10px;
+	text-align: center;
+	background-color: #F7F2E0;
+}
+
+#Contenedor p {
+	color: #000;
+}
