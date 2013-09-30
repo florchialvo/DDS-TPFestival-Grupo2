@@ -19,8 +19,10 @@ import ddsGrupo2.festival.model._
 
 class EntradaBasicPage extends WebPage {
 
-  var entrada: EntradaBuilder = null
+  var entrada: EntradaBuilder = new EntradaBuilder(FestivalesHome.getFestival)
   val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true);
+  val sectores: java.util.List[Char] =
+    new java.util.ArrayList[Char](entrada.festival.sectores)
   val form = new Form("entradaForm", this.createModel)
 
   val buttonVolver = new Button("volver") {
@@ -32,9 +34,13 @@ class EntradaBasicPage extends WebPage {
   def setUp(actionButton: Button) {
     form.add(panelFeedback)
     form.add(new DropDownChoice("fechaNoche", this.fechas))
+
+    val opcionesFilas: IModel = new FilasModel(entrada)
+    val opcionesButacas: IModel = new ButacasModel(entrada)
+
     val sector: DropDownChoice = new DropDownChoice("sector", this.sectores)
-    val filas: DropDownChoice = new DropDownChoice("fila", this.filas)
-    val butacas: DropDownChoice = new DropDownChoice("numButaca", this.butacas)
+    val filas: DropDownChoice = new DropDownChoice("fila", opcionesFilas)
+    val butacas: DropDownChoice = new DropDownChoice("numButaca", opcionesButacas)
 
     sector.setNullValid(false)
     filas.setNullValid(false)
@@ -56,30 +62,35 @@ class EntradaBasicPage extends WebPage {
     form.add(actionButton)
     this.add(form)
   }
-
-
-  def sectores: java.util.List[Char] =
-    new java.util.ArrayList[Char](entrada.festival.sectores)
-
+  
   def filas: java.util.List[Int] =
-    new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantFilas(entrada.sector)))
-
-  def butacas: java.util.List[Int] =
-    new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantButacas(entrada.sector, entrada.fila)))
+		  new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantFilas(entrada.sector)))
+		  
+		  def butacas: java.util.List[Int] =
+		  new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantButacas(entrada.sector, entrada.fila)))
 
   def fechas: java.util.List[Fecha] =
     new java.util.ArrayList[Fecha](entrada.festival.fechas)
 
   def descuentosValidos: java.util.List[TipoPersona] =
     new java.util.ArrayList[TipoPersona](entrada.festival.descuentosValidos)
-    
+
   def createModel: CompoundPropertyModel = {
-    this.entrada = new EntradaBuilder(FestivalesHome.getFestival)
     entrada.fechaNoche = this.fechas.head
-    entrada.sector = this.sectores.head
+    entrada.sector = sectores.head
     entrada.fila = this.filas.head
     entrada.numButaca = this.butacas.head
     entrada.tipoPersona = this.descuentosValidos.head
     new CompoundPropertyModel(this.entrada)
   }
+}
+
+class FilasModel(var entrada: EntradaBuilder) extends AbstractReadOnlyModel {
+  override def getObject(): java.util.List[Int] =
+    new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantFilas(entrada.sector)))
+}
+
+class ButacasModel(var entrada: EntradaBuilder) extends AbstractReadOnlyModel {
+  override def getObject(): java.util.List[Int] =
+    new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantButacas(entrada.sector, entrada.fila)))
 }
