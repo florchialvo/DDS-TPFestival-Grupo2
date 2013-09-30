@@ -12,25 +12,29 @@
 			<p>Noche:</p>
 			<select wicket:id="fechaNoche"></select>			
 			<p>Sector:
-			<select wicket:id="sector"></select>
-			Fila</p>
-			<select wicket:id="fila"></select>
-			<p>Butaca</p>			
-			<select wicket:id="numButaca"></select>
+			<select class="selectNum" wicket:id="sector"></select>
+			</p>
+			<p>Fila:
+			<select class="selectNum" wicket:id="fila"></select>
+			</p>
+			<p>
+			Butaca:	
+			<select class="selectNum" wicket:id="numButaca"></select>
+			</p>	
 			<p>Ingrese la categoria:</p>
-			<br />
 			<select wicket:id="tipoPersona"></select>
-			<a class="btn btn-warning icon-plus" href="#" wicket:id="calcularPrecio">Calcular Precio</a>			
+			<br />
+			<a class="btn btn-warning" href="#" wicket:id="calcularPrecio">Calcular Precio</a>			
 			<h3> 
  				<span wicket:id="precio" />
  			</h3>
+ 			<span wicket:id="feedback">[Feedback Panel]</span>
+			<input class="btn btn-warning" wicket:id="vender" type="submit" value="Vender" />
+			<input class="btn btn-danger" wicket:id="volver" type="submit" value="Volver" /> 			
 <!-- 			<div wicket:id="feedbackPanel"></div> -->
 <!-- 			<br /> <input type="submit" class="btn btn-warning" -->
 <!-- 				wicket:id="calcularPrecio" value="Calcular Precio"><br /> -->
 		</div>
-<input class="btn btn-warning icon-ok" wicket:id="vender" type="submit" value="Vender" />
-<input class="btn btn-warning icon-backward" wicket:id="volver" type="submit" value="Volver" />
-<div wicket:id="feedback">[Feedback Panel]</div>
 	</form>
 </body>
 </html>
