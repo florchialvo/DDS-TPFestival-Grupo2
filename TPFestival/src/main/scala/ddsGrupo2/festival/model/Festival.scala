@@ -61,10 +61,13 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
             persona.esPosibleEn(this)
     }
 
-    def cancelar(entrada: Entrada) = {
+    def validarEntradaNoVendida(entrada: Entrada) =
         if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
             throw new EntradaNoVendidaException("La entrada no puede anularse")
-        entradasVendidas -= entrada
+
+    def cancelar(entrada: Entrada) = {
+    	validarEntradaNoVendida(entrada)
+    	entradasVendidas -= entrada
     }
     
 //    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco

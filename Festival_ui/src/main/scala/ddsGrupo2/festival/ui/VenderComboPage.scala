@@ -21,15 +21,16 @@ import ddsGrupo2.festival.model.exception._
 class VenderComboPage extends VenderPage {
 
   val combo = new Combo(FestivalesHome.getFestival)
-  form.add(botonCombo)
-
+ 
   val botonCombo = new AjaxSubmitLink("agregarAlCombo") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form) {
       agregarAlCombo()
       destino.addComponent(panelFeedback);
     }
   }
-
+  
+ form.add(botonCombo)
+ 
   override def entradaAVender() {
     this.entrada.venderCombo(combo)
     this.info("El Combo fue vendido con éxito")

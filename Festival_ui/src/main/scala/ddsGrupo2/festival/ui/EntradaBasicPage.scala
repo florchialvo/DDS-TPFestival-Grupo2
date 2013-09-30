@@ -57,12 +57,6 @@ class EntradaBasicPage extends WebPage {
     this.add(form)
   }
 
-  def addOptions() {
-    form.add(new DropDownChoice("tipoPersona", this.descuentosValidos))
-  }
-
-  def descuentosValidos: java.util.List[TipoPersona] =
-    new java.util.ArrayList[TipoPersona](entrada.festival.descuentosValidos)
 
   def sectores: java.util.List[Char] =
     new java.util.ArrayList[Char](entrada.festival.sectores)
@@ -76,6 +70,9 @@ class EntradaBasicPage extends WebPage {
   def fechas: java.util.List[Fecha] =
     new java.util.ArrayList[Fecha](entrada.festival.fechas)
 
+  def descuentosValidos: java.util.List[TipoPersona] =
+    new java.util.ArrayList[TipoPersona](entrada.festival.descuentosValidos)
+    
   def createModel: CompoundPropertyModel = {
     this.entrada = new EntradaBuilder(FestivalesHome.getFestival)
     entrada.fechaNoche = this.fechas.head
