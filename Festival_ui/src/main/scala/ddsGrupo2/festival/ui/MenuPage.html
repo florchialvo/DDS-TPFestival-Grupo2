@@ -5,17 +5,15 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
-
-<title>Aplicación Festival</title>
+<title>Aplicacion Festival</title>
 <body>
-   
-    <form wicket:id="form">
-    <span wicket:id="label" class="text">this text will be replaced</span>
-        <input wicket:id="vender" type="submit" value="Vender Entrada" />
-        <input wicket:id="vender_combo" type="submit" value="Vender Combo" />
-        <input wicket:id="anular" type="submit" value="Anular Entrada" />
-    </form>
-
+	<div id="Contenedor">
+	    <form wicket:id="form">
+		    <h4 wicket:id="label" class="text" />
+		    <p><input class="btn btn-info" wicket:id="vender" type="submit" value="Vender Entrada" /></p>
+		    <p><input class="btn btn-info" wicket:id="vender_combo" type="submit" value="Vender Combo" /></p>
+		    <p><input class="btn btn-info" wicket:id="anular" type="submit" value="Anular Entrada" /></p>
+	    </form>
+	</div>
 </body>
-
 </html>

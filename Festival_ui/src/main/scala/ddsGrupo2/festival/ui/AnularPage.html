@@ -12,22 +12,13 @@
 			<h2>Anular Entrada</h2>
 			<p>Noche:</p>
 			<select wicket:id="fechaNoche"></select>			
-			<p>Sector:</p>
-			<select wicket:id="sector"></select>
-			<p>Fila</p>
-			<select wicket:id="fila"></select>
-			<p>Butaca</p>			
-			<select wicket:id="numButaca"></select>
-<!-- 			<div wicket:id="feedbackPanel"></div> -->
-<!-- 			<br /> <input type="submit" class="btn btn-warning" -->
-<!-- 				wicket:id="calcularPrecio" value="Calcular Precio"><br /> -->
-<!-- 			<h3> -->
-<!-- 				<span wicket:id="precio" /> -->
-<!-- 			</h3> -->
-<!--  -->		</div>
-<input class="btn btn-warning  icon-remove" wicket:id="anular" type="submit" value="Anular" />
-<input class="btn btn-warning icon-backward" wicket:id="volver" type="submit" value="Volver" />
-<div wicket:id="feedback">[Feedback Panel]</div>
+			<p>Sector: <select wicket:id="sector"></select></p>
+			<p>Fila: <select wicket:id="fila"></select></p>
+			<p>Butaca: <select wicket:id="numButaca"></select></p>			
+			<input class="btn btn-warning" wicket:id="anular" type="submit" value="Anular" />
+			<input class="btn btn-danger" wicket:id="volver" type="submit" value="Volver" />
+			<span wicket:id="feedback">[Feedback Panel]</span>
+		</div>
 	</form>
 </body>
 </html>
