@@ -20,7 +20,7 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
 
     def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila)._1
     
-    def cantButacas(fila: Int, sector: Char): Int = valoresBase(sector)(fila)._2
+    def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila)._2
     def cantFilas(sector: Char): Int = valoresBase(sector).length
 
     def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =

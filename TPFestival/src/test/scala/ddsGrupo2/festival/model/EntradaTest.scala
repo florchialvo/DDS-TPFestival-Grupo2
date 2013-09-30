@@ -237,6 +237,11 @@ class EntradaTest {
       anularUnaEntrada(entrada)
       festival.cancelar(entrada)
     }
+    
+    @Test
+    def testLaCantidadDeButacasDelSectorBFila1Es10 {
+      Assert.assertEquals(10, festival.cantButacas('B', 1))
+    }
 
 }
 
