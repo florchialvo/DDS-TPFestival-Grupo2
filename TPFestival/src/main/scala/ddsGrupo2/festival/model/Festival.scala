@@ -7,72 +7,77 @@ import scala.collection.immutable.Map
 import java.io.Serializable
 
 class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntradasAnticipadas: Fecha) extends Serializable {
-	
-    var entradasVendidas: Set[Entrada] = Set()
-    var noches: Set[Noche] = Set()
-    var descuentosValidos: Set[TipoPersona] = Set() 
-    
-    def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
-    def fechas = noches.map(n => n.fecha)
-        
-    def agregarNoche(n: Noche) = noches += n
-    def agregarDescuento(t : TipoPersona) = descuentosValidos += t
 
-    def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila)._1
-    
-    def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila)._2
-    def cantFilas(sector: Char): Int = valoresBase(sector).length
+  var entradasVendidas: Set[Entrada] = Set()
+  var noches: Set[Noche] = Set()
+  var descuentosValidos: Set[TipoPersona] = Set()
 
-    def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
-        entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha))
+  def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
+  def fechas = noches.map(n => n.fecha)
 
-    def esAnticipada = !(new Fecha().fechaActual > fechaVtoEntradasAnticipadas)
+  def agregarNoche(n: Noche) = noches += n
+  def agregarDescuento(t: TipoPersona) = descuentosValidos += t
 
-    def vender(entrada: Entrada) {
-        validarEntrada(entrada)
-        entradasVendidas += entrada
-    }
+  def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila)._1
 
-    def vender(unCombo: Combo): Unit = {
-        unCombo.venderEn(this)
-    }
-    
-    def noche(unaFecha: Fecha): Noche = noches.find(_.correspondeA(unaFecha)).get
+  def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila)._2
+  def cantFilas(sector: Char): Int = valoresBase(sector).length
 
-    def validarEntrada(entrada: Entrada) =
-        if (this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
-            throw new EntradaYaVendidaException("La entrada ya está vendida")
+  def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
+    entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha))
 
-    def porcentajeVendidoDamas = 
-          if(entradasTotales == 0) 0 
-          else entradasVendidas.count(_.persona == Dama) / this.entradasTotales * 100
-       
-    def entradasTotales = entradasVendidas.size
+  def esAnticipada = !(new Fecha().fechaActual > fechaVtoEntradasAnticipadas)
 
-    def descuento(persona: TipoPersona, valorBase: Int): Double = {
-        if (this.esPosibleDescuento(persona))
-            persona.descuento(valorBase)
-        else
-            Mayor.descuento(valorBase)
-    }
-    
-    def esPosibleDescuento(persona: TipoPersona): Boolean = {
-        descuentosValidos.contains(persona) &&
-            persona.esPosibleEn(this)
-    }
+  def vender(entrada: Entrada) {
+    validarEntrada(entrada)
+    entradasVendidas += entrada
+  }
 
-    def cancelar(entrada: Entrada) = {
-        if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
-            throw new EntradaNoVendidaException("La entrada no puede anularse")
-        entradasVendidas -= entrada
-    }
-    
-//    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco
-//    porque lo usan todos los tests!   
-    def nuevaEntrada(fila: Int, sector: Char, numButaca: Int, fecha: Fecha, persona: TipoPersona) = {
-        if (this.esAnticipada)
-            new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
-        else
-            new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
-    }
+  def vender(unCombo: Combo): Unit = {
+    unCombo.venderEn(this)
+  }
+
+  def noche(unaFecha: Fecha): Noche = noches.find(_.correspondeA(unaFecha)).get
+
+  def validarEntrada(entrada: Entrada) =
+    if (this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
+      throw new EntradaYaVendidaException("La entrada ya está vendida")
+
+  def porcentajeVendidoDamas =
+    if (entradasTotales == 0) 0
+    else entradasVendidas.count(_.persona == Dama) / this.entradasTotales * 100
+
+  def entradasTotales = entradasVendidas.size
+
+  def descuento(persona: TipoPersona, valorBase: Int): Double = {
+    if (this.esPosibleDescuento(persona))
+      persona.descuento(valorBase)
+    else
+      Mayor.descuento(valorBase)
+  }
+
+  def esPosibleDescuento(persona: TipoPersona): Boolean = {
+    descuentosValidos.contains(persona) &&
+      persona.esPosibleEn(this)
+  }
+
+  def validarEntradaNoVendida(entrada: Entrada) =
+    if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
+      throw new EntradaNoVendidaException("La entrada no puede anularse")
+
+  def cancelar(entrada: Entrada) = {
+    validarEntradaNoVendida(entrada)
+    entradasVendidas --=
+      entradasVendidas.filter(vendida => vendida.estasVendida(entrada.fila, entrada.sector,
+    		  				                                  entrada.numButaca, entrada.fecha))
+  }
+
+  //    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco
+  //    porque lo usan todos los tests!   
+  def nuevaEntrada(fila: Int, sector: Char, numButaca: Int, fecha: Fecha, persona: TipoPersona) = {
+    if (this.esAnticipada)
+      new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
+    else
+      new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
+  }
 }
