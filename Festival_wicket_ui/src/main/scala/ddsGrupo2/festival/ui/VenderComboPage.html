@@ -1,0 +1,42 @@
+<html
+	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
+<head>
+<link rel="stylesheet" type="text/css" href="bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Vender Entrada</title>
+</head>
+<body>
+	<form wicket:id="entradaForm">
+		<div id="Contenedor">
+			<h2>Vender Combo</h2>
+			<p>Noche:</p>
+			<select wicket:id="fechaNoche"></select>			
+			<p>Sector:
+			<select class="selectNum" wicket:id="sector"></select>
+			</p>
+			<p>Fila:
+			<select class="selectNum" wicket:id="fila"></select>
+			</p>
+			<p>
+			Butaca:	
+			<select class="selectNum" wicket:id="numButaca"></select>
+			</p>	
+			<p>Ingrese la categoria:</p>
+			<select wicket:id="tipoPersona"></select>
+			<br />
+			<a class="btn btn-warning" href="#" wicket:id="calcularPrecio">Calcular Precio</a>			
+			<h3> 
+ 				<span wicket:id="precio" />
+ 			</h3>
+ 			<p>Entradas en el Combo:</p>
+ 			<select class="entradaList" wicket:id="entradaSeleccionada"></select>
+ 			<span wicket:id="feedback">[Feedback Panel]</span>
+			<a class="btn btn-warning" href="#" wicket:id="agregarAlCombo">Agregar Al Combo</a>
+			<br />
+			<br />
+			<input class="btn btn-warning" wicket:id="vender" type="submit" value="Vender" />
+			<input class="btn btn-danger" wicket:id="volver" type="submit" value="Volver" />
+		</div>
+	</form>
+</body>
+</html>
