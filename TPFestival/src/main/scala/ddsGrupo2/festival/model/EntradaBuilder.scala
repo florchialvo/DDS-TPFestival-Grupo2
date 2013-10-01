@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Observable
 class EntradaBuilder(val festival: Festival) extends Serializable {
   var tipoPersona: TipoPersona = null
-  //TODO: hay que usar fechas validas del festival
   var fechaNoche: Fecha = (new Fecha).fechaActual()
   var sector: Char = 0
   var fila: Int = 0

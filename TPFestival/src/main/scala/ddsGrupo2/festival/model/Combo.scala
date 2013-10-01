@@ -12,18 +12,21 @@ class Combo(val unFestival: Festival) extends Serializable{
     def agregar(entrada: Entrada) {
       unFestival.validarEntrada(entrada)
       if(entradas.exists(e => e.estasVendida(entrada.fila, 
-          entrada.sector,entrada.numButaca, entrada.fecha))) throw new EntradaYaAgregadaException("La entrada no puede agregarse al combo")
+          entrada.sector,entrada.numButaca, entrada.fecha))) throw new EntradaYaAgregadaException("La entrada no puede agregarse al combo, ya está vendida")
       entradas += entrada
     }
       
     def precioTotal(): Double = entradas.map(_.precio).sum
 
     def venderEn(unFestival: Festival) = {
+      if(!this.estaVacio()){
             for (entrada <- entradas) {
                 unFestival.vender(entrada) 
             }
+        }else{
+          throw new ComboVacioException("Deben agregarse las entradas al combo antes de venderse")
         }
-
+    }
 
     def descuento(): Double = if (this.precioTotal > 1000) 0.1 else 0
 

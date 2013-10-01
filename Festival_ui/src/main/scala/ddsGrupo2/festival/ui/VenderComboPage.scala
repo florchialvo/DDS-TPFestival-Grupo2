@@ -38,7 +38,7 @@ class VenderComboPage extends VenderPage {
         case e: EntradaYaAgregadaException =>
           self.error(e.getMessage())
         case e: EntradaYaVendidaException =>
-          self.error("La entrada no puede agregarse, ya esta vendida")
+          self.error("La entrada no puede agregarse, ya está vendida")
       }
     }
   }
@@ -49,15 +49,16 @@ class VenderComboPage extends VenderPage {
   listaEntradas.setOutputMarkupId(true)
 
   override def entradaAVender() {
-    if (!combo.estaVacio()) {
+   try{
       this.entrada.venderCombo(combo)
       this.info("El Combo fue vendido con exito")
       combo = new Combo(FestivalesHome.getFestival)
       entradaSeleccionada = ""
       //Reinicio la lista
       listaEntradas.setChoices(new EntradasModel(combo))
-    } else {
-      this.error("Debe agregar las entradas al combo antes de vender")
+    }catch{
+      case e: ComboVacioException =>
+        this.error(e.getMessage())
     }
   }
 
