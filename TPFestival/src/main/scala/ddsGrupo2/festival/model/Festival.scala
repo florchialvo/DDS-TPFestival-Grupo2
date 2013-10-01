@@ -65,7 +65,7 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
 
   def validarEntradaNoVendida(entrada: Entrada) =
     if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
-      throw new EntradaNoVendidaException("La entrada no puede anularse, ya ha sido vendida")
+      throw new EntradaNoVendidaException("La entrada no puede anularse, no ha sido vendida")
 
   def cancelar(entrada: Entrada) = {
     validarEntradaNoVendida(entrada)
