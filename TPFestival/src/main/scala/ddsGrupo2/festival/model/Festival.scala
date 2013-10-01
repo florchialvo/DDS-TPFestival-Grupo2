@@ -18,9 +18,11 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   def agregarNoche(n: Noche) = noches += n
   def agregarDescuento(t: TipoPersona) = descuentosValidos += t
 
-  def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila)._1
+  //fila-1 porque el indice empieza en 0
+  def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila-1)._1
 
-  def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila)._2
+  def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila-1)._2
+  
   def cantFilas(sector: Char): Int = valoresBase(sector).length
 
   def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
