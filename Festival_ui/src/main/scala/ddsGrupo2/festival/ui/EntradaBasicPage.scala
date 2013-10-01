@@ -62,12 +62,12 @@ class EntradaBasicPage extends WebPage {
     form.add(actionButton)
     this.add(form)
   }
-  
+
   def filas: java.util.List[Int] =
-		  new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantFilas(entrada.sector)))
-		  
-		  def butacas: java.util.List[Int] =
-		  new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantButacas(entrada.sector, entrada.fila)))
+    new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantFilas(entrada.sector)))
+
+  def butacas: java.util.List[Int] =
+    new java.util.ArrayList[Int](List.range(1, 1 + entrada.festival.cantButacas(entrada.sector, entrada.fila)))
 
   def fechas: java.util.List[Fecha] =
     new java.util.ArrayList[Fecha](entrada.festival.fechas)

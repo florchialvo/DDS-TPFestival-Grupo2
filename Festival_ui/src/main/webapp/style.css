@@ -12,6 +12,10 @@ body {
 	width: 60px;
 }
 
+.entradaList{
+	width: 315px;
+}
+
 #Contenedor {
 	width: 350px;
 	height: auto;

@@ -21,43 +21,57 @@ import ddsGrupo2.festival.model.exception._
 class VenderComboPage extends VenderPage {
 
   var combo = new Combo(FestivalesHome.getFestival)
- 
   self = this
-  
-   
+
+  //Solo para mostrar la lista
+  var entradaSeleccionada: String = ""
+  val listaEntradas: ListChoice = new ListChoice("entradaSeleccionada",
+		  										 new PropertyModel(this, "entradaSeleccionada"),
+		  										 new EntradasModel(combo))
+
   val botonCombo = new AjaxSubmitLink("agregarAlCombo") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form) {
-      try{ 
-      destino.addComponent(panelFeedback);
-      agregarAlCombo()
-      }catch{
+      try {
+        destino.addComponent(panelFeedback);
+        agregarAlCombo(destino)
+      } catch {
         case e: EntradaYaAgregadaException =>
-        self.error(e.getMessage())
+          self.error(e.getMessage())
         case e: EntradaYaVendidaException =>
-        self.error("La entrada no puede agregarse, ya está vendida")
+          self.error("La entrada no puede agregarse, ya esta vendida")
       }
     }
   }
-  
- form.add(botonCombo)
- 
+
+  form.add(botonCombo)
+  form.add(listaEntradas)
+  listaEntradas.setNullValid(false)
+  listaEntradas.setOutputMarkupId(true)
+
   override def entradaAVender() {
-   if(!combo.estaVacio()){
-    this.entrada.venderCombo(combo)
-    this.info("El Combo fue vendido con éxito")
-    combo = new Combo(FestivalesHome.getFestival)
-    }else{
+    if (!combo.estaVacio()) {
+      this.entrada.venderCombo(combo)
+      this.info("El Combo fue vendido con exito")
+      combo = new Combo(FestivalesHome.getFestival)
+      entradaSeleccionada = ""
+      //Reinicio la lista
+      listaEntradas.setChoices(new EntradasModel(combo))
+    } else {
       this.error("Debe agregar las entradas al combo antes de vender")
     }
-   
   }
 
-  def agregarAlCombo() {
+  def agregarAlCombo(destino: AjaxRequestTarget) {
     this.entrada.agregarEntradaAlCombo(combo)
-    this.info(combo.entradas.map(ent => ent.nombre).toString)
+    destino.addComponent(listaEntradas)
   }
-  
-  override def calcularPrecio(){
+
+  override def calcularPrecio() {
     entrada.calcularPrecioCombo(combo)
   }
+}
+
+class EntradasModel(var combo: Combo) extends AbstractReadOnlyModel {
+  override def getObject(): java.util.List[String] =
+    new java.util.ArrayList[String](combo.entradas.map(ent => ent.nombre))
 }
