@@ -18,24 +18,23 @@ import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
 class VenderPage extends EntradaBasicPage {
-	val labelPrecio = new Label("precio")
-	var self = this
-	
-	
-    val botonPrecio = new AjaxSubmitLink("calcularPrecio") {
-    override def onSubmit(destino: AjaxRequestTarget, form: Form) {
+  val labelPrecio = new Label("precio")
+  var self = this
+
+  val botonPrecio = new AjaxSubmitLink("calcularPrecio") {
+    override def onSubmit(destino: AjaxRequestTarget, form: Form[_]) {
       self.calcularPrecio()
-      destino.addComponent(labelPrecio);
+      destino.add(labelPrecio);
     }
   }
-  
+
   val buttonVender = new ButtonAction[EntradaYaVendidaException](this, "vender",
     { () => this.entradaAVender() })
 
   setUp(buttonVender)
 
   def calcularPrecio() = entrada.calcularPrecio()
-    
+
   def entradaAVender() {
     this.entrada.venderEntrada()
     this.info("Entrada vendida con exito")
@@ -46,12 +45,11 @@ class VenderPage extends EntradaBasicPage {
     this.addOptions()
   }
 
-
   def addOptions() {
-    form.add(new DropDownChoice("tipoPersona", this.descuentosValidos))
+    form.add(new DropDownChoice("tipoPersona", new ComponentPropertyModel("descuentosValidos")))
     form.add(botonPrecio)
     form.add(labelPrecio)
     labelPrecio.setOutputMarkupId(true)
   }
-   
+
 }

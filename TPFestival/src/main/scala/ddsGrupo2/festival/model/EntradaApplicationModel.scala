@@ -1,6 +1,7 @@
 package ddsGrupo2.festival.model
 
 import org.uqbar.commons.utils.Observable
+import collection.JavaConversions._
 
 import java.io.Serializable;
 
@@ -22,12 +23,11 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
       new Entrada(festival, festival.valorBase(fila, sector), festival.noche(fechaNoche), tipoPersona, sector, fila, numButaca)
   }
 
-  
   def calcularPrecio() {
     precio = EntradaApplicationModel.this.build.precio
   }
 
-  def calcularPrecioCombo(unCombo : Combo) {
+  def calcularPrecioCombo(unCombo: Combo) {
     precio = unCombo.precioTotal()
   }
   
@@ -46,13 +46,13 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
   def venderCombo(unCombo: Combo) {
     festival.vender(unCombo)
   }
-  
-  def sectores = festival.sectores
-  def filas = List.range(1, 1 + this.cantFilas)
-  def butacas = List.range(1, 1 + this.cantButacas)
-  
+
+  def sectores: java.util.List[Char] = festival.sectores.toList
+  def filas: java.util.List[Int] = List.range(1, 1 + this.cantFilas)
+  def butacas: java.util.List[Int] = List.range(1, 1 + this.cantButacas)
+  def fechas: java.util.List[Fecha] = festival.fechas.toList
+  def descuentosValidos: java.util.List[TipoPersona] = festival.descuentosValidos.toList
+
   def cantFilas = festival.cantFilas(sector)
   def cantButacas = festival.cantButacas(sector, fila)
-  def fechas = festival.fechas
-  def descuentosValidos = festival.descuentosValidos
 }

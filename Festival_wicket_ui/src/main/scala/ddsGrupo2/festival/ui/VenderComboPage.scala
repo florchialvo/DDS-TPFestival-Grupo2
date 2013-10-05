@@ -25,14 +25,14 @@ class VenderComboPage extends VenderPage {
 
   //Solo para mostrar la lista
   var entradaSeleccionada: String = ""
-  val listaEntradas: ListChoice = new ListChoice("entradaSeleccionada",
-		  										 new PropertyModel(this, "entradaSeleccionada"),
-		  										 new EntradasModel(combo))
+  val listaEntradas: ListChoice[String] = new ListChoice("entradaSeleccionada",
+    new PropertyModel[String](this, "entradaSeleccionada"),
+    new EntradasModel(combo))
 
   val botonCombo = new AjaxSubmitLink("agregarAlCombo") {
-    override def onSubmit(destino: AjaxRequestTarget, form: Form) {
+    override def onSubmit(destino: AjaxRequestTarget, form: Form[_]) {
       try {
-        destino.addComponent(panelFeedback);
+        destino.add(panelFeedback);
         agregarAlCombo(destino)
       } catch {
         case e: EntradaYaAgregadaException =>
@@ -49,7 +49,7 @@ class VenderComboPage extends VenderPage {
   listaEntradas.setOutputMarkupId(true)
 
   override def entradaAVender() {
-   try{
+    try {
       this.entrada.venderCombo(combo)
       this.info("El Combo fue vendido con exito")
       combo = new Combo(FestivalesHome.getFestival)
@@ -58,13 +58,13 @@ class VenderComboPage extends VenderPage {
       listaEntradas.setChoices(new EntradasModel(combo))
     } catch {
       case e: ComboVacioException =>
-          this.error(e.getMessage())
+        this.error(e.getMessage())
     }
   }
 
   def agregarAlCombo(destino: AjaxRequestTarget) {
     this.entrada.agregarEntradaAlCombo(combo)
-    destino.addComponent(listaEntradas)
+    destino.add(listaEntradas)
   }
 
   override def calcularPrecio() {
@@ -72,7 +72,6 @@ class VenderComboPage extends VenderPage {
   }
 }
 
-class EntradasModel(var combo: Combo) extends AbstractReadOnlyModel {
-  override def getObject(): java.util.List[String] =
-    new java.util.ArrayList[String](combo.entradas.map(ent => ent.nombre))
+class EntradasModel(var combo: Combo) extends AbstractReadOnlyModel[java.util.List[String]] {
+  override def getObject(): java.util.List[String] = combo.entradas.map(ent => ent.nombre)
 }

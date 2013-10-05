@@ -13,16 +13,12 @@ import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 
-import collection.JavaConversions._
-
 import ddsGrupo2.festival.model._
 
 class EntradaBasicPage extends WebPage {
 
   var entrada: EntradaApplicationModel = new EntradaApplicationModel(FestivalesHome.getFestival)
   val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true);
-  val sectores: java.util.List[Char] =
-    new java.util.ArrayList[Char](entrada.sectores)
   val form = new Form("entradaForm", this.createModel)
 
   val buttonVolver = new Button("volver") {
@@ -33,14 +29,11 @@ class EntradaBasicPage extends WebPage {
 
   def setUp(actionButton: Button) {
     form.add(panelFeedback)
-    form.add(new DropDownChoice("fechaNoche", this.fechas))
+    form.add(new DropDownChoice("fechaNoche", new ComponentPropertyModel("fechas")))
 
-    val opcionesFilas: IModel = new FilasModel(entrada)
-    val opcionesButacas: IModel = new ButacasModel(entrada)
-
-    val sector: DropDownChoice = new DropDownChoice("sector", this.sectores)
-    val filas: DropDownChoice = new DropDownChoice("fila", opcionesFilas)
-    val butacas: DropDownChoice = new DropDownChoice("numButaca", opcionesButacas)
+    val sector: DropDownChoice[Char] = new DropDownChoice("sector", new ComponentPropertyModel("sectores"))
+    val filas: DropDownChoice[Int] = new DropDownChoice("fila", new ComponentPropertyModel("filas"))
+    val butacas: DropDownChoice[Int] = new DropDownChoice("numButaca", new ComponentPropertyModel("butacas"))
 
     sector.setNullValid(false)
     filas.setNullValid(false)
@@ -54,38 +47,16 @@ class EntradaBasicPage extends WebPage {
     form.add(butacas)
     sector.add(new AjaxFormComponentUpdatingBehavior("onchange") {
       override def onUpdate(target: AjaxRequestTarget) = {
-        target.addComponent(filas)
-        target.addComponent(butacas)
+        target.add(filas)
+        target.add(butacas)
       }
     })
     form.add(buttonVolver)
     form.add(actionButton)
     this.add(form)
   }
-
-  def filas: java.util.List[Int] =
-    new java.util.ArrayList[Int](entrada.filas)
-
-  def butacas: java.util.List[Int] =
-    new java.util.ArrayList[Int](entrada.butacas)
-
-  def fechas: java.util.List[Fecha] =
-    new java.util.ArrayList[Fecha](entrada.fechas)
-
-  def descuentosValidos: java.util.List[TipoPersona] =
-    new java.util.ArrayList[TipoPersona](entrada.descuentosValidos)
-
-  def createModel: CompoundPropertyModel = {
+  
+  def createModel: CompoundPropertyModel[EntradaApplicationModel] = {
     new CompoundPropertyModel(this.entrada)
   }
-}
-
-class FilasModel(var entrada: EntradaApplicationModel) extends AbstractReadOnlyModel {
-  override def getObject(): java.util.List[Int] =
-    new java.util.ArrayList[Int](List.range(1, 1 + entrada.cantFilas))
-}
-
-class ButacasModel(var entrada: EntradaApplicationModel) extends AbstractReadOnlyModel {
-  override def getObject(): java.util.List[Int] =
-    new java.util.ArrayList[Int](List.range(1, 1 + entrada.cantButacas))
 }

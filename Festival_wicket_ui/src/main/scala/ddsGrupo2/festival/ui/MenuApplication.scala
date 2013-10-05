@@ -6,13 +6,14 @@ import org.apache.wicket.markup.html._
 import org.apache.wicket.markup.html.form._
 import org.apache.wicket.model.PropertyModel
 import org.apache.wicket.markup.html.basic.Label
+import ddsGrupo2.festival.model.EntradaApplicationModel
 
 class MenuApplication extends WebApplication { 
    def getHomePage = classOf[MenuPage]
 }
 
 class MenuPage extends WebPage{
-   val form = new Form("form")
+   val form = new Form[EntradaApplicationModel]("form")
    val buttonVender = new Button("vender") {
      override def onSubmit() {
        this.setResponsePage(classOf[VenderPage])
@@ -38,13 +39,13 @@ class MenuPage extends WebPage{
    add(form)
    
 
-   def addActions(form : Form){
+   def addActions(form: Form[EntradaApplicationModel]){
      form.add(buttonVender)
      form.add(buttonAnular)
      form.add(buttonCombo)
    }
    
-   def addFields(form: Form){
+   def addFields(form: Form[EntradaApplicationModel]){
      val label = new Label("label", "Elija una operación a realizar")
      form.add(label)
      

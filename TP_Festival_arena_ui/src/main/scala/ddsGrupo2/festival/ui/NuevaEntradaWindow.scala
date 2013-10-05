@@ -34,13 +34,12 @@ class NuevaEntradaWindow(owner: WindowOwner, model: EntradaApplicationModel) ext
     new Label(form).setText("Categoria:")
     var selectorTipoPersona = new Selector[TipoPersona](form)
     selectorTipoPersona.allowNull(false)
-    selectorTipoPersona.bindItems(new ObservableProperty(this, "descuentosValidos"))
+    selectorTipoPersona.bindItemsToProperty("descuentosValidos")
     selectorTipoPersona.bindValueToProperty("tipoPersona")
     new Label(form).setText("Precio Total")
     var precio = new Label(form)
     precio.setWidth(100)
     precio.bindValueToProperty("precio")
-
   }
 
   override def addActions(actions: Panel) = {
@@ -49,7 +48,4 @@ class NuevaEntradaWindow(owner: WindowOwner, model: EntradaApplicationModel) ext
       .onClick(new MessageSend(this.getModelObject(), "calcularPrecio"))
       .setAsDefault.disableOnError
   }
-
-  def descuentosValidos: java.util.Set[TipoPersona] = model.descuentosValidos
-
 }
