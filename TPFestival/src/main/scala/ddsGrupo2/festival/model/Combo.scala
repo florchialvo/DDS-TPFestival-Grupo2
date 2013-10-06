@@ -16,7 +16,16 @@ class Combo(val unFestival: Festival) extends Serializable{
       entradas += entrada
     }
     
-    def quitar ( nombreEntrada:String) = entradas -= entradas.filter(elem => (elem.nombre.toString() == nombreEntrada)).head
+    def quitar ( nombreEntrada:String) =
+      {
+      
+      val entradasEncontradas=  entradas.filter(elem => (elem.nombre.toString() == nombreEntrada))
+      
+      if (entradasEncontradas.size>0)
+      entradas -= entradasEncontradas.head
+      
+      }
+      
       
     def precioTotal(): Double = entradas.map(_.precio).sum
 
