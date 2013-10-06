@@ -15,6 +15,8 @@ class Combo(val unFestival: Festival) extends Serializable{
           entrada.sector,entrada.numButaca, entrada.fecha))) throw new EntradaYaAgregadaException("La entrada no puede agregarse al combo, ya ha sido agregada")
       entradas += entrada
     }
+    
+    def quitar ( nombreEntrada:String) = entradas -= entradas.filter(elem => (elem.nombre.toString() == nombreEntrada)).head
       
     def precioTotal(): Double = entradas.map(_.precio).sum
 

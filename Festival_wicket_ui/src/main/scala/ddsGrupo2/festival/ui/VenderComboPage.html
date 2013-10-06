@@ -24,14 +24,18 @@
 			<p>Ingrese la categoria:</p>
 			<select wicket:id="tipoPersona"></select>
 			<br />
-			<a class="btn btn-warning" href="#" wicket:id="calcularPrecio">Calcular Precio</a>			
+					
 			<h3> 
  				<span wicket:id="precio" />
  			</h3>
  			<p>Entradas en el Combo:</p>
  			<select class="entradaList" wicket:id="entradaSeleccionada"></select>
  			<span wicket:id="feedback">[Feedback Panel]</span>
+ 			<h3> 
+ 				<span wicket:id="precioCombo" />
+ 			</h3>
 			<a class="btn btn-warning" href="#" wicket:id="agregarAlCombo">Agregar Al Combo</a>
+			<a class="btn btn-warning" href="#" wicket:id="quitarDelCombo">Quitar Del Combo</a>
 			<br />
 			<br />
 			<input class="btn btn-warning" wicket:id="vender" type="submit" value="Vender" />

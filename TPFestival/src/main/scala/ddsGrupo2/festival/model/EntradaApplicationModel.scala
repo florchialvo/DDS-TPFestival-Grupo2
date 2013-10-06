@@ -15,6 +15,7 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
   var tipoPersona = this.descuentosValidos.head
 
   var precio: Double = 0
+  var precioCombo: Double = 0
 
   def build() = {
     if (festival.esAnticipada)
@@ -28,7 +29,7 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
   }
 
   def calcularPrecioCombo(unCombo: Combo) {
-    precio = unCombo.precioTotal()
+    precioCombo = unCombo.precioTotal()
   }
   
   def venderEntrada() {
@@ -43,6 +44,10 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
     unCombo.agregar(EntradaApplicationModel.this.build)
   }
 
+  def quitarEntradaDelCombo(nombreEntrada:String,unCombo: Combo) {
+    unCombo.quitar(nombreEntrada)
+  }
+    
   def venderCombo(unCombo: Combo) {
     festival.vender(unCombo)
   }

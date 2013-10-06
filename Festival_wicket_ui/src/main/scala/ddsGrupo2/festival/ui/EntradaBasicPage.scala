@@ -20,7 +20,19 @@ class EntradaBasicPage extends WebPage {
   var entrada: EntradaApplicationModel = new EntradaApplicationModel(FestivalesHome.getFestival)
   val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true);
   val form = new Form("entradaForm", this.createModel)
+  val sector: DropDownChoice[Char] = new DropDownChoice("sector", new ComponentPropertyModel("sectores"))
+  val filas: DropDownChoice[Int] = new DropDownChoice("fila", new ComponentPropertyModel("filas"))
+  val butacas: DropDownChoice[Int] = new DropDownChoice("numButaca", new ComponentPropertyModel("butacas"))
 
+    sector.setNullValid(false)
+    filas.setNullValid(false)
+    butacas.setNullValid(false)
+
+    butacas.setOutputMarkupId(true)
+    filas.setOutputMarkupId(true)
+    sector.setOutputMarkupId(true)
+  
+  
   val buttonVolver = new Button("volver") {
     override def onSubmit() {
       this.setResponsePage(classOf[MenuPage])
@@ -31,16 +43,8 @@ class EntradaBasicPage extends WebPage {
     form.add(panelFeedback)
     form.add(new DropDownChoice("fechaNoche", new ComponentPropertyModel("fechas")))
 
-    val sector: DropDownChoice[Char] = new DropDownChoice("sector", new ComponentPropertyModel("sectores"))
-    val filas: DropDownChoice[Int] = new DropDownChoice("fila", new ComponentPropertyModel("filas"))
-    val butacas: DropDownChoice[Int] = new DropDownChoice("numButaca", new ComponentPropertyModel("butacas"))
+   
 
-    sector.setNullValid(false)
-    filas.setNullValid(false)
-    butacas.setNullValid(false)
-
-    butacas.setOutputMarkupId(true)
-    filas.setOutputMarkupId(true)
 
     form.add(sector)
     form.add(filas)

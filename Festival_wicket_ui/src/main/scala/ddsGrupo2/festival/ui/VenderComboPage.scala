@@ -19,6 +19,11 @@ import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
 class VenderComboPage extends VenderPage {
+  
+   val labelPrecioCombo = new Label("precioCombo")
+    labelPrecioCombo.setOutputMarkupId(true)
+    
+    form.add(labelPrecioCombo)
 
   var combo = new Combo(FestivalesHome.getFestival)
   self = this
@@ -42,8 +47,17 @@ class VenderComboPage extends VenderPage {
       }
     }
   }
+   
+   val botonQuitarCombo = new AjaxSubmitLink("quitarDelCombo") {
+    override def onSubmit(destino: AjaxRequestTarget, form: Form[_]) {
+    
+    	quitarDelCombo(destino);
+    
+    }
+  }
 
   form.add(botonCombo)
+  form.add(botonQuitarCombo)
   form.add(listaEntradas)
   listaEntradas.setNullValid(false)
   listaEntradas.setOutputMarkupId(true)
@@ -64,12 +78,26 @@ class VenderComboPage extends VenderPage {
 
   def agregarAlCombo(destino: AjaxRequestTarget) {
     this.entrada.agregarEntradaAlCombo(combo)
+    this.actualizarPrecioCombo(destino)
     destino.add(listaEntradas)
   }
+  
+  def quitarDelCombo(destino: AjaxRequestTarget)
+  {
+     this.entrada.quitarEntradaDelCombo(this.entradaSeleccionada,combo)
+    this.actualizarPrecioCombo(destino)
+    destino.add(listaEntradas)
+  }
+  
+  def actualizarPrecioCombo(destino: AjaxRequestTarget){
+    this.calcularPrecioCombo()
+     destino.add(labelPrecioCombo)
+  }
 
-  override def calcularPrecio() {
+  def calcularPrecioCombo() {
     entrada.calcularPrecioCombo(combo)
   }
+  
 }
 
 class EntradasModel(var combo: Combo) extends AbstractReadOnlyModel[java.util.List[String]] {

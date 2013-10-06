@@ -18,20 +18,25 @@ import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
 class VenderPage extends EntradaBasicPage {
+  
   val labelPrecio = new Label("precio")
+    labelPrecio.setOutputMarkupId(true)
+    
   var self = this
+  val categorias = new DropDownChoice("tipoPersona", new ComponentPropertyModel("descuentosValidos"))
+  
+      categorias.setNullValid(false)
+      categorias.setOutputMarkupId(true)
+      
+      
 
-  val botonPrecio = new AjaxSubmitLink("calcularPrecio") {
-    override def onSubmit(destino: AjaxRequestTarget, form: Form[_]) {
-      self.calcularPrecio()
-      destino.add(labelPrecio);
-    }
-  }
-
+ 
   val buttonVender = new ButtonAction[EntradaYaVendidaException](this, "vender",
     { () => this.entradaAVender() })
 
   setUp(buttonVender)
+  
+  agregarListaComponentesParaActualizarPrecio(List(sector,filas,butacas,categorias))
 
   def calcularPrecio() = entrada.calcularPrecio()
 
@@ -46,10 +51,27 @@ class VenderPage extends EntradaBasicPage {
   }
 
   def addOptions() {
-    form.add(new DropDownChoice("tipoPersona", new ComponentPropertyModel("descuentosValidos")))
-    form.add(botonPrecio)
+    form.add(categorias)
+
     form.add(labelPrecio)
-    labelPrecio.setOutputMarkupId(true)
+  
   }
+  
+  
+  def agregarListaComponentesParaActualizarPrecio(list:List[FormComponent[_]])
+  {
+    for(elem <- list)
+    {
+    
+      elem.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+      override def onUpdate(target: AjaxRequestTarget) = {
+      self.calcularPrecio()
+      target.add(labelPrecio);
+      }
+    })
+    
+    } 
+  }
+
 
 }
