@@ -24,15 +24,14 @@ class EntradaBasicPage extends WebPage {
   val filas: DropDownChoice[Int] = new DropDownChoice("fila", new ComponentPropertyModel("filas"))
   val butacas: DropDownChoice[Int] = new DropDownChoice("numButaca", new ComponentPropertyModel("butacas"))
 
-    sector.setNullValid(false)
-    filas.setNullValid(false)
-    butacas.setNullValid(false)
+  sector.setNullValid(false)
+  filas.setNullValid(false)
+  butacas.setNullValid(false)
 
-    butacas.setOutputMarkupId(true)
-    filas.setOutputMarkupId(true)
-    sector.setOutputMarkupId(true)
-  
-  
+  butacas.setOutputMarkupId(true)
+  filas.setOutputMarkupId(true)
+  sector.setOutputMarkupId(true)
+
   val buttonVolver = new Button("volver") {
     override def onSubmit() {
       this.setResponsePage(classOf[MenuPage])
@@ -42,10 +41,6 @@ class EntradaBasicPage extends WebPage {
   def setUp(actionButton: Button) {
     form.add(panelFeedback)
     form.add(new DropDownChoice("fechaNoche", new ComponentPropertyModel("fechas")))
-
-   
-
-
     form.add(sector)
     form.add(filas)
     form.add(butacas)
@@ -59,7 +54,7 @@ class EntradaBasicPage extends WebPage {
     form.add(actionButton)
     this.add(form)
   }
-  
+
   def createModel: CompoundPropertyModel[EntradaApplicationModel] = {
     new CompoundPropertyModel(this.entrada)
   }

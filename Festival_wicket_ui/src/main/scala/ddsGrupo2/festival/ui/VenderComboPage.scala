@@ -19,11 +19,11 @@ import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
 class VenderComboPage extends VenderPage {
-  
-   val labelPrecioCombo = new Label("precioCombo")
-    labelPrecioCombo.setOutputMarkupId(true)
-    
-    form.add(labelPrecioCombo)
+
+  val labelPrecioCombo = new Label("precioCombo")
+  labelPrecioCombo.setOutputMarkupId(true)
+
+  form.add(labelPrecioCombo)
 
   var combo = new Combo(FestivalesHome.getFestival)
   self = this
@@ -47,12 +47,10 @@ class VenderComboPage extends VenderPage {
       }
     }
   }
-   
-   val botonQuitarCombo = new AjaxSubmitLink("quitarDelCombo") {
+
+  val botonQuitarCombo = new AjaxSubmitLink("quitarDelCombo") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form[_]) {
-    
-    	quitarDelCombo(destino);
-    
+      quitarDelCombo(destino);
     }
   }
 
@@ -62,7 +60,7 @@ class VenderComboPage extends VenderPage {
   listaEntradas.setNullValid(false)
   listaEntradas.setOutputMarkupId(true)
 
-  override def entradaAVender() {
+  override def vender() {
     try {
       this.entrada.venderCombo(combo)
       this.info("El Combo fue vendido con exito")
@@ -81,23 +79,22 @@ class VenderComboPage extends VenderPage {
     this.actualizarPrecioCombo(destino)
     destino.add(listaEntradas)
   }
-  
-  def quitarDelCombo(destino: AjaxRequestTarget)
-  {
-     this.entrada.quitarEntradaDelCombo(this.entradaSeleccionada,combo)
+
+  def quitarDelCombo(destino: AjaxRequestTarget) {
+    this.entrada.quitarEntradaDelCombo(this.entradaSeleccionada, combo)
     this.actualizarPrecioCombo(destino)
     destino.add(listaEntradas)
   }
-  
-  def actualizarPrecioCombo(destino: AjaxRequestTarget){
+
+  def actualizarPrecioCombo(destino: AjaxRequestTarget) {
     this.calcularPrecioCombo()
-     destino.add(labelPrecioCombo)
+    destino.add(labelPrecioCombo)
   }
 
   def calcularPrecioCombo() {
     entrada.calcularPrecioCombo(combo)
   }
-  
+
 }
 
 class EntradasModel(var combo: Combo) extends AbstractReadOnlyModel[java.util.List[String]] {
