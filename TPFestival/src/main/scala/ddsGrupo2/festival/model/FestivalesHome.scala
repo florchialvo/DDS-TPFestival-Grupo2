@@ -24,4 +24,6 @@ object FestivalesHome {
     festival.agregarDescuento(Mayor)
     
     def getFestival = this.festival
+    
+    def getNoche = noche1
 }

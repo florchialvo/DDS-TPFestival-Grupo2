@@ -34,6 +34,12 @@ class MenuPage extends WebPage{
    } 
      
      
+        val buttonBuscar = new Button("buscar") {
+   override def onSubmit() {
+       this.setResponsePage(classOf[BuscadorPage])
+     }
+   } 
+     
    addFields(form)  
    addActions(form)
    add(form)
@@ -41,6 +47,7 @@ class MenuPage extends WebPage{
 
    def addActions(form: Form[EntradaApplicationModel]){
      form.add(buttonVender)
+      form.add(buttonBuscar)
      form.add(buttonAnular)
      form.add(buttonCombo)
    }
