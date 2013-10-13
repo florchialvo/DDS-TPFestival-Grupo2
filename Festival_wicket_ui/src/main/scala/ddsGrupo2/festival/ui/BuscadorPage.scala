@@ -17,17 +17,9 @@ import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink
 import collection.JavaConversions._
 
-class BuscadorPage extends WebPage  {
+ class BuscadorPage extends WebPage  {
 
-  var buscador = new Buscador(List(
-      new Entrada(FestivalesHome.getFestival,10,FestivalesHome.getNoche,Dama,'A',1,1),
-      new Entrada(FestivalesHome.getFestival,100,FestivalesHome.getNoche,Mayor,'B',2,1),
-      new Entrada(FestivalesHome.getFestival,1000,FestivalesHome.getNoche,Menor,'A',3,1)
-      
-      )
-      
-  )
-  
+  var buscador:Buscador = new Buscador(FestivalesHome.getFestival.entradasVendidas.toList)
   
    val form = new Form("buscadorForm",  this.createModel)
   
@@ -45,7 +37,9 @@ class BuscadorPage extends WebPage  {
 		    	
 		    		def populateItem(  item:ListItem[Nothing]) = 
 					 	{
-					  item.add(new Label("precio"))
+		    		  var mo:Entrada = item.getModelObject()
+		    		  item.add(new Label("nombre",mo.nombre))
+					  item.add(new Label("precio",mo.precio))
 					   
 					 	}
 		    }
@@ -61,11 +55,20 @@ class BuscadorPage extends WebPage  {
        destino.add(resultSection)
     }
 }
+		  
+		  val buttonVolver = new Button("volver") {
+    override def onSubmit() {
+      this.setResponsePage(classOf[MenuPage])
+    }
+  }
  
 		  
 		  form.add(botonBuscar)
+		  form.add(buttonVolver)
 		  
 		  this.add(form)
+		  
+		  def precio = 10;
   
   
    def createModel: CompoundPropertyModel[Buscador] = {
