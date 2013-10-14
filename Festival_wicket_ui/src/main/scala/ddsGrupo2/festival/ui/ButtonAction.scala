@@ -9,7 +9,9 @@ import org.apache.wicket.markup.html._
 import org.apache.wicket.markup.html.form._
 import org.apache.wicket.model._
 
-class ButtonAction[T <: RuntimeException] (
+import org.uqbar.commons.model.UserException
+
+class ButtonAction[T <: UserException] (
     val originPage: WebPage,
     val id : String,
 	val action: () => Unit) extends Button(id) {
@@ -19,7 +21,7 @@ class ButtonAction[T <: RuntimeException] (
        try{
           action.apply()
         }catch{
-          case e: T =>
+          case e: UserException =>
           originPage.error(e.getMessage())
         }
   }
