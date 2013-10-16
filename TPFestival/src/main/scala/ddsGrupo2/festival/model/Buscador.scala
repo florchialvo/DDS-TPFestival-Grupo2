@@ -6,11 +6,6 @@ class Buscador (val coleccion:List[_]) extends Serializable{
   
   var resultado: java.util.List[_]  = List()
   
-  def buscar=
-  	{ this.resultado = this.coleccion }
-  
-
-  
-
-
+  def buscar = 
+    this.resultado = this.coleccion
 }

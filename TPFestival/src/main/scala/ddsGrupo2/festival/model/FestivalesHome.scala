@@ -8,9 +8,9 @@ object FestivalesHome {
     Categoria.crearCategoria('categoria3, 100)
     Categoria.crearCategoria('categoria4, 200)
 
-    val ledZeppelin = new Banda(Categoria('categoria4))
-    val ironMaiden = new Banda(Categoria('categoria4))
-    val sodaStereo = new Banda(Categoria('categoria3))
+    val ledZeppelin = new Banda(Categoria('categoria4), "Led Zeppelin")
+    val ironMaiden = new Banda(Categoria('categoria4), "Iron Maiden")
+    val sodaStereo = new Banda(Categoria('categoria3), "Soda Stereo")
     val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha().fechaActual())
 
     val valoresBase = Map('A' -> Array((100,15), (100,15), (100,15)),
@@ -25,5 +25,7 @@ object FestivalesHome {
     
     def getFestival = this.festival
     
+    def getBandas = this.festival.noches.flatten(noche => noche.bandas)
+        
     def getNoche = noche1
 }
