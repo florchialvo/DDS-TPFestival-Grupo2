@@ -1,51 +1,37 @@
 <html
 	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd">
-<head>
-<link rel="stylesheet" type="text/css" href="bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="style.css" />
-<title>Vender Entrada</title>
-</head>
-<body>
-	<form wicket:id="buscadorForm">
-	
-		<div id="Contenedor">
-			<h2>Buscar</h2>
-		
-			 <div wicket:id="resultSection">
-            	<table class="table zebra-striped" id="main" width="80%">
-                	
-					<tr  id="main" width="100%" align=center>
-						<td id="main" width="50%">
-                    	    <span >Nombre</span> 
-                    	     </td> 
-                    	     
-                    	     <td id="main" width="50%">
-                    	    <span >Precio</span> 
-                    	     </td> 
-					
-					</tr>
-       
-                   	<tr wicket:id="listaResultados" id="main" width="100%">
-                    	<td id="main" width="80%">
-                    	    <span wicket:id="nombre">unNombre</span> 
-                	    </td> 
-            	        <td id="main" width="20%">
-                    	    <span wicket:id="precio">unPrecio</span> 
-                	    </td> 
-	                                 
-                	</tr>
-            	</table>
-            	
-            </div>
-        
-           	<a class="btn btn-warning" href="#" wicket:id="buscar">Buscar</a>
-			<a class="btn btn-warning" href="#" wicket:id="volver">Volver</a>
-			
-			
-			
-			
-			
-					</div>
-	</form>
-</body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<title>Buscar</title>
+	</head>
+	<body>
+		<form wicket:id="buscadorForm">
+			<div id="Contenedor">
+				<h2><span wicket:id="titulo">Buscar algo</span></h2>
+				<div wicket:id="panelResultados">
+					<table class="table zebra-striped" id="main" width="80%">
+						<tr id="main" width="100%" align=center>
+							<td id="main" width="50%">
+								<span >Nombre</span> 
+							</td> 
+							<td id="main" width="50%">
+								<span >Precio</span> 
+							</td> 
+						</tr>
+						<tr wicket:id="listaResultados" id="main" width="100%">
+							<td id="main" width="80%">
+								<span wicket:id="nombre">unNombre</span> 
+							</td> 
+							<td id="main" width="20%">
+								<span wicket:id="precio">unPrecio</span> 
+							</td> 
+						</tr>
+					</table>	
+				</div>
+				<a class="btn btn-warning" href="#" wicket:id="buscar">Buscar</a>
+				<input class="btn btn-danger" wicket:id="volver" type="submit" value="Volver"/>
+			</div>
+		</form>
+	</body>
 </html>
