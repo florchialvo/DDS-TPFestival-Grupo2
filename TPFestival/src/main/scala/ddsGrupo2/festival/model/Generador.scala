@@ -1,5 +1,5 @@
 package ddsGrupo2.festival.model
 
 class Generador[T](val coleccion:T) {
-  def listabase = this.coleccion
+  def listaBase = this.coleccion
 }
