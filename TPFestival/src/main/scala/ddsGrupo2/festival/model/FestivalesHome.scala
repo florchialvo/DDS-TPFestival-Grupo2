@@ -15,6 +15,8 @@ object FestivalesHome {
 
     val valoresBase = Map('A' -> Array((100,15), (100,15), (100,15)),
     					  'B' -> Array((500,10), (500,10), (500,10)))
+    					  
+    
     
     var festival: Festival = new Festival(valoresBase, new Fecha().fechaActual())
     festival.agregarNoche(noche1)

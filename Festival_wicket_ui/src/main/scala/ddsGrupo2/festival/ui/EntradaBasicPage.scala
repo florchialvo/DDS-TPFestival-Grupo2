@@ -20,14 +20,22 @@ class EntradaBasicPage extends WebPage {
   var entrada: EntradaApplicationModel = new EntradaApplicationModel(FestivalesHome.getFestival)
   val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true);
   val form = new Form("entradaForm", this.createModel)
+  val puntoDeVenta: DropDownChoice[Int] = new DropDownChoice("puntoDeVenta", new ComponentPropertyModel("puntosDeVenta"))
+  val cliente: DropDownChoice[String] = new DropDownChoice("cliente", new ComponentPropertyModel("clientes"))
   val sector: DropDownChoice[Char] = new DropDownChoice("sector", new ComponentPropertyModel("sectores"))
   val filas: DropDownChoice[Int] = new DropDownChoice("fila", new ComponentPropertyModel("filas"))
   val butacas: DropDownChoice[Int] = new DropDownChoice("numButaca", new ComponentPropertyModel("butacas"))
-
+ 
+  
+  cliente.setNullValid(false) 
+  puntoDeVenta.setNullValid(false)
   sector.setNullValid(false)
   filas.setNullValid(false)
   butacas.setNullValid(false)
 
+  
+  cliente.setOutputMarkupId(true)
+  puntoDeVenta.setOutputMarkupId(true)
   butacas.setOutputMarkupId(true)
   filas.setOutputMarkupId(true)
   sector.setOutputMarkupId(true)

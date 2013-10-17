@@ -1,5 +1,6 @@
 package ddsGrupo2.festival.model
 
+
 abstract class Generador[T] {
 
   def listaBase : List[T]

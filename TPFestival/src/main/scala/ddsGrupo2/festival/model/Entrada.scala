@@ -2,7 +2,7 @@ package ddsGrupo2.festival.model
 import java.io.Serializable
 
 class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona: TipoPersona,
-              var sector: Char, var fila: Int, var numButaca: Int) extends Serializable{
+              var sector: Char, var fila: Int, var numButaca: Int,val cliente:String, val puestoDeVenta:Int) extends Serializable{
     def fecha = noche.fecha
     def valorExtraPorNoche = noche.valorExtra
     def descuento = festival.descuento(persona, valorBase)
@@ -17,8 +17,8 @@ class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona:
         unaButaca == numButaca && noche.correspondeA(unaFecha)
 }
 
-class EntradaAnticipada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int, numButaca: Int)
-        extends Entrada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int, numButaca: Int) {
+class EntradaAnticipada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int, numButaca: Int,cliente:String, puntoDeVenta:Int)
+        extends Entrada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int, numButaca: Int,cliente:String, puntoDeVenta:Int) {
 
     override def precio = super.precio * (1 - EntradaAnticipada.descuento)
 }

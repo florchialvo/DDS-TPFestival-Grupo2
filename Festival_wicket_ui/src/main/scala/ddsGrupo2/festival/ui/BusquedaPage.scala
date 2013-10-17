@@ -20,8 +20,8 @@ import ddsGrupo2.festival.model._
 
 abstract class BusquedaPage extends WebPage {
 
-  val form = new Form[Busqueda[_]]("buscadorForm", BusquedaPage.this.createModel)
-  val panelResultados = BusquedaPage.this.crearPanelResultados
+  val form = new Form[Busqueda[_]]("buscadorForm", this.createModel)
+  val panelResultados = this.crearPanelResultados
   
   def getModelObject() = form.getModelObject()
   

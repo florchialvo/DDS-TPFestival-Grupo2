@@ -84,4 +84,10 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   }
   
   def bandas = noches.flatten(noche => noche.bandas)
+  
+  
+  def entradasDeCliente(nombre:String):List[Entrada] = entradasVendidas.filter(entrada => entrada.nombre == nombre).toList();
+  def entradasDePuestoDeVenta(puesto:Int):List[Entrada] = entradasVendidas.filter(entrada => entrada.puestoDeVenta == puesto).toList();
+  
+  
 }
