@@ -25,7 +25,7 @@ object FestivalesHome {
     
     def getFestival = this.festival
     
-    def getBandas = this.festival.noches.flatten(noche => noche.bandas)
+    def getBandas = this.festival.bandas
         
     def getNoche = noche1
 }

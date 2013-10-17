@@ -6,7 +6,6 @@ import org.apache.wicket.markup.html._
 import org.apache.wicket.markup.html.form._
 import org.apache.wicket.model.PropertyModel
 import org.apache.wicket.markup.html.basic.Label
-import ddsGrupo2.festival.model.EntradaApplicationModel
 
 class MenuApplication extends WebApplication {
   def getHomePage = classOf[MenuPage]
@@ -35,13 +34,13 @@ class MenuPage extends WebPage {
 
   val buttonBuscarEntradas = new Button("buscarEntradas") {
     override def onSubmit() {
-      this.setResponsePage(classOf[BuscadorEntradasPage])
+//      this.setResponsePage(classOf[BusquedaEntradasPage])
     }
   }
 
   val buttonBuscarBandas = new Button("buscarBandas") {
     override def onSubmit() {
-      this.setResponsePage(classOf[BuscadorBandasPage])
+      this.setResponsePage(classOf[BusquedaBandasPage])
     }
   }
 

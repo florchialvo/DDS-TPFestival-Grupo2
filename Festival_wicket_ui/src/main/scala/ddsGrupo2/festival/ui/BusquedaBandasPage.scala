@@ -4,8 +4,11 @@ import ddsGrupo2.festival.model.Banda
 import org.apache.wicket.markup.html.list.ListItem
 import org.apache.wicket.markup.html.basic.Label
 import ddsGrupo2.festival.model.FestivalesHome
+import org.apache.wicket.markup.html.panel.Panel
+import org.apache.wicket.markup.html.form.Form
+import ddsGrupo2.festival.model.Busqueda
 
-class BuscadorBandasPage extends BuscadorPage{
+class BusquedaBandasPage(var panelBuscador: PanelBuscador) extends BusquedaPage{
   
   override def titulo = "Buscar Bandas"
   
@@ -14,6 +17,9 @@ class BuscadorBandasPage extends BuscadorPage{
     item.add(new Label("nombre", model.nombre))
     item.add(new Label("precio", model.categoria.getValor))
   }
-
-  override def coleccionBusqueda:List[_] = FestivalesHome.getBandas.toList
+  
+  def crearBuscador = panelBuscador.buscador 
+  
+  def agregarPanelBuscador(form: Form[Busqueda[_]]) =
+    form.add(panelBuscador) 
 }

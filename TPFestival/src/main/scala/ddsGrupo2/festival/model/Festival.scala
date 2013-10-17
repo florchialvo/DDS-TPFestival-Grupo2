@@ -82,4 +82,6 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
     else
       new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
   }
+  
+  def bandas = noches.flatten(noche => noche.bandas)
 }

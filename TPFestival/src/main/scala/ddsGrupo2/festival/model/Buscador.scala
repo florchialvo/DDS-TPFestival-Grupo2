@@ -1,11 +1,5 @@
 package ddsGrupo2.festival.model
-import java.io.Serializable
-import collection.JavaConversions._
 
-class Buscador (val coleccion:List[_]) extends Serializable{
-  
-  var resultado: java.util.List[_]  = List()
-  
-  def buscar = 
-    this.resultado = this.coleccion
+class Buscador[T](val generador: Generador[T], val filtro: Filtro[T]) {
+	def buscar = generador.listaBase.filter(e => filtro.condicion(e))
 }

@@ -17,11 +17,13 @@ import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink
 import collection.JavaConversions._
 import ddsGrupo2.festival.model._
 
-abstract class BuscadorPage extends WebPage {
 
-  var buscador: Buscador = new Buscador(coleccionBusqueda)
-  val form = new Form("buscadorForm", this.createModel)
-  val panelResultados = this.crearPanelResultados
+abstract class BusquedaPage extends WebPage {
+
+  val form = new Form[Busqueda[_]]("buscadorForm", BusquedaPage.this.createModel)
+  val panelResultados = BusquedaPage.this.crearPanelResultados
+  
+  def getModelObject() = form.getModelObject()
   
   val buttonVolver = new Button("volver") {
     override def onSubmit() {
@@ -31,20 +33,22 @@ abstract class BuscadorPage extends WebPage {
   
   val botonBuscar = new AjaxSubmitLink("buscar") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form[_]) {
-      buscador.buscar;
+      getModelObject().buscar
       destino.add(panelResultados)
     }
   }
-
-  form.add(this.panelResultados);
+  
+  agregarPanelBuscador(form)
+  form.add(panelResultados);
   form.add(botonBuscar)
   form.add(buttonVolver)
   form.add(new Label("titulo", titulo))
-  this.add(form)
+  add(form)
 
   def titulo:String
   def mostrarResultado(item: ListItem[Nothing])
-  def coleccionBusqueda:List[_]
+  def crearBuscador: Buscador[_]
+  def agregarPanelBuscador(form: Form[Busqueda[_]])
   
   def crearPanelResultados: WebMarkupContainer = {
     val panel = new WebMarkupContainer("panelResultados")
@@ -56,7 +60,7 @@ abstract class BuscadorPage extends WebPage {
     return panel
   }
 
-  def createModel: CompoundPropertyModel[Buscador] = {
-    new CompoundPropertyModel(this.buscador)
+  def createModel: CompoundPropertyModel[Busqueda[_]] = {
+    new CompoundPropertyModel(new Busqueda(crearBuscador))
   }
 }
