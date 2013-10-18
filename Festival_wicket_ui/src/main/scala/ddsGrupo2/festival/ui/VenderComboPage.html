@@ -9,6 +9,12 @@
 	<form wicket:id="entradaForm">
 		<div id="Contenedor">
 			<h2>Vender Combo</h2>
+			<p>Punto de Venta:
+			<select class="selectNum" wicket:id="puntoDeVenta"></select>
+			</p>
+			<p>Cliente:
+			<select wicket:id="cliente"></select>
+			</p>
 			<p>Noche:</p>
 			<select wicket:id="fechaNoche"></select>			
 			<p>Sector:
@@ -24,10 +30,6 @@
 			<p>Ingrese la categoria:</p>
 			<select wicket:id="tipoPersona"></select>
 			<br />
-					
-			<h3> 
- 				<span wicket:id="precio" />
- 			</h3>
  			<p>Entradas en el Combo:</p>
  			<select class="entradaList" wicket:id="entradaSeleccionada"></select>
  			<span wicket:id="feedback">[Feedback Panel]</span>

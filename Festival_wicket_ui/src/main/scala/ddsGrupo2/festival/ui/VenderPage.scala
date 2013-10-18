@@ -24,14 +24,22 @@ class VenderPage extends EntradaBasicPage {
 
   var self = this
   val categorias = new DropDownChoice("tipoPersona", new ComponentPropertyModel("descuentosValidos"))
+  val puntoDeVenta: DropDownChoice[Int] = new DropDownChoice("puntoDeVenta", new ComponentPropertyModel("puntosDeVenta"))
+  val cliente: DropDownChoice[String] = new DropDownChoice("cliente", new ComponentPropertyModel("clientes"))
+   
+  cliente.setNullValid(false) 
+  puntoDeVenta.setNullValid(false)
   categorias.setNullValid(false)
+  
   categorias.setOutputMarkupId(true)
-
+  cliente.setOutputMarkupId(true)
+  puntoDeVenta.setOutputMarkupId(true)
+  
   val buttonVender = new ButtonAction[EntradaYaVendidaException](this, "vender",
     { () => this.vender() })
 
   setUp(buttonVender)
-
+  
   agregarListaComponentesParaActualizarPrecio(List(sector, filas, butacas, categorias))
 
   def calcularPrecio() = entrada.calcularPrecio()
@@ -44,13 +52,23 @@ class VenderPage extends EntradaBasicPage {
   override def setUp(buttonVender: Button) {
     super.setUp(buttonVender)
     this.addOptions()
+    this.addPrecio()
   }
 
   def addOptions() {
     form.add(categorias)
+    form.add(puntoDeVenta)
+    form.add(cliente)
+  }
+  
+  def addPrecio(){
     form.add(labelPrecio)
   }
 
+  
+  
+  //TO DO: Calcular precio con valores default 
+  
   def agregarListaComponentesParaActualizarPrecio(list: List[FormComponent[_]]) {
     for (elem <- list) {
       elem.add(new AjaxFormComponentUpdatingBehavior("onchange") {

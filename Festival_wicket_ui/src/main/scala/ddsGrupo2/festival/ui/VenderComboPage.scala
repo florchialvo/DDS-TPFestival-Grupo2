@@ -23,8 +23,6 @@ class VenderComboPage extends VenderPage {
   val labelPrecioCombo = new Label("precioCombo")
   labelPrecioCombo.setOutputMarkupId(true)
 
-  form.add(labelPrecioCombo)
-
   var combo = new Combo(FestivalesHome.getFestival)
   self = this
 
@@ -53,13 +51,16 @@ class VenderComboPage extends VenderPage {
       quitarDelCombo(destino);
     }
   }
-
+  form.add(labelPrecioCombo)
   form.add(botonCombo)
   form.add(botonQuitarCombo)
   form.add(listaEntradas)
   listaEntradas.setNullValid(false)
   listaEntradas.setOutputMarkupId(true)
 
+   override def addPrecio(){
+  }
+  
   override def vender() {
     try {
       this.entrada.venderCombo(combo)
