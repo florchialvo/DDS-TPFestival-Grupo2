@@ -10,15 +10,14 @@ import org.apache.wicket.model._
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior
-import org.apache.wicket.markup.html.list.ListView
 import org.apache.wicket.markup.html.list.ListItem
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink
 import collection.JavaConversions._
 import ddsGrupo2.festival.model._
+import org.apache.wicket.markup.html.list.ListView
 
 
-abstract class BusquedaPage extends WebPage {
+abstract class BusquedaPage(val panelBuscador: PanelBuscador) extends WebPage {
 
   val form = new Form[Busqueda[_]]("buscadorForm", this.createModel)
   val panelResultados = this.crearPanelResultados
@@ -38,8 +37,8 @@ abstract class BusquedaPage extends WebPage {
     }
   }
   
-  agregarPanelBuscador(form)
-  form.add(panelResultados);
+  form.add(panelBuscador)
+  form.add(panelResultados)
   form.add(botonBuscar)
   form.add(buttonVolver)
   form.add(new Label("titulo", titulo))
@@ -47,8 +46,6 @@ abstract class BusquedaPage extends WebPage {
 
   def titulo:String
   def mostrarResultado(item: ListItem[Nothing])
-  def crearBuscador: Buscador[_]
-  def agregarPanelBuscador(form: Form[Busqueda[_]])
   
   def crearPanelResultados: WebMarkupContainer = {
     val panel = new WebMarkupContainer("panelResultados")
@@ -61,6 +58,6 @@ abstract class BusquedaPage extends WebPage {
   }
 
   def createModel: CompoundPropertyModel[Busqueda[_]] = {
-    new CompoundPropertyModel(new Busqueda(crearBuscador))
+    new CompoundPropertyModel(new Busqueda(panelBuscador.buscador))
   }
 }

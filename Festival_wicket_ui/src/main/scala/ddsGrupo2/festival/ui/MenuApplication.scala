@@ -40,7 +40,7 @@ class MenuPage extends WebPage {
 
   val buttonBuscarBandas = new Button("buscarBandas") {
     override def onSubmit() {
-      this.setResponsePage(classOf[BusquedaBandasPage])
+      this.setResponsePage(new BusquedaBandasPage(new PanelBandaContiene))
     }
   }
 

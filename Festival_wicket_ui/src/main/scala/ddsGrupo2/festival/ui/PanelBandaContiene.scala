@@ -6,16 +6,17 @@ import ddsGrupo2.festival.model._
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.PropertyModel
 
-class PanelBandaContiene(val id: String) extends PanelBuscador(id) {
+class PanelBandaContiene extends PanelBuscador {
 
-  val form: Form[Buscador[Banda]] = new Form("buscador", createModel)
   val filtroContiene = new FiltroBandaContiene
-  
-  form.add(new TextField("contiene", new PropertyModel[String](this.filtroContiene, "contiene")))
-  
+  val form: Form[Buscador[Banda]] = new Form("buscador", createModel)
+  form.add(new TextField("contiene", new PropertyModel[String](this.filtroContiene, "bandaContiene")))
+  add(form)
+
   def createModel: CompoundPropertyModel[Buscador[Banda]] = {
     new CompoundPropertyModel(
-    new Buscador(new GeneradorBandasPorFestival(FestivalesHome.getFestival), filtroContiene))}
- 
+      new Buscador(new GeneradorBandasPorFestival(FestivalesHome.getFestival), filtroContiene))
+  }
+
   def buscador = form.getModelObject()
 }

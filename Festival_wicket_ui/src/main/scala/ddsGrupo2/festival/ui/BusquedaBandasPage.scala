@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.panel.Panel
 import org.apache.wicket.markup.html.form.Form
 import ddsGrupo2.festival.model.Busqueda
 
-class BusquedaBandasPage(var panelBuscador: PanelBuscador) extends BusquedaPage{
+class BusquedaBandasPage(panelBuscador: PanelBuscador) extends BusquedaPage(panelBuscador){
   
   override def titulo = "Buscar Bandas"
   
@@ -17,9 +17,4 @@ class BusquedaBandasPage(var panelBuscador: PanelBuscador) extends BusquedaPage{
     item.add(new Label("nombre", model.nombre))
     item.add(new Label("precio", model.categoria.getValor))
   }
-  
-  def crearBuscador = panelBuscador.buscador 
-  
-  def agregarPanelBuscador(form: Form[Busqueda[_]]) =
-    form.add(panelBuscador) 
 }

@@ -6,6 +6,5 @@ class Busqueda[T] (var buscador: Buscador[T]) extends Serializable{
   
   var resultado: java.util.List[T]= List()
   
-  def buscar = 
-    resultado = buscador.buscar
+  def buscar = {resultado = buscador.buscar}
 }
