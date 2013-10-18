@@ -13,17 +13,17 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
   var fila = this.filas.head
   var numButaca = this.butacas.head
   var tipoPersona = this.descuentosValidos.head
-  var clientes = this.clientes.head
-  var puntosDeVenta = this.puntosDeVenta.head
+  var cliente = this.clientes.head
+  var puntoDeVenta = this.puntosDeVenta.head
 
   var precio: Double = 0
   var precioCombo: Double = 0
 
   def build() = {
     if (festival.esAnticipada)
-      new EntradaAnticipada(festival, festival.valorBase(fila, sector), festival.noche(fechaNoche), tipoPersona, sector, fila, numButaca)
+      new EntradaAnticipada(festival, festival.valorBase(fila, sector), festival.noche(fechaNoche), tipoPersona, sector, fila, numButaca, cliente, puntoDeVenta)
     else
-      new Entrada(festival, festival.valorBase(fila, sector), festival.noche(fechaNoche), tipoPersona, sector, fila, numButaca)
+      new Entrada(festival, festival.valorBase(fila, sector), festival.noche(fechaNoche), tipoPersona, sector, fila, numButaca, cliente, puntoDeVenta)
   }
 
   def calcularPrecio() {

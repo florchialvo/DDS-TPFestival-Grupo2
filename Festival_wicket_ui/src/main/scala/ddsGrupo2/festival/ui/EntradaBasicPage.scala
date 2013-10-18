@@ -26,14 +26,12 @@ class EntradaBasicPage extends WebPage {
   val filas: DropDownChoice[Int] = new DropDownChoice("fila", new ComponentPropertyModel("filas"))
   val butacas: DropDownChoice[Int] = new DropDownChoice("numButaca", new ComponentPropertyModel("butacas"))
  
-  
   cliente.setNullValid(false) 
   puntoDeVenta.setNullValid(false)
   sector.setNullValid(false)
   filas.setNullValid(false)
   butacas.setNullValid(false)
 
-  
   cliente.setOutputMarkupId(true)
   puntoDeVenta.setOutputMarkupId(true)
   butacas.setOutputMarkupId(true)
