@@ -34,7 +34,7 @@ class MenuPage extends WebPage {
 
   val buttonBuscarEntradas = new Button("buscarEntradas") {
     override def onSubmit() {
-//      this.setResponsePage(classOf[BusquedaEntradasPage])
+      this.setResponsePage(new BusquedaEntradasPage(new PanelEntradaCliente))
     }
   }
 

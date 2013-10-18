@@ -11,3 +11,9 @@ class GeneradorBandasPorFestival(var festival: Festival) extends Generador[Banda
   
 	def listaBase = festival.bandas.toList
 }
+
+
+class GeneradorEntradas(var festival: Festival) extends Generador[Entrada] {
+  
+	def listaBase = festival.entradasVendidas.toList
+}

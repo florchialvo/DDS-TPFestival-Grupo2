@@ -13,7 +13,13 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   var descuentosValidos: Set[TipoPersona] = Set()
 
   def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
-  def fechas = noches.map(n => n.fecha)
+  def fechas = {
+   val colMapeada=noches.map(n => n.fecha)
+   colMapeada.toList
+   			.sortWith(_ < _)
+  
+  
+  }
 
   def agregarNoche(n: Noche) = noches += n
   def agregarDescuento(t: TipoPersona) = descuentosValidos += t

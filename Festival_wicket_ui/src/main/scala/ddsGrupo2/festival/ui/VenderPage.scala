@@ -32,7 +32,7 @@ class VenderPage extends EntradaBasicPage {
 
   setUp(buttonVender)
 
-  agregarListaComponentesParaActualizarPrecio(List(sector, filas, butacas, categorias))
+  agregarListaComponentesParaActualizarPrecio(List(sector, filas, butacas, categorias,cliente,puntoDeVenta))
 
   def calcularPrecio() = entrada.calcularPrecio()
 

@@ -31,4 +31,7 @@ class Fecha(var dia: Int, var mes: Int, var anio: Int) extends Serializable{
     						   (this.mes == otraFecha.mes) &&
     						   (this.dia == otraFecha.dia)
     def >(otraFecha: Fecha) = this.toInt > otraFecha.toInt
+    def >=(otraFecha: Fecha) = this.toInt >= otraFecha.toInt
+    def <(otraFecha: Fecha) = this.toInt < otraFecha.toInt
+    def <=(otraFecha: Fecha) = this.toInt <= otraFecha.toInt
 }

@@ -5,6 +5,12 @@ import org.apache.wicket.model.CompoundPropertyModel
 import ddsGrupo2.festival.model._
 import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.PropertyModel
+import org.apache.wicket.markup.html.form.DropDownChoice
+import org.apache.wicket.model.ComponentPropertyModel
+import scala.collection.JavaConverters._
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior
+import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.markup.html.basic.Label
 
 class PanelBandaContiene extends PanelBuscador {
 
@@ -20,3 +26,5 @@ class PanelBandaContiene extends PanelBuscador {
 
   def buscador = form.getModelObject()
 }
+
+
