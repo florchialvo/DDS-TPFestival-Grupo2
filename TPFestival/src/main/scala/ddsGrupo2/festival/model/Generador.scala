@@ -1,5 +1,6 @@
 package ddsGrupo2.festival.model
 
+import collection.JavaConversions._
 
 abstract class Generador[T] {
 
@@ -7,7 +8,10 @@ abstract class Generador[T] {
   
 }
 
-class BandasPorFestival(var festival: Festival) extends Generador[Banda] {
+class BandasPorFestival extends Generador[Banda] {
+	var festival: Festival = FestivalesHome.festivales.head
+	
+	def listaFestivales: java.util.List[Festival]  = FestivalesHome.festivales//.map(f => f.nombre)
 	def listaBase = festival.bandas.toList
 }
 

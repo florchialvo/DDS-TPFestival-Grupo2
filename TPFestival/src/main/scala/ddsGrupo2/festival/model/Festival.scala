@@ -13,7 +13,9 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   var descuentosValidos: Set[TipoPersona] = Set()
 
   var nombre:String = ""
-  
+  override def toString() = nombre
+    
+    
   def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
   def fechas = {
     val colMapeada = noches.map(n => n.fecha)

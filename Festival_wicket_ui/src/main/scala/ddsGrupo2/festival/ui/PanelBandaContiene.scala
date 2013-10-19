@@ -13,16 +13,20 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.basic.Label
 
 class PanelBandaContiene extends PanelBuscador {
-  val filtroContiene: FiltroBandaContiene = new FiltroBandaContiene
+  val bandasPorFestival = new BandasPorFestival
+  val filtroContiene = new FiltroBandaContiene
   setUp
 
   override def addComponents(form: Form[Buscador[_]]) {
     form.add(new TextField("contiene", new PropertyModel[String](filtroContiene, "bandaContiene")))
+    form.add(new DropDownChoice[Festival]("festival",
+      new PropertyModel[Festival](bandasPorFestival, "festival"),
+      new PropertyModel(bandasPorFestival, "listaFestivales")))
   }
 
   override def createModel(form: Form[Buscador[_]]) = {
     form.setModel(new CompoundPropertyModel(
-      new Buscador(new BandasPorFestival(FestivalesHome.getFestival), filtroContiene)))
+      new Buscador(bandasPorFestival, filtroContiene)))
   }
 }
 
