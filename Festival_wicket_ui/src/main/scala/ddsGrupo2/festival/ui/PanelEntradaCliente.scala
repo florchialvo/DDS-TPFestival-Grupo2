@@ -13,50 +13,39 @@ import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.basic.Label
 
 class PanelEntradaCliente extends PanelBuscador {
+  val filtroContiene = new FiltroEntradaFecha
+  val generador = new EntradasPorCliente
+  
+  setUp
 
-  val filtroContiene = new FiltroEntradaContiene
-  val form: Form[Buscador[Entrada]] = new Form("buscador", createModel)
-  form.add(new TextField("contiene", new PropertyModel[String](this.filtroContiene, "clienteContiene")))
-  
-  val dropFechaDesde = new DropDownChoice("fechaDesde",new PropertyModel[Fecha](this.filtroContiene,"fechaDesde"), this.fechas)
-  
-  
-  val dropFechaHasta = new DropDownChoice("fechaHasta",new PropertyModel[Fecha](this.filtroContiene,"fechaHasta"),new PropertyModel(this,"fechasMayoresAlDesde"))
-  
-
-  
-  dropFechaHasta.setOutputMarkupId(true)
-  
-  dropFechaDesde.add(new AjaxFormComponentUpdatingBehavior("onchange") {
-        override def onUpdate(target: AjaxRequestTarget) = {
-        
-         target.add(dropFechaHasta)
-        }
-      })
-  
-  dropFechaDesde.setNullValid(false)
-  dropFechaHasta.setNullValid(false)
-  
-  form.add(dropFechaDesde)
-  form.add(dropFechaHasta)
-  
-  
-  add(form)
-
-  def createModel: CompoundPropertyModel[Buscador[Entrada]] = {
-    new CompoundPropertyModel(
-      new Buscador(new GeneradorEntradas(FestivalesHome.getFestival), filtroContiene))
+  override def addComponents(form: Form[Buscador[_]]) {
+    val dropFechaDesde = new DropDownChoice("fechaDesde", new PropertyModel[Fecha](this.filtroContiene, "fechaDesde"), this.fechas)
+    val dropFechaHasta = new DropDownChoice("fechaHasta", new PropertyModel[Fecha](this.filtroContiene, "fechaHasta"), new PropertyModel(this, "fechasMayoresAlDesde"))
+    form.add(new TextField("cliente", new PropertyModel[String](generador, "cliente")))
+    dropFechaHasta.setOutputMarkupId(true)
+    dropFechaDesde.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+      override def onUpdate(target: AjaxRequestTarget) = {
+        target.add(dropFechaHasta)
+      }
+    })
+    dropFechaDesde.setNullValid(false)
+    dropFechaHasta.setNullValid(false)
+    form.add(dropFechaDesde)
+    form.add(dropFechaHasta)
   }
 
-  def buscador = form.getModelObject()
-  
+  def createModel(form: Form[Buscador[_]]) = {
+    form.setModel(new CompoundPropertyModel(
+      new Buscador(new EntradasPorCliente(), filtroContiene)))
+  }
+
   def fechas = new EntradaApplicationModel(FestivalesHome.getFestival).fechas.asScala.sortWith(_ < _).asJava
   def fechasMayoresAlDesde = this.obtenerFechasFestival
-  
-  def obtenerFechasFestival: java.util.List[Fecha]=new EntradaApplicationModel(FestivalesHome.getFestival)
-  													.fechas
-  													.asScala
-  													.toList
-  													.filter(elem => elem>=filtroContiene.fechaDesde)
-  													.asJava
+
+  def obtenerFechasFestival: java.util.List[Fecha] = new EntradaApplicationModel(FestivalesHome.getFestival)
+    .fechas
+    .asScala
+    .toList
+    .filter(elem => elem >= filtroContiene.fechaDesde)
+    .asJava
 }

@@ -12,23 +12,25 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   var noches: Set[Noche] = Set()
   var descuentosValidos: Set[TipoPersona] = Set()
 
+  var nombre:String = ""
+  
   def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
   def fechas = {
-   val colMapeada=noches.map(n => n.fecha)
-   colMapeada.toList
-   			.sortWith(_ < _)
-  
-  
+    val colMapeada = noches.map(n => n.fecha)
+    colMapeada.toList.sortWith(_ < _)
   }
 
   def agregarNoche(n: Noche) = noches += n
+  def agregarNoches(ns: List[Noche]) = noches++= ns
   def agregarDescuento(t: TipoPersona) = descuentosValidos += t
+  def agregarDescuentos(ts: List[TipoPersona]) = descuentosValidos++= ts
+  
 
   //fila-1 porque el indice empieza en 0
-  def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila-1)._1
+  def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila - 1)._1
 
-  def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila-1)._2
-  
+  def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila - 1)._2
+
   def cantFilas(sector: Char): Int = valoresBase(sector).length
 
   def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
@@ -77,7 +79,7 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
     validarEntradaNoVendida(entrada)
     entradasVendidas --=
       entradasVendidas.filter(vendida => vendida.estasVendida(entrada.fila, entrada.sector,
-    		  				                                  entrada.numButaca, entrada.fecha))
+        entrada.numButaca, entrada.fecha))
   }
 
   //    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco
@@ -88,12 +90,9 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
     else
       new Entrada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
   }
-  
+
   def bandas = noches.flatten(noche => noche.bandas)
-  
-  
-  def entradasDeCliente(nombre:String):List[Entrada] = entradasVendidas.filter(entrada => entrada.nombre == nombre).toList;
-  def entradasDePuestoDeVenta(puesto:Int):List[Entrada] = entradasVendidas.filter(entrada => entrada.puestoDeVenta == puesto).toList;
-  
-  
+
+  def entradasDeCliente(nombre: String): List[Entrada] = entradasVendidas.filter(entrada => entrada.nombre == nombre).toList
+  def entradasDePuestoDeVenta(puesto: Int): List[Entrada] = entradasVendidas.filter(entrada => entrada.puestoDeVenta == puesto).toList
 }

@@ -68,10 +68,7 @@ class VenderPage extends EntradaBasicPage {
     form.add(labelPrecio)
   }
 
-  
-  
-  //TO DO: Calcular precio con valores default 
-  
+ 
   def agregarListaComponentesParaActualizarPrecio(list: List[FormComponent[_]]) {
     for (elem <- list) {
       elem.add(new AjaxFormComponentUpdatingBehavior("onchange") {

@@ -7,13 +7,12 @@ abstract class Generador[T] {
   
 }
 
-class GeneradorBandasPorFestival(var festival: Festival) extends Generador[Banda] {
-  
+class BandasPorFestival(var festival: Festival) extends Generador[Banda] {
 	def listaBase = festival.bandas.toList
 }
 
 
-class GeneradorEntradas(var festival: Festival) extends Generador[Entrada] {
-  
-	def listaBase = festival.entradasVendidas.toList
+class EntradasPorCliente extends Generador[Entrada] {
+  var cliente:String = ""
+  def listaBase = FestivalesHome.entradasDeCliente(cliente).toList
 }

@@ -47,8 +47,6 @@ class EntradaBasicPage extends WebPage {
     form.add(filas)
     form.add(butacas)
 
-
-
     sector.add(new AjaxFormComponentUpdatingBehavior("onchange") {
       override def onUpdate(target: AjaxRequestTarget) = {
         target.add(filas)

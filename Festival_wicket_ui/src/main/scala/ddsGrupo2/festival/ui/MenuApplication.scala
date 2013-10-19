@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html._
 import org.apache.wicket.markup.html.form._
 import org.apache.wicket.model.PropertyModel
 import org.apache.wicket.markup.html.basic.Label
+import ddsGrupo2.festival.model.FiltroBandaContiene
 
 class MenuApplication extends WebApplication {
   def getHomePage = classOf[MenuPage]
