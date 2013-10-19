@@ -8,6 +8,7 @@ import org.apache.wicket.protocol.http._
 import org.apache.wicket.markup.html._
 import org.apache.wicket.markup.html.form._
 import org.apache.wicket.model._
+import ddsGrupo2.festival.model._
 
 import org.uqbar.commons.model.UserException
 
@@ -27,4 +28,5 @@ class ButtonAction[T <: UserException] (
   }
 
 }
+
 

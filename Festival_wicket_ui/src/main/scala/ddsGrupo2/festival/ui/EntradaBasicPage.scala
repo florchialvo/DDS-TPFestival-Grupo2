@@ -3,22 +3,20 @@ package ddsGrupo2.festival.ui
 import org.apache.wicket.markup.html.WebPage
 import org.apache.wicket.markup.html.panel._
 import org.apache.wicket._
-
 import org.apache.wicket.protocol.http._
 import org.apache.wicket.markup.html._
 import org.apache.wicket.markup.html.form._
 import org.apache.wicket.model._
 import org.apache.wicket.markup.html.basic.Label
-
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
-
+import org.apache.wicket.ajax.AjaxRequestTarget
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior
 import ddsGrupo2.festival.model._
+import org.apache.wicket.request.mapper.parameter.PageParameters
 
-class EntradaBasicPage extends WebPage {
+class EntradaBasicPage(festival: Festival) extends WebPage {
 
-  var entrada: EntradaApplicationModel = new EntradaApplicationModel(FestivalesHome.getFestival)
-  val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true);
+  var entrada: EntradaApplicationModel = new EntradaApplicationModel(festival)
+  val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true)
   val form = new Form("entradaForm", this.createModel)
  
   val sector: DropDownChoice[Char] = new DropDownChoice("sector", new ComponentPropertyModel("sectores"))

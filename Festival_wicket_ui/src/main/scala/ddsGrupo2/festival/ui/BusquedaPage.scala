@@ -15,12 +15,15 @@ import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink
 import collection.JavaConversions._
 import ddsGrupo2.festival.model._
 import org.apache.wicket.markup.html.list.ListView
+import org.uqbar.commons.model.UserException
 
 
 abstract class BusquedaPage(val panelBuscador: PanelBuscador) extends WebPage {
 
+  val panelFeedback = new FeedbackPanel("feedback").setOutputMarkupId(true)
   val form = new Form[Busqueda[_]]("buscadorForm", this.createModel)
   val panelResultados = this.crearPanelResultados
+  val self = this
   
   def getModelObject() = form.getModelObject()
   
@@ -32,11 +35,18 @@ abstract class BusquedaPage(val panelBuscador: PanelBuscador) extends WebPage {
   
   val botonBuscar = new AjaxSubmitLink("buscar") {
     override def onSubmit(destino: AjaxRequestTarget, form: Form[_]) {
-      getModelObject().buscar
-      destino.add(panelResultados)
+      try{
+    	destino.add(panelFeedback)
+        getModelObject().buscar
+        destino.add(panelResultados)
+      }catch{
+        case e: UserException =>
+        self.error(e.getMessage())
+      }
     }
   }
   
+  form.add(panelFeedback)
   form.add(panelBuscador)
   form.add(panelResultados)
   form.add(botonBuscar)

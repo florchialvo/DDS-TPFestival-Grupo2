@@ -12,10 +12,14 @@ class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona:
     			 "-Sector:" +  this.sector.toString() +
     			 "-Butaca:" +  this.numButaca.toString()
 
-    def estasVendida(unaFila: Int, unSector: Char, unaButaca:Int, unaFecha: Fecha) =
+	def nombreFestival = festival.nombre
+
+    def estasVendida(unaFila: Int, unSector: Char, unaButaca:Int, unaFecha: Fecha, unFestival: String) =
         unaFila == fila && unSector == sector && 
-        unaButaca == numButaca && noche.correspondeA(unaFecha)
+        unaButaca == numButaca && noche.correspondeA(unaFecha) &&
+        unFestival.equals(this.nombreFestival)
 }
+
 
 class EntradaAnticipada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int, numButaca: Int,cliente:String = "", puntoDeVenta:Int = 0)
         extends Entrada(festival: Festival, valorBase: Int, noche: Noche, persona: TipoPersona, sector: Char, fila: Int, numButaca: Int,cliente:String, puntoDeVenta:Int) {

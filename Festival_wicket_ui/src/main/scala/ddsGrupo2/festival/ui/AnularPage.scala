@@ -14,7 +14,7 @@ import collection.JavaConversions._
 import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
-class AnularPage extends EntradaBasicPage {
+class AnularPage(festival: Festival) extends EntradaBasicPage(festival: Festival) {
   
     val buttonAnular = new ButtonAction[EntradaNoVendidaException](this, "anular", {() => this.entradaAnular()})
        
