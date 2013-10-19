@@ -12,7 +12,7 @@ class Combo(val unFestival: Festival) extends Serializable{
     def agregar(entrada: Entrada) {
       unFestival.validarEntrada(entrada)
       if(entradas.exists(e => e.estasVendida(entrada.fila, 
-          entrada.sector,entrada.numButaca, entrada.fecha))) throw new EntradaYaAgregadaException("La entrada no puede agregarse al combo, ya ha sido agregada")
+          entrada.sector,entrada.numButaca, entrada.fecha, entrada.nombreFestival))) throw new EntradaYaAgregadaException("La entrada no puede agregarse al combo, ya ha sido agregada")
       entradas += entrada
     }
     

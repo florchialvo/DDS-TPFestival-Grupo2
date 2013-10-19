@@ -17,7 +17,7 @@ import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
-class VenderPage extends EntradaBasicPage {
+class VenderPage(festival: Festival) extends EntradaBasicPage(festival: Festival) {
   
   //Para que actualize el precio al principio
   this.calcularPrecio
@@ -27,7 +27,7 @@ class VenderPage extends EntradaBasicPage {
 
   var self = this
   val categorias = new DropDownChoice("tipoPersona", new ComponentPropertyModel("descuentosValidos"))
-  val puntoDeVenta: DropDownChoice[Int] = new DropDownChoice("puntoDeVenta", new ComponentPropertyModel("puntosDeVenta"))
+  val puntoDeVenta: DropDownChoice[Int] = new DropDownChoice("puntoDeVenta", new ComponentPropertyModel("puestosDeVenta"))
   val cliente: DropDownChoice[String] = new DropDownChoice("cliente", new ComponentPropertyModel("clientes"))
    
   cliente.setNullValid(false) 

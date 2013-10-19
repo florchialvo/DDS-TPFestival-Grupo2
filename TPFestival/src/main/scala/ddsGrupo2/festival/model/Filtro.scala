@@ -1,7 +1,7 @@
 package ddsGrupo2.festival.model
 
 
-abstract class Filtro[T] {
+abstract class Filtro[T] extends Serializable {
 
   def condicion(generico: T): Boolean
 
@@ -15,7 +15,10 @@ class FiltroBandaContiene extends Filtro[Banda] {
 class FiltroEntradaFecha extends Filtro[Entrada] {
   var fechaDesde:Fecha = new Fecha(0,0,0)
   var fechaHasta:Fecha = new Fecha(0,0,0)
-  
   def condicion(entrada:Entrada)= entrada.fecha>=fechaDesde && entrada.fecha<=fechaHasta
 }
 
+class FiltroPorFestival extends Filtro[Entrada] {
+  var festivalSeleccionado = ""
+  def condicion(entrada: Entrada) = festivalSeleccionado== null || entrada.nombreFestival == festivalSeleccionado
+}

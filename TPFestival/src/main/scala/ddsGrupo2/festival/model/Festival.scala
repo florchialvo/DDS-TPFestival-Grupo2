@@ -33,8 +33,8 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
 
   def cantFilas(sector: Char): Int = valoresBase(sector).length
 
-  def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
-    entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha))
+  def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha, nombreFestival: String) =
+    entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha, nombreFestival))
 
   def esAnticipada = !(new Fecha().fechaActual > fechaVtoEntradasAnticipadas)
 
@@ -50,8 +50,8 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   def noche(unaFecha: Fecha): Noche = noches.find(_.correspondeA(unaFecha)).get
 
   def validarEntrada(entrada: Entrada) =
-    if (this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
-      throw new EntradaYaVendidaException("La entrada selecciona ya está vendida")
+    if (this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha, entrada.festival.nombre))
+      throw new EntradaYaVendidaException("La entrada seleccionada ya está vendida")
 
   def porcentajeVendidoDamas =
     if (entradasTotales == 0) 0
@@ -72,14 +72,14 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   }
 
   def validarEntradaNoVendida(entrada: Entrada) =
-    if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
+    if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha, entrada.nombreFestival))
       throw new EntradaNoVendidaException("La entrada no puede anularse, no ha sido vendida")
 
   def cancelar(entrada: Entrada) = {
     validarEntradaNoVendida(entrada)
     entradasVendidas --=
       entradasVendidas.filter(vendida => vendida.estasVendida(entrada.fila, entrada.sector,
-        entrada.numButaca, entrada.fecha))
+        entrada.numButaca, entrada.fecha, entrada.nombreFestival))
   }
 
   //    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco

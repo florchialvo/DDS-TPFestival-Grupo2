@@ -1,11 +1,12 @@
 package ddsGrupo2.festival.model
 
 import scala.collection.mutable.Set
-import scala.collection.mutable.ArrayBuffer
+import collection.JavaConversions._
 
-object FestivalesHome {
-  val festivales: ArrayBuffer[Festival] = ArrayBuffer()
-
+object FestivalesHome extends Serializable {
+  
+  var festivales: Set[Festival] = Set()
+  
   Categoria.crearCategoria('categoria1, 0)
   Categoria.crearCategoria('categoria2, 50)
   Categoria.crearCategoria('categoria3, 100)
@@ -43,20 +44,26 @@ object FestivalesHome {
   quilmesRock.agregarNoches(List(nocheq1, nocheq2))
   quilmesRock.agregarDescuentos(List(Dama, Menor, Mayor))
 
-  festivales += (festivalRock)
-  festivales += (quilmesRock)
+  festivales += festivalRock
+  festivales += quilmesRock
 
+  //Inicializacion por defecto
+  var festival = festivales.head.nombre
+
+  
+  var nombreFestivales: java.util.List[String] = this.festivales.map(_.nombre).toList
   def entradasDeCliente(nombre: String) = entradas.filter(e => e.cliente == nombre)
-
+  def entradasPuesto(puesto: Int) = entradas.filter(e => e.puestoDeVenta == puesto)
   def entradas =
     festivales.flatten(unFestival => unFestival.entradasVendidas)
 
-  def getFestival(nombre: String) = this.festivales.find(unFestival => unFestival.nombre == nombre)
-
-  //TODO: borrar esto
-  def getFestival = festivalRock
+  def getFestival(nombre: String) = this.festivales.find(unFestival => unFestival.nombre == nombre).get
+     
+  def getSelectedFestival = this.getFestival(festival)
   
-  def getBandas = this.festivalRock.bandas
+  def getAnyFestival= festival
 
-  def getNoche = noche1
+  def clientes: java.util.List[String] = List("Pablo","Florencia","Nicolas","Kevin")
+  def puestosDeVenta: java.util.List[Int] = List(1,2,3,4,5)
+  
 }

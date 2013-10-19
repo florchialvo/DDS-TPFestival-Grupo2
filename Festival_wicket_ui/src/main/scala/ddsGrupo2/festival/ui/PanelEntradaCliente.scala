@@ -36,13 +36,13 @@ class PanelEntradaCliente extends PanelBuscador {
 
   def createModel(form: Form[Buscador[_]]) = {
     form.setModel(new CompoundPropertyModel(
-      new Buscador(new EntradasPorCliente(), filtroContiene)))
+      new Buscador(new EntradasPorCliente, filtroContiene)))
   }
 
-  def fechas = new EntradaApplicationModel(FestivalesHome.getFestival).fechas.asScala.sortWith(_ < _).asJava
+  def fechas = new EntradaApplicationModel(FestivalesHome.getSelectedFestival).fechas.asScala.sortWith(_ < _).asJava
   def fechasMayoresAlDesde = this.obtenerFechasFestival
 
-  def obtenerFechasFestival: java.util.List[Fecha] = new EntradaApplicationModel(FestivalesHome.getFestival)
+  def obtenerFechasFestival: java.util.List[Fecha] = new EntradaApplicationModel(FestivalesHome.getSelectedFestival)
     .fechas
     .asScala
     .toList

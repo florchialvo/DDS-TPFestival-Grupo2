@@ -18,12 +18,12 @@ import org.apache.wicket.feedback.FeedbackMessage
 import ddsGrupo2.festival.model._
 import ddsGrupo2.festival.model.exception._
 
-class VenderComboPage extends VenderPage {
+class VenderComboPage(festival: Festival) extends VenderPage(festival: Festival) {
 
   val labelPrecioCombo = new Label("precioCombo")
   labelPrecioCombo.setOutputMarkupId(true)
 
-  var combo = new Combo(FestivalesHome.getFestival)
+  var combo = new Combo(festival)
   self = this
 
   //Solo para mostrar la lista
@@ -63,7 +63,7 @@ class VenderComboPage extends VenderPage {
     try {
       this.entrada.venderCombo(combo)
       this.info("El Combo fue vendido con exito")
-      combo = new Combo(FestivalesHome.getFestival)
+      combo = new Combo(festival)
       entradaSeleccionada = ""
       //Reinicio la lista
       listaEntradas.setChoices(new EntradasModel(combo))

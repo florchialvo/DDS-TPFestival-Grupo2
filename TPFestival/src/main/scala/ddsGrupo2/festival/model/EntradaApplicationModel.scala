@@ -14,7 +14,7 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
   var numButaca = this.butacas.head
   var tipoPersona = this.descuentosValidos.head
   var cliente = this.clientes.head
-  var puntoDeVenta = this.puntosDeVenta.head
+  var puntoDeVenta = this.puestosDeVenta.head
 
   var precio: Double = 0
   var precioCombo: Double = 0
@@ -60,8 +60,8 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
   def fechas: java.util.List[Fecha] = festival.fechas.toList
   def descuentosValidos: java.util.List[TipoPersona] = festival.descuentosValidos.toList
 
-  def clientes: java.util.List[String] = List("Pablo","Florencia","Nicolas","Kevin")
-  def puntosDeVenta: java.util.List[Int] = List(1,2,3,4,5)
+  def clientes = FestivalesHome.clientes
+  def puestosDeVenta = FestivalesHome.puestosDeVenta
   
   def cantFilas = festival.cantFilas(sector)
   def cantButacas = festival.cantButacas(sector, fila)

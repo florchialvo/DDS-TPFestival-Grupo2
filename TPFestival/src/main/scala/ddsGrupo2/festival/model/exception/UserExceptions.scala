@@ -9,3 +9,5 @@ class EntradaNoVendidaException (mensaje: String) extends UserException(mensaje)
 class EntradaYaAgregadaException (mensaje: String) extends UserException(mensaje)
 
 class EntradaYaVendidaException(mensaje: String) extends UserException(mensaje)
+
+class NoHayResultadosException(mensaje: String) extends UserException(mensaje)

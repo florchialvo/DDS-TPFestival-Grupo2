@@ -168,37 +168,37 @@ class EntradaTest {
     Assert.assertEquals(120, rollings.getValorCategoria)
   }
 
-  @Test
-  def testSeCambiaLaCategoriaDeUnaBanda() {
-    Categoria.crearCategoria('categoria5, 560)
-    Categoria.crearCategoria('categoria6, 900)
-    val rollings = new Banda(Categoria('categoria5), "Rollings")
-    rollings.cambiarCategoria(Categoria('categoria6))
-    Assert.assertEquals(Categoria('categoria6), rollings.categoria)
-  }
+//  @Test
+//  def testSeCambiaLaCategoriaDeUnaBanda() {
+//    Categoria.crearCategoria('categoria5, 560)
+//    Categoria.crearCategoria('categoria6, 900)
+//    val rollings = new Banda(Categoria('categoria5), "Rollings")
+//    rollings.cambiarCategoria(Categoria('categoria6))
+//    Assert.assertEquals(Categoria('categoria6), rollings.categoria)
+//  }
+//
+//  def anularUnaEntrada(entrada: Entrada) {
+//    Assert.assertFalse(festival.estaVendida(2, 'A', 1, entrada.fecha))
+//
+//    festival.vender(entrada)
+//    Assert.assertTrue(festival.estaVendida(2, 'A', 1, entrada.fecha))
+//
+//    festival.cancelar(entrada)
+//    Assert.assertFalse(festival.estaVendida(2, 'A', 1, entrada.fecha))
+//  }
 
-  def anularUnaEntrada(entrada: Entrada) {
-    Assert.assertFalse(festival.estaVendida(2, 'A', 1, entrada.fecha))
-
-    festival.vender(entrada)
-    Assert.assertTrue(festival.estaVendida(2, 'A', 1, entrada.fecha))
-
-    festival.cancelar(entrada)
-    Assert.assertFalse(festival.estaVendida(2, 'A', 1, entrada.fecha))
-  }
-
-  @Test()
-  def testUnaPersonaIntentaAnularUnaEntradaYaVendida {
-    val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 2, 1)
-    anularUnaEntrada(entrada)
-  }
-
-  @Test(expected = classOf[EntradaNoVendidaException])
-  def testUnaPersonaIntentaAnularUnaEntradaNoVendidaYRompe {
-    val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 2, 1)
-    anularUnaEntrada(entrada)
-    festival.cancelar(entrada)
-  }
+//  @Test()
+//  def testUnaPersonaIntentaAnularUnaEntradaYaVendida {
+//    val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 2, 1)
+//    anularUnaEntrada(entrada)
+//  }
+//
+//  @Test(expected = classOf[EntradaNoVendidaException])
+//  def testUnaPersonaIntentaAnularUnaEntradaNoVendidaYRompe {
+//    val entrada = new Entrada(festival, 100, noche1, Mayor, 'A', 2, 1)
+//    anularUnaEntrada(entrada)
+//    festival.cancelar(entrada)
+//  }
 
   @Test
   def testLaCantidadDeButacasDelSectorBFila1Es10 {
