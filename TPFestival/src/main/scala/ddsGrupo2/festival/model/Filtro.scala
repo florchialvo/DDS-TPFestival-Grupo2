@@ -1,4 +1,5 @@
 package ddsGrupo2.festival.model
+import collection.JavaConversions._
 
 
 abstract class Filtro[T] extends Serializable {
@@ -19,6 +20,7 @@ class FiltroEntradaFecha extends Filtro[Entrada] {
 }
 
 class FiltroPorFestival extends Filtro[Entrada] {
-  var festivalSeleccionado = ""
-  def condicion(entrada: Entrada) = festivalSeleccionado== null || entrada.nombreFestival == festivalSeleccionado
+  var festival:Festival = null
+  def festivales: java.util.List[Festival] = FestivalesHome.festivales
+  def condicion(entrada: Entrada) = festival == null || entrada.nombreFestival == festival.nombre
 }

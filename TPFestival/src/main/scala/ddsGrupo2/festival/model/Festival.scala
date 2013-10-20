@@ -35,8 +35,8 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
 
   def cantFilas(sector: Char): Int = valoresBase(sector).length
 
-  def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha, nombreFestival: String) =
-    entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha, nombreFestival))
+  def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
+    entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha))
 
   def esAnticipada = !(new Fecha().fechaActual > fechaVtoEntradasAnticipadas)
 
@@ -52,7 +52,7 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   def noche(unaFecha: Fecha): Noche = noches.find(_.correspondeA(unaFecha)).get
 
   def validarEntrada(entrada: Entrada) =
-    if (this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha, entrada.festival.nombre))
+    if (this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
       throw new EntradaYaVendidaException("La entrada seleccionada ya está vendida")
 
   def porcentajeVendidoDamas =
@@ -74,14 +74,14 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
   }
 
   def validarEntradaNoVendida(entrada: Entrada) =
-    if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha, entrada.nombreFestival))
+    if (!this.estaVendida(entrada.fila, entrada.sector, entrada.numButaca, entrada.fecha))
       throw new EntradaNoVendidaException("La entrada no puede anularse, no ha sido vendida")
 
   def cancelar(entrada: Entrada) = {
     validarEntradaNoVendida(entrada)
     entradasVendidas --=
       entradasVendidas.filter(vendida => vendida.estasVendida(entrada.fila, entrada.sector,
-        entrada.numButaca, entrada.fecha, entrada.nombreFestival))
+        entrada.numButaca, entrada.fecha))
   }
 
   //    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco

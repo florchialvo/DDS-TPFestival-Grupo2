@@ -33,36 +33,36 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
   def calcularPrecioCombo(unCombo: Combo) {
     precioCombo = unCombo.precioTotal()
   }
-  
+
   def venderEntrada() {
-    festival.vender(EntradaApplicationModel.this.build)
+    festival.vender(build)
   }
 
   def anularEntrada() {
-    festival.cancelar(EntradaApplicationModel.this.build)
+    festival.cancelar(build)
   }
 
   def agregarEntradaAlCombo(unCombo: Combo) {
-    unCombo.agregar(EntradaApplicationModel.this.build)
+    unCombo.agregar(build)
   }
 
-  def quitarEntradaDelCombo(nombreEntrada:String,unCombo: Combo) {
+  def quitarEntradaDelCombo(nombreEntrada: String, unCombo: Combo) {
     unCombo.quitar(nombreEntrada)
   }
-    
+
   def venderCombo(unCombo: Combo) {
     festival.vender(unCombo)
   }
 
   def sectores: java.util.List[Char] = festival.sectores.toList
-  def filas: java.util.List[Int] = List.range(1, 1 + this.cantFilas)
-  def butacas: java.util.List[Int] = List.range(1, 1 + this.cantButacas)
+  def filas: java.util.List[Int] = List.range(1, 1 + cantFilas)
+  def butacas: java.util.List[Int] = List.range(1, 1 + cantButacas)
   def fechas: java.util.List[Fecha] = festival.fechas.toList
   def descuentosValidos: java.util.List[TipoPersona] = festival.descuentosValidos.toList
 
   def clientes = FestivalesHome.clientes
   def puestosDeVenta = FestivalesHome.puestosDeVenta
-  
+
   def cantFilas = festival.cantFilas(sector)
   def cantButacas = festival.cantButacas(sector, fila)
 }

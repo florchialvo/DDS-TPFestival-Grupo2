@@ -7,7 +7,7 @@ import org.apache.wicket.markup.html.form.TextField
 import org.apache.wicket.model.PropertyModel
 import org.apache.wicket.markup.html.form.DropDownChoice
 import org.apache.wicket.model.ComponentPropertyModel
-import scala.collection.JavaConverters._
+import scala.collection.JavaConversions._
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior
 import org.apache.wicket.ajax.AjaxRequestTarget
 import org.apache.wicket.markup.html.basic.Label
@@ -39,13 +39,15 @@ class PanelEntradaCliente extends PanelBuscador {
       new Buscador(new EntradasPorCliente, filtroContiene)))
   }
 
-  def fechas = new EntradaApplicationModel(FestivalesHome.getSelectedFestival).fechas.asScala.sortWith(_ < _).asJava
+  //TODO: kevin arregla esto cuando puedas
+  def fechas: java.util.List[Fecha] = List()// new EntradaApplicationModel(FestivalesHome.getSelectedFestival).fechas.asScala.sortWith(_ < _).asJava
   def fechasMayoresAlDesde = this.obtenerFechasFestival
 
-  def obtenerFechasFestival: java.util.List[Fecha] = new EntradaApplicationModel(FestivalesHome.getSelectedFestival)
-    .fechas
-    .asScala
-    .toList
-    .filter(elem => elem >= filtroContiene.fechaDesde)
-    .asJava
+  def obtenerFechasFestival: java.util.List[Fecha] = List()
+  //    new EntradaApplicationModel(FestivalesHome.getSelectedFestival)
+//    .fechas
+//    .asScala
+//    .toList
+//    .filter(elem => elem >= filtroContiene.fechaDesde)
+//    .asJava
 }

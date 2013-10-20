@@ -8,8 +8,8 @@ abstract class Generador[T] extends Serializable {
 
 class BandasPorFestival extends Generador[Banda] {
 	var festival: Festival = FestivalesHome.festivales.head
-			
-	def listaFestivales: java.util.List[Festival]  = FestivalesHome.festivales//.map(f => f.nombre)
+	def listaFestivales: java.util.List[Festival]  = FestivalesHome.festivales
+	
 	def listaBase = festival.bandas.toList
 }
 
@@ -18,7 +18,7 @@ class EntradasPorCliente extends Generador[Entrada] {
   def listaBase = FestivalesHome.entradasDeCliente(cliente).toList
 }
 
-//class EntradasPuestoVta extends Generador[Entrada] {
-//  var puesto: Int = 0
-//  def listaBase = FestivalesHome.entradasPuesto(puesto).toList
-//}
+class EntradasPuestoVta extends Generador[Entrada] {
+  var puesto: Int = 0
+  def listaBase = FestivalesHome.entradasPuesto(puesto).toList
+}
