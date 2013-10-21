@@ -48,14 +48,26 @@ object FestivalesHome extends Serializable {
   festivales += festivalRock
   festivales += quilmesRock
 
-  def entradasDeCliente(nombre: String) = entradas.filter(e => e.cliente == nombre)
+  def noches = 
+    festivales.flatten(unFest => unFest.noches)
+  
+  def fechas : List[Fecha] = {
+    
+    //TODO ARREGLAR ESTO CUANDO SE PUEDA
+    val fechas = this.noches.map(noche => noche.fecha)
+    fechas.sortWith(_ < _).toList
+  }
+  
+  def entradasDeCliente(nombre: String):List[Entrada] = entradas.filter(e => (nombre == null) || (e.cliente.toLowerCase() == nombre.toLowerCase()) ).toList
+  
+
   def entradasPuesto(puesto: Int) = entradas.filter(e => e.puestoDeVenta == puesto)
   def entradas =
     festivales.flatten(unFestival => unFestival.entradasVendidas)
-
+    
   def getFestival(nombre: String) = festivales.find(unFestival => unFestival.nombre == nombre).get
   def getAnyFestival = festivales.head
-
+  
   def clientes: java.util.List[String] = List("Pablo","Florencia","Nicolas","Kevin")
   def puestosDeVenta: java.util.List[Int] = List(1,2,3,4,5)
 }

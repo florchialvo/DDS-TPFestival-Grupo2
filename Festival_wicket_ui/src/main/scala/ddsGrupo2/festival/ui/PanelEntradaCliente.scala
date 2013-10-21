@@ -21,7 +21,7 @@ class PanelEntradaCliente extends PanelBuscador {
   override def addComponents(form: Form[Buscador[_]]) {
     val dropFechaDesde = new DropDownChoice("fechaDesde", new PropertyModel[Fecha](this.filtroContiene, "fechaDesde"), this.fechas)
     val dropFechaHasta = new DropDownChoice("fechaHasta", new PropertyModel[Fecha](this.filtroContiene, "fechaHasta"), new PropertyModel(this, "fechasMayoresAlDesde"))
-    form.add(new TextField("cliente", new PropertyModel[String](generador, "cliente")))
+    form.add(new TextField("cliente", new PropertyModel[String](generador, "clienteABuscar")))
     dropFechaHasta.setOutputMarkupId(true)
     dropFechaDesde.add(new AjaxFormComponentUpdatingBehavior("onchange") {
       override def onUpdate(target: AjaxRequestTarget) = {
@@ -36,18 +36,11 @@ class PanelEntradaCliente extends PanelBuscador {
 
   def createModel(form: Form[Buscador[_]]) = {
     form.setModel(new CompoundPropertyModel(
-      new Buscador(new EntradasPorCliente, filtroContiene)))
+      new Buscador(generador, filtroContiene)))
   }
 
-  //TODO: kevin arregla esto cuando puedas
-  def fechas: java.util.List[Fecha] = List()// new EntradaApplicationModel(FestivalesHome.getSelectedFestival).fechas.asScala.sortWith(_ < _).asJava
-  def fechasMayoresAlDesde = this.obtenerFechasFestival
 
-  def obtenerFechasFestival: java.util.List[Fecha] = List()
-  //    new EntradaApplicationModel(FestivalesHome.getSelectedFestival)
-//    .fechas
-//    .asScala
-//    .toList
-//    .filter(elem => elem >= filtroContiene.fechaDesde)
-//    .asJava
+  def fechas: java.util.List[Fecha] = FestivalesHome.fechas
+
+  def fechasMayoresAlDesde: java.util.List[Fecha] = fechas.filter(fecha => fecha>=filtroContiene.fechaDesde)
 }

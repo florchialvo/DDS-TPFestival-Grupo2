@@ -14,8 +14,8 @@ class BandasPorFestival extends Generador[Banda] {
 }
 
 class EntradasPorCliente extends Generador[Entrada] {
-  var cliente:String = ""
-  def listaBase = FestivalesHome.entradasDeCliente(cliente).toList
+  var clienteABuscar:String = ""
+  def listaBase = FestivalesHome.entradasDeCliente(clienteABuscar).toList
 }
 
 class EntradasPuestoVta extends Generador[Entrada] {
