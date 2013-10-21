@@ -10,37 +10,37 @@
 		<div id="Contenedor">
 			<h2>Vender Combo</h2>
 			
-			<p>Noche:</p>
-			<select wicket:id="fechaNoche"></select>			
-			<p>Sector:
-			<select class="selectNum" wicket:id="sector"></select>
-			</p>
-			<p>Fila:
-			<select class="selectNum" wicket:id="fila"></select>
-			</p>
 			<p>
-			Butaca:	
-			<select class="selectNum" wicket:id="numButaca"></select>
-			</p>	
-				<p>
-			Cliente:	
-			<select  wicket:id="cliente"></select>
+				Noche:
+				<select wicket:id="fechaNoche"></select>
+			</p>			
+			<p>
+				Sector:
+				<select class="selectNum" wicket:id="sector"></select>
+				Fila:
+				<select class="selectNum" wicket:id="fila"></select>
+				Butaca:	
+				<select class="selectNum" wicket:id="numButaca"></select>
 			</p>	
 			<p>
-			Punto De Venta:	
-			<select class="selectNum" wicket:id="puntoDeVenta"></select>
+				Cliente:	
+				<select  wicket:id="cliente"></select>
 			</p>	
-			<p>Ingrese la categoria:</p>
-			<select wicket:id="tipoPersona"></select>
+			<p>
+				Punto De Venta:	
+				<select class="selectNum" wicket:id="puntoDeVenta"></select>
+			</p>	
+				<p>Ingrese la categoria:</p>
+				<select wicket:id="tipoPersona"></select>
 			<br />
-			  <h3> 
--         <span wicket:id="precio" />
--       </h3>
+			<h3> 
+	-         Precio entrada: <span wicket:id="precio" />
+-      		</h3>
  			<p>Entradas en el Combo:</p>
  			<select class="entradaList" wicket:id="entradaSeleccionada"></select>
  			<span wicket:id="feedback">[Feedback Panel]</span>
  			<h3> 
- 				<span wicket:id="precioCombo" />
+ 				TOTAL: <span wicket:id="precioCombo" />
  			</h3>
 			<a class="btn btn-warning" href="#" wicket:id="agregarAlCombo">Agregar Al Combo</a>
 			<a class="btn btn-warning" href="#" wicket:id="quitarDelCombo">Quitar Del Combo</a>

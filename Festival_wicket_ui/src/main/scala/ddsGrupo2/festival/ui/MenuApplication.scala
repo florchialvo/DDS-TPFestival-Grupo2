@@ -19,13 +19,13 @@ class MenuApplication extends WebApplication {
 }
 
 class MenuPage extends WebPage {
-  var festival = FestivalesHome.getAnyFestival
+  def festival = FestivalesHome.festivalActual
 
-  val form = new Form("form")
+  val form = new Form("form", createModel)
   val formBusqueda = new Form("formBusqueda")
 
-  val dropFestivales = new DropDownChoice[Festival]("festival",
-    new PropertyModel[Festival](this, "festival"), FestivalesHome.festivales)
+  val dropFestivales = new DropDownChoice[Festival]("festivalActual",
+    new ComponentPropertyModel("getFestivales"))
 
   dropFestivales.setNullValid(false)
   dropFestivales.setOutputMarkupId(true)
@@ -83,8 +83,7 @@ class MenuPage extends WebPage {
 
   def addFields {
     form.add(dropFestivales)
-    val label = new Label("label", "Elija una operación a realizar")
-    form.add(label)
+//    form.add(new Label("label", "Elija una operación a realizar"))
   }
 
   def createModel = {

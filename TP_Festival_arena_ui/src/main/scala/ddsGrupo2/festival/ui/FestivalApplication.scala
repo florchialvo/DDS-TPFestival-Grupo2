@@ -6,7 +6,7 @@ import scala.collection.mutable.Set
 
 object FestivalApplication extends Application with App {
 
-  var festival: Festival = FestivalesHome.getAnyFestival
+  var festival: Festival = FestivalesHome.festivalActual
   var entradaAppModel: EntradaApplicationModel = null
 
   override def createMainWindow() = {

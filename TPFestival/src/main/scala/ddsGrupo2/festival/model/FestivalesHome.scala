@@ -5,9 +5,9 @@ import collection.JavaConversions._
 import scala.collection.mutable.ArrayBuffer
 
 object FestivalesHome extends Serializable {
-  
+
   var festivales: ArrayBuffer[Festival] = ArrayBuffer()
-  
+
   Categoria.crearCategoria('categoria1, 0)
   Categoria.crearCategoria('categoria2, 50)
   Categoria.crearCategoria('categoria3, 100)
@@ -48,26 +48,27 @@ object FestivalesHome extends Serializable {
   festivales += festivalRock
   festivales += quilmesRock
 
-  def noches = 
+  def noches =
     festivales.flatten(unFest => unFest.noches)
-  
-  def fechas : List[Fecha] = {
-    
+
+  def fechas: List[Fecha] = {
+
     //TODO ARREGLAR ESTO CUANDO SE PUEDA
     val fechas = this.noches.map(noche => noche.fecha)
     fechas.sortWith(_ < _).toList
   }
-  
-  def entradasDeCliente(nombre: String):List[Entrada] = entradas.filter(e => (nombre == null) || (e.cliente.toLowerCase() == nombre.toLowerCase()) ).toList
-  
+
+  def entradasDeCliente(nombre: String): List[Entrada] = entradas.filter(e => (nombre == null) || (e.cliente.toLowerCase() == nombre.toLowerCase())).toList
 
   def entradasPuesto(puesto: Int) = entradas.filter(e => e.puestoDeVenta == puesto)
   def entradas =
     festivales.flatten(unFestival => unFestival.entradasVendidas)
-    
-  def getFestival(nombre: String) = festivales.find(unFestival => unFestival.nombre == nombre).get
-  def getAnyFestival = festivales.head
+
+  var festivalActual = festivales.head
+  def getFestivales: java.util.List[Festival] = festivales
   
-  def clientes: java.util.List[String] = List("Pablo","Florencia","Nicolas","Kevin")
-  def puestosDeVenta: java.util.List[Int] = List(1,2,3,4,5)
+  def getFestival(nombre: String) = festivales.find(unFestival => unFestival.nombre == nombre).get
+
+  def clientes: java.util.List[String] = List("Pablo", "Florencia", "Nicolas", "Kevin")
+  def puestosDeVenta: java.util.List[Int] = List(1, 2, 3, 4, 5)
 }
