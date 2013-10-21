@@ -22,3 +22,8 @@ class EntradasPuestoVta extends Generador[Entrada] {
   var puesto: Int = 0
   def listaBase = FestivalesHome.entradasPuesto(puesto).toList
 }
+
+class BandasPorCliente extends Generador[Banda]{
+  var cliente:String = ""
+  def listaBase = FestivalesHome.entradasDeCliente(cliente).flatten(unaEntrada => unaEntrada.bandas)
+}

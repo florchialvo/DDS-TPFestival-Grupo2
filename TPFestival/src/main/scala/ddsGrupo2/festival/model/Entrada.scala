@@ -17,6 +17,8 @@ class Entrada(var festival: Festival, valorBase: Int, noche: Noche, var persona:
     def estasVendida(unaFila: Int, unSector: Char, unaButaca:Int, unaFecha: Fecha) =
         unaFila == fila && unSector == sector && 
         unaButaca == numButaca && noche.correspondeA(unaFecha)
+        
+    def bandas = noche.bandas
 }
 
 

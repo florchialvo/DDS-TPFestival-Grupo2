@@ -24,3 +24,8 @@ class FiltroPorFestival extends Filtro[Entrada] {
   def festivales: java.util.List[Festival] = FestivalesHome.festivales
   def condicion(entrada: Entrada) = festival == null || entrada.nombreFestival == festival.nombre
 }
+
+class FiltroBandaFestival extends Filtro[Banda]{
+  var festival: Festival = null
+  def condicion(banda: Banda) = festival == null || festival.bandas.contains(banda)
+}
