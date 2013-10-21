@@ -20,7 +20,7 @@ class PanelBandaCliente extends PanelBuscador {
   override def addComponents(form: Form[Buscador[_]]){
     dropFestivales.setNullValid(true)
     dropFestivales.setOutputMarkupId(true)
-    form.add(new TextField("cliente", new PropertyModel[String](generador, "clienteABuscar")))
+    form.add(new TextField("cliente", new PropertyModel[String](generador, "cliente")))
     form.add(dropFestivales)
   }
   

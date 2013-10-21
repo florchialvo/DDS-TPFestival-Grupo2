@@ -65,6 +65,12 @@ class MenuPage extends WebPage {
       this.setResponsePage(new BusquedaBandasPage(new PanelBandaContiene))
     }
   }
+    
+  val buttonBuscarBandasCliente = new Button("buscarBandasCliente"){
+    override def onSubmit(){
+      this.setResponsePage(new BusquedaBandasPage(new PanelBandaCliente))
+    }
+  }
 
   addFields
   addActions
@@ -79,6 +85,7 @@ class MenuPage extends WebPage {
     formBusqueda.add(buttonBuscarEntradasFecha)
     formBusqueda.add(buttonBuscarBandasContiene)
     formBusqueda.add(buttonEntradasPtoVenta)
+    formBusqueda.add(buttonBuscarBandasCliente)
   }
 
   def addFields {
