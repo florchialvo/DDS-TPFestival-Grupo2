@@ -1,24 +1,27 @@
 <html>
-<head>
-
-<link rel="stylesheet" type="text/css" href="bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="style.css" />
-</head>
-
-<title>Aplicacion Festival</title>
-<body>
-	<div id="Contenedor">
-	    <form wicket:id="form">
-	    	<p>Seleccione un Festival</p>
-			<select wicket:id="festival"></select>
-		    <h4 wicket:id="label" class="text" />
-		    <p><input class="btn btn-info" wicket:id="vender" type="submit" value="Vender Entrada" /></p>
-		    <p><input class="btn btn-info" wicket:id="venderCombo" type="submit" value="Vender Combo" /></p>
-		    <p><input class="btn btn-info" wicket:id="anular" type="submit" value="Anular Entrada" /></p>
-		    <p><input class="btn btn-info" wicket:id="buscarEntradas" type="submit" value="Buscar Entrada Por Cliente y Fecha" /></p>
-		     <p><input class="btn btn-info" wicket:id="buscarEntradasPuesto" type="submit" value="Buscar Entradas por Puesto de Venta y Festival" /></p>
-		    <p><input class="btn btn-info" wicket:id="buscarBandas" type="submit" value="Buscar Bandas" /></p>
-	    </form>
-	</div>
-</body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<title>Aplicacion Festival</title>
+	<body>
+		<div id="Contenedor">
+		    <form wicket:id="form">
+		    	<p>Seleccione un Festival</p>
+				<select wicket:id="festival"></select>
+			    <h4 wicket:id="label" class="text" />
+			    <p><input class="btn btn-info" wicket:id="vender" type="submit" value="Vender Entrada" /></p>
+			    <p><input class="btn btn-info" wicket:id="venderCombo" type="submit" value="Vender Combo" /></p>
+			    <p><input class="btn btn-info" wicket:id="anular" type="submit" value="Anular Entrada" /></p>
+		    </form>
+		</div>
+		<div id="Contenedor">
+		    <form wicket:id="formBusqueda">
+			    <h4>Busqueda</h4>
+			    <p><input class="btn btn-info" wicket:id="buscarEntradasFecha" type="submit" value="Entradas Por Cliente y Fecha" /></p>
+			    <p><input class="btn btn-info" wicket:id="buscarEntradasPuesto" type="submit" value="Entradas por Puesto de Venta y Festival" /></p>
+			    <p><input class="btn btn-info" wicket:id="buscarBandasContiene" type="submit" value="Bandas por Festival y Nombre" /></p>
+		    </form>
+		</div>		
+	</body>
 </html>

@@ -22,11 +22,12 @@ class MenuPage extends WebPage {
   var festival = FestivalesHome.getAnyFestival
 
   val form = new Form("form")
+  val formBusqueda = new Form("formBusqueda")
+
   val dropFestivales = new DropDownChoice[Festival]("festival",
     new PropertyModel[Festival](this, "festival"), FestivalesHome.festivales)
 
   dropFestivales.setNullValid(false)
-
   dropFestivales.setOutputMarkupId(true)
 
   val buttonVender = new Button("vender") {
@@ -47,7 +48,7 @@ class MenuPage extends WebPage {
     }
   }
 
-  val buttonBuscarEntradas = new Button("buscarEntradas") {
+  val buttonBuscarEntradasFecha = new Button("buscarEntradasFecha") {
     override def onSubmit() {
       this.setResponsePage(new BusquedaEntradasPage(new PanelEntradaCliente))
     }
@@ -59,7 +60,7 @@ class MenuPage extends WebPage {
     }
   }
 
-  val buttonBuscarBandas = new Button("buscarBandas") {
+  val buttonBuscarBandasContiene = new Button("buscarBandasContiene") {
     override def onSubmit() {
       this.setResponsePage(new BusquedaBandasPage(new PanelBandaContiene))
     }
@@ -68,18 +69,20 @@ class MenuPage extends WebPage {
   addFields
   addActions
   add(form)
+  add(formBusqueda)
 
   def addActions {
-    form.add(dropFestivales)
     form.add(buttonVender)
-    form.add(buttonBuscarEntradas)
-    form.add(buttonBuscarBandas)
-    form.add(buttonEntradasPtoVenta)
     form.add(buttonAnular)
     form.add(buttonCombo)
+
+    formBusqueda.add(buttonBuscarEntradasFecha)
+    formBusqueda.add(buttonBuscarBandasContiene)
+    formBusqueda.add(buttonEntradasPtoVenta)
   }
 
   def addFields {
+    form.add(dropFestivales)
     val label = new Label("label", "Elija una operación a realizar")
     form.add(label)
   }
