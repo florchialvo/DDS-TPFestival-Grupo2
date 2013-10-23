@@ -3,6 +3,7 @@ package ddsGrupo2.festival.model
 import scala.collection.mutable.Set
 import collection.JavaConversions._
 import scala.collection.mutable.ArrayBuffer
+import scala.annotation.tailrec
 
 object FestivalesHome extends Serializable {
 
@@ -53,11 +54,17 @@ object FestivalesHome extends Serializable {
 
   def fechas: List[Fecha] = {
 
-    //TODO ARREGLAR ESTO CUANDO SE PUEDA
-    val fechas = this.noches.map(noche => noche.fecha)
-    fechas.sortWith(_ < _).toList
-  }
+   
+    var fechas = this.noches.map(noche => noche.fecha)
 
+   this.quitarRepetidos(fechas).sortWith(_ < _).toList
+    
+  }
+  
+
+
+  def quitarRepetidos(fechas:ArrayBuffer[Fecha])= fechas.groupBy{_.toInt}.map{_._2.head}.toList
+ 
   def entradasDeCliente(nombre: String): List[Entrada] = entradas.filter(e => (nombre == null) || (e.cliente.toLowerCase() == nombre.toLowerCase())).toList
 
   def entradasPuesto(puesto: Int) = entradas.filter(e => e.puestoDeVenta == puesto)
@@ -71,4 +78,7 @@ object FestivalesHome extends Serializable {
 
   def clientes: java.util.List[String] = List("Pablo", "Florencia", "Nicolas", "Kevin")
   def puestosDeVenta: java.util.List[Int] = List(1, 2, 3, 4, 5)
+
+  
+  
 }
