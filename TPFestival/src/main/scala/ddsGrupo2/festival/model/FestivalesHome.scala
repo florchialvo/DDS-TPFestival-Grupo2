@@ -53,16 +53,10 @@ object FestivalesHome extends Serializable {
     festivales.flatten(unFest => unFest.noches)
 
   def fechas: List[Fecha] = {
-
-   
-    var fechas = this.noches.map(noche => noche.fecha)
-
-   this.quitarRepetidos(fechas).sortWith(_ < _).toList
-    
+   var fechas = this.noches.map(noche => noche.fecha)
+   this.quitarRepetidos(fechas).sortWith(_ < _)
   }
   
-
-
   def quitarRepetidos(fechas:ArrayBuffer[Fecha])= fechas.groupBy{_.toInt}.map{_._2.head}.toList
  
   def entradasDeCliente(nombre: String): List[Entrada] = entradas.filter(e => (nombre == null) || (e.cliente.toLowerCase() == nombre.toLowerCase())).toList
