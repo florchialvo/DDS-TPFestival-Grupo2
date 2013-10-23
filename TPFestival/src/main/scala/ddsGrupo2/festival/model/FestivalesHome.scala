@@ -3,7 +3,7 @@ package ddsGrupo2.festival.model
 import scala.collection.mutable.Set
 import collection.JavaConversions._
 import scala.collection.mutable.ArrayBuffer
-import scala.annotation.tailrec
+
 
 object FestivalesHome extends Serializable {
 
