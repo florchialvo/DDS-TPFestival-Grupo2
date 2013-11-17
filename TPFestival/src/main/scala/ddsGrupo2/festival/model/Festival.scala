@@ -3,39 +3,62 @@ package ddsGrupo2.festival.model
 import ddsGrupo2.festival.model.exception._
 import scala.collection.mutable.Set
 import org.uqbar.commons.utils.Observable
-import scala.collection.immutable.Map
 import java.io.Serializable
+import org.uqbar.commons.model.Entity
+import uqbar.arena.persistence.annotations.Relation
+import collection.JavaConversions._
+import uqbar.arena.persistence.annotations.PersistentField
+import uqbar.arena.persistence.annotations.PersistentClass
 
-class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntradasAnticipadas: Fecha) extends Serializable {
+@PersistentClass
+class Festival(var valoresBase: Set[Sector], var fechaVtoEntradasAnticipadas: Fecha,
+    var nombre:String)  extends Entity {
+  
+  //Persistencia
+  def this() = this(Set(), null, null)
+  
+  @PersistentField
+  def getNombre():String = nombre
+  def setNombre(n:String) = (nombre = n)
+  
+//  @Relation
+//  def getValoresBase(): java.util.Set[Sector] = valoresBase
+//  def setValoresBase(s: java.util.Set[Sector]) = valoresBase = s
+  
+  //@Relation
+  //def getEntradasVendidas():java.util.Set[Entrada]  = entradasVendidas
+  
+  //@Relation
+  //def getNoches():java.util.Set[Noche] = noches
+  //
 
   var entradasVendidas: Set[Entrada] = Set()
   var noches: Set[Noche] = Set()
   var descuentosValidos: Set[TipoPersona] = Set()
 
-  var nombre:String = ""
   override def toString() = nombre
-    
-    
-  def sectores: scala.collection.immutable.Set[Char] = valoresBase.keySet
+
+  def sectores: scala.collection.Set[String] = valoresBase.map(s => s.nombre)
   def fechas = {
     val colMapeada = noches.map(n => n.fecha)
     colMapeada.toList.sortWith(_ < _)
   }
 
   def agregarNoche(n: Noche) = noches += n
-  def agregarNoches(ns: List[Noche]) = noches++= ns
+  def agregarNoches(ns: List[Noche]) = noches ++= ns
   def agregarDescuento(t: TipoPersona) = descuentosValidos += t
-  def agregarDescuentos(ts: List[TipoPersona]) = descuentosValidos++= ts
+  def agregarDescuentos(ts: List[TipoPersona]) = descuentosValidos ++= ts
+
+  def sectorPorNombre(n:String) = valoresBase.filter(s => s.nombre == n).head
   
-
   //fila-1 porque el indice empieza en 0
-  def valorBase(fila: Int, sector: Char): Int = valoresBase(sector)(fila - 1)._1
+  def valorBase(fila: Int, sector: String): Int = sectorPorNombre(sector).filas(fila - 1).precio
 
-  def cantButacas(sector: Char, fila: Int): Int = valoresBase(sector)(fila - 1)._2
+  def cantButacas(sector: String, fila: Int): Int = sectorPorNombre(sector).filas(fila - 1).cantidadButacas
 
-  def cantFilas(sector: Char): Int = valoresBase(sector).length
+  def cantFilas(sector: String): Int = sectorPorNombre(sector).cantFilas
 
-  def estaVendida(fila: Int, sector: Char, numButaca: Int, fecha: Fecha) =
+  def estaVendida(fila: Int, sector: String, numButaca: Int, fecha: Fecha) =
     entradasVendidas.exists(entrada => entrada.estasVendida(fila, sector, numButaca, fecha))
 
   def esAnticipada = !(new Fecha().fechaActual > fechaVtoEntradasAnticipadas)
@@ -86,7 +109,7 @@ class Festival(var valoresBase: Map[Char, Array[(Int, Int)]], var fechaVtoEntrad
 
   //    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco
   //    porque lo usan todos los tests!   
-  def nuevaEntrada(fila: Int, sector: Char, numButaca: Int, fecha: Fecha, persona: TipoPersona) = {
+  def nuevaEntrada(fila: Int, sector: String, numButaca: Int, fecha: Fecha, persona: TipoPersona) = {
     if (this.esAnticipada)
       new EntradaAnticipada(this, valorBase(fila, sector), noche(fecha), persona, sector, fila, numButaca)
     else

@@ -2,8 +2,8 @@ package ddsGrupo2.festival.model
 
 import scala.collection.mutable.Set
 
-class FestivalMock(valoresBase: Map[Char, Array[(Int, Int)]], fechaVtoEntradasAnticipadas: Fecha, var fechaActual:Fecha)
- 	   extends Festival(valoresBase: Map[Char, Array[(Int, Int)]], fechaVtoEntradasAnticipadas: Fecha) {
+class FestivalMock(valoresBase: Set[Sector], fechaVtoEntradasAnticipadas: Fecha, var fechaActual:Fecha)
+ 	   extends Festival(valoresBase: Set[Sector], fechaVtoEntradasAnticipadas: Fecha, "Mock") {
 
   override def esAnticipada = !(fechaActual > fechaVtoEntradasAnticipadas)
 

@@ -2,7 +2,6 @@ package ddsGrupo2.festival.model
 
 import org.uqbar.commons.utils.Observable
 import collection.JavaConversions._
-
 import java.io.Serializable;
 
 @Observable
@@ -54,7 +53,7 @@ class EntradaApplicationModel(val festival: Festival) extends Serializable {
     festival.vender(unCombo)
   }
 
-  def sectores: java.util.List[Char] = festival.sectores.toList
+  def sectores: java.util.List[String] = festival.sectores.toList
   def filas: java.util.List[Int] = List.range(1, 1 + cantFilas)
   def butacas: java.util.List[Int] = List.range(1, 1 + cantButacas)
   def fechas: java.util.List[Fecha] = festival.fechas.toList
