@@ -12,89 +12,60 @@ import ddsGrupo2.festival.model.FestivalesHome
 import org.apache.wicket.model.ComponentPropertyModel
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import collection.JavaConversions._
-import ddsGrupo2.festival.model.Festival
+import uqbar.arena.persistence.Configuration
+//
+import ddsGrupo2.festival.model._
+import scala.collection.mutable.Set
+import scala.collection.mutable.Buffer
 
 class MenuApplication extends WebApplication {
+    Configuration.configure()
+
+  //Categorias
+  Categoria.crearCategoria('categoria1, 0)
+  Categoria.crearCategoria('categoria2, 50)
+  Categoria.crearCategoria('categoria3, 100)
+  Categoria.crearCategoria('categoria4, 200)
+
+  //Bandas
+  val ledZeppelin = new Banda(Categoria('categoria4), "Led Zeppelin")
+  val ironMaiden = new Banda(Categoria('categoria4), "Iron Maiden")
+  val sodaStereo = new Banda(Categoria('categoria3), "Soda Stereo")
+  val rollingStones = new Banda(Categoria('categoria4), "Rollings Stones")
+  val bonJovi = new Banda(Categoria('categoria4), "Bon Jovi")
+  val elIndio = new Banda(Categoria('categoria2), "Indio Solari")
+
+  //Festivales
+  val valoresBaseQuilmes = Set(
+    Sector("A", Fila(500, 10), Fila(400, 10), Fila(300, 10)),
+    Sector("B", Fila(500, 10), Fila(500, 10), Fila(500, 10)),
+    Sector("C", Fila(500, 100)))
+
+  val valoresBaseRock = Set(
+    Sector("A", Fila(100, 15), Fila(100, 15), Fila(100, 15)),
+    Sector("B", Fila(500, 10), Fila(500, 10), Fila(500, 10)))
+
+  val quilmesRock = new Festival(valoresBaseQuilmes, new Fecha(10, 12, 2013), "Quilmes Rock")
+  val festivalRock = new Festival(valoresBaseRock, new Fecha(10, 12, 2013), "Festival Rock")
+
+  //Noches
+  val noche1 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha(18, 10, 2014))
+  val noche2 = new Noche(Set(bonJovi), new Fecha(19, 10, 2014))
+  val noche3 = new Noche(Set(ledZeppelin, ironMaiden), new Fecha(20, 10, 2014))
+  val noche4 = new Noche(Set(ledZeppelin, sodaStereo), new Fecha(21, 10, 2014))
+
+  val nocheq1 = new Noche(Set(ironMaiden), new Fecha(18, 10, 2014))
+  val nocheq2 = new Noche(Set(elIndio), new Fecha(19, 10, 2014))
+
+  festivalRock.agregarNoches(List(noche1, noche2, noche3, noche4))
+  quilmesRock.agregarNoches(List(nocheq1, nocheq2))
+
+  //Descuentos
+  festivalRock.agregarDescuentos(Dama(), Jubilado(), Menor(), Mayor())
+  quilmesRock.agregarDescuentos(Dama(), Menor(), Mayor())
+  Console.println(quilmesRock.descuentosValidos)
+
+  FestivalesHome.agregarSiNoExiste(festivalRock)
+  FestivalesHome.agregarSiNoExiste(quilmesRock)
   def getHomePage = classOf[MenuPage]
 }
-
-class MenuPage extends WebPage {
-  def festival = FestivalesHome.festivalActual
-
-  val form = new Form("form", createModel)
-  val formBusqueda = new Form("formBusqueda")
-
-  val dropFestivales = new DropDownChoice[Festival]("festivalActual",
-    new ComponentPropertyModel("getFestivales"))
-
-  dropFestivales.setNullValid(false)
-  dropFestivales.setOutputMarkupId(true)
-
-  val buttonVender = new Button("vender") {
-    override def onSubmit() {
-      this.setResponsePage(new VenderPage(festival))
-    }
-  }
-
-  val buttonAnular = new Button("anular") {
-    override def onSubmit() {
-      this.setResponsePage(new AnularPage(festival))
-    }
-  }
-
-  val buttonCombo = new Button("venderCombo") {
-    override def onSubmit() {
-      this.setResponsePage(new VenderComboPage(festival))
-    }
-  }
-
-  val buttonBuscarEntradasFecha = new Button("buscarEntradasFecha") {
-    override def onSubmit() {
-      this.setResponsePage(new BusquedaEntradasPage(new PanelEntradaCliente))
-    }
-  }
-
-  val buttonEntradasPtoVenta = new Button("buscarEntradasPuesto") {
-    override def onSubmit() {
-      this.setResponsePage(new BusquedaEntradasPage(new PanelEntradasPtoDeVenta))
-    }
-  }
-
-  val buttonBuscarBandasContiene = new Button("buscarBandasContiene") {
-    override def onSubmit() {
-      this.setResponsePage(new BusquedaBandasPage(new PanelBandaContiene))
-    }
-  }
-    
-  val buttonBuscarBandasCliente = new Button("buscarBandasCliente"){
-    override def onSubmit(){
-      this.setResponsePage(new BusquedaBandasPage(new PanelBandaCliente))
-    }
-  }
-
-  addFields
-  addActions
-  add(form)
-  add(formBusqueda)
-
-  def addActions {
-    form.add(buttonVender)
-    form.add(buttonAnular)
-    form.add(buttonCombo)
-
-    formBusqueda.add(buttonBuscarEntradasFecha)
-    formBusqueda.add(buttonBuscarBandasContiene)
-    formBusqueda.add(buttonEntradasPtoVenta)
-    formBusqueda.add(buttonBuscarBandasCliente)
-  }
-
-  def addFields {
-    form.add(dropFestivales)
-//    form.add(new Label("label", "Elija una operación a realizar"))
-  }
-
-  def createModel = {
-    new CompoundPropertyModel(FestivalesHome)
-  }
-}
-

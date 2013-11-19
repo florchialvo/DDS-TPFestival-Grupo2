@@ -5,21 +5,22 @@ import collection.JavaConversions._
 import scala.collection.mutable.ArrayBuffer
 import uqbar.arena.persistence.PersistentHome
 import uqbar.arena.persistence.Configuration
+import scala.collection.mutable.Buffer
 
 object FestivalesHome extends PersistentHome[Festival] with Serializable {
  
   //Persistencia
   override def getEntityType(): Class[Festival] = classOf[Festival]
 
-  override def createExample(): Festival = new Festival
+  override def createExample(): Festival = new Festival()
   //
 
+  def festivales: Buffer[Festival] = allInstances()
+  
   def agregarSiNoExiste(f:Festival) {
     if (getFestival(f.nombre) == null)
       create(f)
   }
-  
-  def festivales = allInstances()
   
   def noches =
     festivales.flatten(unFest => unFest.noches)
@@ -37,15 +38,21 @@ object FestivalesHome extends PersistentHome[Festival] with Serializable {
   def entradas =
     festivales.flatten(unFestival => unFestival.entradasVendidas)
 
-  //TODO: Falta manejar el festival actual sin usar directamente var
-    
-  def festivalActual = festivales.head
+  var _festivalActual:Festival = null
+  def festivalActual = {
+    if (_festivalActual == null) 
+      _festivalActual = festivales.head
+    _festivalActual
+  }
+  def festivalActual_=(f:Festival) {
+    _festivalActual = f;
+  }
   
   def getFestivales: java.util.List[Festival] = festivales
 
   def getFestival(nombre: String) : Festival = {
     val resultado =  festivales.filter(unFestival => unFestival.nombre == nombre)
-    if (resultado.isEmpty())
+    if (resultado.isEmpty)
       return null
     else
       return festivales.head

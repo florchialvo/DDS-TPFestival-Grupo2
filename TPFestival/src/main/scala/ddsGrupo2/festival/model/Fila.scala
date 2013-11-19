@@ -5,9 +5,11 @@ import uqbar.arena.persistence.annotations.PersistentField
 import org.uqbar.commons.model.Entity
 
 @PersistentClass
-class Fila(var precio: Integer, var cantidadButacas: Integer) extends Entity{
+case class Fila(var precio: Integer, var cantidadButacas: Integer) extends Entity{
 
-  def this() = this(null, null)
+  override def toString() = "(Precio: " + precio + ", CantButacas: " + cantidadButacas + ")"
+  
+  def this() = this(0, 0)
   
   @PersistentField
   def getPrecio():Integer = precio
@@ -16,8 +18,4 @@ class Fila(var precio: Integer, var cantidadButacas: Integer) extends Entity{
   @PersistentField
   def getcantidadButacas():Integer = cantidadButacas
   def setcantidadButacas(c:Integer) = (cantidadButacas = c)  
-}
-
-object Fila {
-  def apply(precio: Int, cant: Int) = new Fila(precio, cant)
 }

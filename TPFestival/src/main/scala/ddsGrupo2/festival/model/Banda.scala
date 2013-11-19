@@ -1,12 +1,23 @@
 package ddsGrupo2.festival.model
 
-import java.io.Serializable
+import uqbar.arena.persistence.annotations.PersistentClass
+import org.uqbar.commons.model.Entity
+import uqbar.arena.persistence.annotations.PersistentField
 
-class Banda(var categoria: Categoria, val nombre: String) extends Serializable{
+@PersistentClass
+class Banda(var categoria: Categoria, var nombre: String) extends Entity {
 
-    def getValorCategoria = categoria.getValor
+  //Persistencia
+  def this() = this(null, "")
 
-    def cambiarCategoria(nuevaCategoria: Categoria) = {
-        this.categoria = nuevaCategoria
-    }
+  @PersistentField
+  def getNombre(): String = nombre
+  def setNombre(n: String) = (nombre = n)
+  //
+
+  def getValorCategoria = categoria.getValor
+
+  def cambiarCategoria(nuevaCategoria: Categoria) = {
+    this.categoria = nuevaCategoria
+  }
 }

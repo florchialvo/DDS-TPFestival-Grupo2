@@ -36,7 +36,7 @@ object FestivalesHomeMemoria {
 
   var festivalRock: Festival = new Festival(valoresBaseRock, new Fecha().fechaActual(), "Festival Rock")
   festivalRock.agregarNoches(List(noche1, noche2, noche3, noche4))
-  festivalRock.agregarDescuentos(List(Dama, Jubilado, Menor, Mayor))
+  festivalRock.agregarDescuentos(Dama(), Jubilado(), Menor(), Mayor())
 
   var quilmesRock: Festival = new Festival(valoresBaseQuilmes,
     new Fecha().fechaActual(),
@@ -45,7 +45,7 @@ object FestivalesHomeMemoria {
   val nocheq2 = new Noche(Set(elIndio), new Fecha(19, 10, 2014))
 
   quilmesRock.agregarNoches(List(nocheq1, nocheq2))
-  quilmesRock.agregarDescuentos(List(Dama, Menor, Mayor))
+  quilmesRock.agregarDescuentos(Dama(), Menor(), Mayor())
 
   festivales += festivalRock
   festivales += quilmesRock

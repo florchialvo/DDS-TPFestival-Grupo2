@@ -20,9 +20,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>uqbar</groupId>
+			<groupId>org.uqbar-project</groupId>
 			<artifactId>arena-pers</artifactId>
-			<version>3.0.1-SNAPSHOT</version>
+			<version>3.3-SNAPSHOT</version>
 			  <exclusions>
 				 <exclusion>
 					   <groupId>org.scalatest</groupId>
