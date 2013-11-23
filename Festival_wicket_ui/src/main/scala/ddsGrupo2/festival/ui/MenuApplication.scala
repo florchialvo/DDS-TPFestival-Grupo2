@@ -19,7 +19,8 @@ import scala.collection.mutable.Set
 import scala.collection.mutable.Buffer
 
 class MenuApplication extends WebApplication {
-    Configuration.configure()
+  Configuration.setRootPackageName("ddsGrupo2.festival.model")  
+  Configuration.configure()
 
   //Categorias
   Categoria.crearCategoria('categoria1, 0)
