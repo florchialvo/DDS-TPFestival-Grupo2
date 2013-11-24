@@ -76,6 +76,7 @@ class Festival(var valoresBase: Set[Sector], var fechaVtoEntradasAnticipadas: Fe
   def vender(entrada: Entrada) {
     validarEntrada(entrada)
     entradasVendidas += entrada
+    FestivalesHome.update(this)
   }
 
   def vender(unCombo: Combo): Unit = {
@@ -115,6 +116,7 @@ class Festival(var valoresBase: Set[Sector], var fechaVtoEntradasAnticipadas: Fe
     entradasVendidas --=
       entradasVendidas.filter(_.estasVendida(entrada.fila, entrada.sector,
         entrada.numButaca, entrada.fecha))
+    FestivalesHome.update(this)
   }
 
   //    TODO: Esto lo hace el EntradaBuilder ahora pero no lo saco
