@@ -9,9 +9,9 @@ object Categoria {
 
     def modificar(s: Symbol, valorNuevo: Int) = instances(s).valor = valorNuevo
 
-    def crearCategoria(key: Symbol, valor: Int) = instances += key -> new Categoria(valor)
+    def crearCategoria(key: Symbol, valor: Int) = instances += key -> new Categoria(key, valor)
 }
 
-class Categoria(var valor: Int) extends Serializable {
+class Categoria(var key: Symbol, var valor: Int) extends Serializable {
     def getValor = valor
 }

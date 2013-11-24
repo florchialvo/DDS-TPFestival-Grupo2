@@ -13,6 +13,12 @@ class Banda(var categoria: Categoria, var nombre: String) extends Entity {
   @PersistentField
   def getNombre(): String = nombre
   def setNombre(n: String) = (nombre = n)
+
+  @PersistentField
+  def getCategoriaKey(): String = categoria.key.name
+  def setCategoriaKey(key: String) =
+    if (key != null)
+      categoria = Categoria(Symbol(key))
   //
 
   def getValorCategoria = categoria.getValor
