@@ -16,13 +16,14 @@ import ddsGrupo2.festival.model.Festival
 import uqbar.arena.persistence.Configuration
 
 class MenuPage extends WebPage {
-  def festival = FestivalesHome.festivalActual
-
-  val form = new Form("form", createModel)
+  var festival = FestivalesHome.festivales.head
+  def festivales:java.util.List[Festival] = FestivalesHome.festivales
+  
+  val form = new Form("form")
   val formBusqueda = new Form("formBusqueda")
 
-  val dropFestivales = new DropDownChoice[Festival]("festivalActual",
-    new ComponentPropertyModel("getFestivales"))
+  val dropFestivales = new DropDownChoice[Festival]("festival",
+    new PropertyModel[Festival](this, "festival"), new PropertyModel(this, "festivales"))
 
   dropFestivales.setNullValid(false)
   dropFestivales.setOutputMarkupId(true)
@@ -87,11 +88,6 @@ class MenuPage extends WebPage {
 
   def addFields {
     form.add(dropFestivales)
-    //    form.add(new Label("label", "Elija una operación a realizar"))
-  }
-
-  def createModel = {
-    new CompoundPropertyModel(FestivalesHome)
   }
 }
 

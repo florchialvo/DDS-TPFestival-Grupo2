@@ -37,16 +37,6 @@ object FestivalesHome extends PersistentHome[Festival] with Serializable {
   def entradasPuesto(puesto: Int) = entradas.filter(e => e.puestoDeVenta == puesto)
   def entradas =
     festivales.flatten(unFestival => unFestival.entradasVendidas)
-
-  var _festivalActual:Festival = null
-  def festivalActual = {
-    if (_festivalActual == null) 
-      _festivalActual = festivales.head
-    _festivalActual
-  }
-  def festivalActual_=(f:Festival) {
-    _festivalActual = f;
-  }
   
   def getFestivales: java.util.List[Festival] = festivales
 

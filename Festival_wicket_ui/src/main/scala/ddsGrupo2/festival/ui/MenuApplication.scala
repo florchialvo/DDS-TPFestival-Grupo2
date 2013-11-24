@@ -64,7 +64,6 @@ class MenuApplication extends WebApplication {
   //Descuentos
   festivalRock.agregarDescuentos(Dama(), Jubilado(), Menor(), Mayor())
   quilmesRock.agregarDescuentos(Dama(), Menor(), Mayor())
-  Console.println(quilmesRock.descuentosValidos)
 
   FestivalesHome.agregarSiNoExiste(festivalRock)
   FestivalesHome.agregarSiNoExiste(quilmesRock)
